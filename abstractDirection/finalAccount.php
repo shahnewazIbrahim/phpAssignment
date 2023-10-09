@@ -1,9 +1,8 @@
 <?php 
 
 namespace abstractDirection;
-use abstractDirection\Profit;
-require'./Practice/Project1/public/autoload.php';
-require'Profit.php';
+use \abstractDirection\Profit;
+// require'Profit.php';
 
 class FinalAccount extends Profit {
     private $quantity = 0;

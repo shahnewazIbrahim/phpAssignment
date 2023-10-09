@@ -1,5 +1,6 @@
 <?php 
 // require '../App/Database/MySQL/Connection.php';
 
-require 'autoload.php';
+include 'autoload.php';
+
 
