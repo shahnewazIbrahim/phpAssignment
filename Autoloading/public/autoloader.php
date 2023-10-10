@@ -1,5 +1,4 @@
 <?php
-
 spl_autoload_register( function ( $class ) {
     $rootDirectory = dirname( __DIR__ ) . '/';
 

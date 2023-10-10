@@ -1,7 +1,7 @@
 <?php 
 
 namespace abstractDirection;
-use \abstractDirection\Profit;
+use abstractDirection\Profit;
 // require'Profit.php';
 
 class FinalAccount extends Profit {
@@ -12,10 +12,11 @@ class FinalAccount extends Profit {
     {
         $this->quantity = $quantity;
         $this->price = $price;
+        echo"done";
     }
     public function totalRevenue():float{}
     public function totalSale():int{}
     public function averagePrice():float{}
 }
 
-$finalAccount = new FinalAccount();
+// $finalAccount = new FinalAccount();
