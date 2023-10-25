@@ -5,6 +5,7 @@ if (isset($_SESSION['email'])) {
     // Check the user's role (e.g., by reading a user's role from a database)
     if ($userRole === 'admin') {
         // Display the role management page for admins
+        header("Location:management.php");
     } else {
         // Redirect to a different page with an error message
         header('Location: index.php');
@@ -15,6 +16,7 @@ if (isset($_SESSION['email'])) {
     header('Location: login.php');
     exit();
 }
+
 
 
 ?>
