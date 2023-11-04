@@ -4,7 +4,7 @@ CREATE TABLE `Order_Items` (
     Foreign Key (`order_id`) REFERENCES `orders`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     `product_id` BIGINT(20) UNSIGNED NOT NULL,
     Foreign Key (`product_id`) REFERENCES `products`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-    `quantity` VARCHAR(50) NOT NULL,
+    `quantity` INT(10) NOT NULL,
     `unit_price` VARCHAR(50) NOT NULL,
     `order_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP()
