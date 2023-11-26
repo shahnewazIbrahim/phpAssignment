@@ -5,13 +5,13 @@
 <header class="bg-blue-500 text-white text-center py-8">
         <h1 class="text-4xl font-bold">Welcome to Your Name's World</h1>
         <img src="your-profile-image.jpg" alt="My Profile Picture" class="rounded-full mt-4 h-24 w-24 mx-auto">
-        <p class="mt-2">👋 Hello there! I'm Your Name, [Your Title/Profession].</p>
+        <p class="mt-2">👋 Hello there! I'm Your Name, Web Developer.</p>
     </header>
 
     <!-- About Me Section -->
     <section class="container mx-auto mt-8">
         <h2 class="text-2xl font-bold mb-4">About Me</h2>
-        <p class="text-gray-700">I'm a passionate professional with a love for [Your Interests/Hobbies]. From [Your Location], I've been on an exciting journey exploring the realms of [Your Field/Industry].</p>
+        <p class="text-gray-700">I'm a passionate professional with a love for Exploring new thing. From [Your Location], I've been on an exciting journey exploring the realms of [Your Field/Industry].</p>
         <img src="your-achievements-image.jpg" alt="Your Achievements" class="mt-8 w-full">
     </section>
 

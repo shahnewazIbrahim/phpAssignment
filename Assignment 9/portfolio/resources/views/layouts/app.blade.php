@@ -13,7 +13,7 @@
         @include('layouts.navbar')
     </div> --}}
 
-    <div class="container max-w-7xl mx-auto">
+    <div class="container max-w-7xl mx-auto mt-5">
         @yield('content')
     </div>
 

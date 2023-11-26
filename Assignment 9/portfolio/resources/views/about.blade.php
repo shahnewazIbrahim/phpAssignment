@@ -4,7 +4,7 @@
 <!-- Header Section -->
     <header class="bg-blue-500 text-white text-center py-8">
         <h1 class="text-4xl font-bold">About Shahnewaz Ibrahim</h1>
-        <p class="mt-4">Passionate [Your Title/Profession] with a love for [Your Interests/Hobbies].</p>
+        <p class="mt-4">Passionate Web Developer with a love for Exploring new thing.</p>
     </header>
 
     <!-- Education Section -->
