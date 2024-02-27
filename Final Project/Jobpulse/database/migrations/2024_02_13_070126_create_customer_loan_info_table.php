@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('customer_loan_infos', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('loan_id');
+
+            $table->foreign('customer_id')->references('id')->on('customers')
+                ->cascadeOnUpdate()->restrictOnDelete();
+
+            $table->foreign('loan_id')->references('id')->on('loans')
+                ->cascadeOnUpdate()->restrictOnDelete();
+                
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('customer_loan_info');
+    }
+};
