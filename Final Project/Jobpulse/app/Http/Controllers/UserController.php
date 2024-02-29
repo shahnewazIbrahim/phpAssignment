@@ -46,9 +46,9 @@ class UserController extends Controller
                 return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
             }
 
-            $roles = $user->roles->pluck('slug')->all();
+            // $roles = $user->roles->pluck('slug')->all();
 
-            $token = $user->createToken('authToken', $roles)->plainTextToken;
+            $token = $user->createToken('authToken', [])->plainTextToken;
             return response()->json(['status' => 'success', 'message' => 'Login Successful','token'=>$token]);
 
         }catch (Exception $e){

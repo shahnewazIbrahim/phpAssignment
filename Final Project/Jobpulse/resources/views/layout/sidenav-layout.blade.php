@@ -45,7 +45,8 @@
             <span class="icon-nav m-0 h5" onclick="MenuBarClickHandler()">
                 <img class="nav-logo-sm mx-2"  src="{{asset('images/menu.svg')}}" alt="logo"/>
             </span>
-            <img class="nav-logo  mx-2"  src="{{asset('images/logo.png')}}" alt="logo"/>
+            {{-- <img class="nav-logo  mx-2"  src="{{asset('images/logo.png')}}" alt="logo"/> --}}
+            Job Pulse
         </a>
 
         <div class="float-right h-auto d-flex">
@@ -77,12 +78,12 @@
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
 
-    <a href="{{url("/admin")}}" class="side-bar-item {{ request()->segment(1) == 'admin' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("users")}}" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Admin</span>
     </a>
 
-    <a href="{{url("/role")}}" class="side-bar-item {{ request()->segment(1) == 'role' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("/admin/role")}}" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Roles</span>
     </a>

@@ -2,112 +2,113 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleResource;
+use App\Traits\DateFilter;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use Inertia\Inertia;
+// use Spatie\Permission\Contracts\Permission;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        // $this->middleware('role:Super Admin|Administrator');
+    }
+
     public function index()
     {
-        // return Role::all();
         try {
-            $rows = Role::all();
-            return response()->json(['status' => 'success', 'rows' => $rows]);
+            // return
+            $roles = Role::all();
+
+            if (request()->search) {
+                $this->search($roles, ['id', 'name']);
+            }
+            return response()->json(['status' => 'success', 'rows' => $roles]);
         } catch (Exception $e) {
-            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+            //throw $th;
+            return response()->json(['status' => 'fail',  'message' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        $arr = ['Admin List', 'Admin Create', 'Admin Edit', 'Admin Download', 'Roles List', 'Roles Create', 'Roles Edit', 'Roles Download'];
+        $roleArr = json_decode(json_encode(request()->user()->allRoles, true));
+        $permissions = Permission::when(!in_array(1, $roleArr), function ($query) use ($arr) {
+            $query->whereNotIn('name', $arr);
+        })
+            ->pluck('name', 'id');
+
+
+        return Inertia::render('Role/Create', [
+            "data" => [
+                'role' => new Role(),
+                'permissions' => $permissions
+            ]
+        ]);
+    }
+
     public function store(Request $request)
     {
-        if (Role::where('name', $request->name)->exists()) {
-            return response(['error' => 1, 'message' => 'role already exists'], 409);
-        }
+        $role = Role::create($this->validateData($request));
+        $role->syncPermissions($request->permissions);
 
-        $role = Role::create($request->except('permission'));
-        return $request;
-        $permissions = $request->input('permission') ? $request->input('permission') : [];
-
-        $role->givePermissionTo($permissions);
-        return $role;
+        return redirect()
+            ->route('roles.show', $role->id)
+            ->with('status', 'The record has been added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \App\Models\Role $role
-     */
-    public function show(Request $request)
+    public function show(Role $role)
     {
         try {
-            $request->validate([
-                'id' => 'required|min:1'
-            ]);
-            $role_id = $request->input('id');
-            $rows = Role::where('id', $role_id)->first();
-            return response()->json(['status' => 'success', 'rows' => $rows]);
+            return $role;
+            $role->load('permissions:name');
+            $role->allPermission = Permission::pluck('name', 'id');
+            return response()->json(['status' => 'success', 'rows' => $role]);
         } catch (Exception $e) {
+            //throw $th;
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Role
-     */
-    public function update(Request $request, ?Role $role = null)
+    public function edit(Role $role)
     {
-
-        try {
-            $request->validate([
-                'id' => 'required|string|min:1',
-                'name' => 'required|string|min:2',
-            ]);
-
-            $role_id = $request->input('id');
-            $role = Role::find($role_id);
-            $role->update([
-                'name' => $request->input('name'),
-            ]);
-            if ($request->slug) {
-                if ($role->slug != 'admin' && $role->slug != 'super-admin') {
-                    //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
-                    $role->slug = $request->slug;
-                    $role->update();
-                }
-            }
-            return response()->json(['status' => 'success', 'message' => "Request Successful"]);
-        } catch (Exception $e) {
-            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        $roleArr = json_decode(json_encode(request()->user()->allRoles, true));
+        $arr = ['Admin List', 'Admin Create', 'Admin Edit', 'Admin Download', 'Roles List', 'Roles Create', 'Roles Edit', 'Roles Download'];
+        $permissions = Permission::when(!in_array(1, $roleArr), function ($query) use ($arr) {
+            $query->whereNotIn('name', $arr);
+        })
+            ->pluck('name', 'id');
+        if (!in_array(1, $roleArr)) {
+            return abort(404);
         }
+
+        return Inertia::render('Role/Edit', [
+            "data" => [
+                'role' => $role->load('permissions'),
+                'permissions' => $permissions
+            ]
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
+    public function update(Request $request, Role $role)
     {
-        if ($role->slug != 'admin' && $role->slug != 'super-admin') {
-            //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
-            $role->delete();
-
-            return response(['error' => 0, 'message' => 'role has been deleted']);
+        if (in_array($role->name, ['Super Admin', 'Administrator'])) {
+            return abort(404);
         }
-
-        return response(['error' => 1, 'message' => 'you cannot delete this role'], 422);
+        // return $request;
+        $role->update($this->validateData($request, $role->id));
+        $role->syncPermissions($request->permissions);
+        return redirect()
+            ->route('roles.show', $role->id)
+            ->with('status', 'The record has been update successfully.');
     }
 }

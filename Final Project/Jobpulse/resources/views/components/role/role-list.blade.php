@@ -6,9 +6,7 @@
                 <div class="align-items-center col">
                     <h4>Role</h4>
                 </div>
-                <div class="align-items-center col">
-                    <button data-bs-toggle="modal" data-bs-target="#create-modal" class="float-end btn m-0 bg-gradient-primary">Create</button>
-                </div>
+
             </div>
             <hr class="bg-secondary"/>
             <div class="table-responsive">
@@ -17,7 +15,7 @@
                 <tr class="bg-light">
                     <th>No</th>
                     <th>Name</th>
-                    <th>Slug</th>
+                    <th>Guard</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -41,7 +39,7 @@ async function getList() {
        showLoader();
        let res=await axios.get("/api/list-role",HeaderToken());
        hideLoader();
-
+        // return console.log(res);
        let tableList=$("#tableList");
        let tableData=$("#tableData");
 
@@ -50,10 +48,11 @@ async function getList() {
     //    return console.log(res);
 
        res.data['rows'].forEach(function (item,index) {
+        console.log(item['name']);
            let row=`<tr>
                     <td>${index+1}</td>
                     <td>${item['name']}</td>
-                    <td>${item['slug']}</td>
+                    <td>${item['guard_name']}</td>
                     <td>
                         <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
                         <button data-id="${item['id']}" class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
