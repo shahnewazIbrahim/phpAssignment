@@ -69,8 +69,8 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         try {
-            return $role;
-            $role->load('permissions:name');
+            $role = Role::findOrFail(request()->id);
+            $role->slected_permissions = $role->permissions->pluck('id');
             $role->allPermission = Permission::pluck('name', 'id');
             return response()->json(['status' => 'success', 'rows' => $role]);
         } catch (Exception $e) {
@@ -101,14 +101,32 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-        if (in_array($role->name, ['Super Admin', 'Administrator'])) {
-            return abort(404);
-        }
         // return $request;
-        $role->update($this->validateData($request, $role->id));
-        $role->syncPermissions($request->permissions);
-        return redirect()
-            ->route('roles.show', $role->id)
-            ->with('status', 'The record has been update successfully.');
+        // if (in_array($role->name, ['Super Admin', 'Administrator'])) {
+        //     return abort(404);
+        // }
+        try {
+
+            $role = Role::findOrFail($request->id);
+            $role->update($this->validateData($request, $role->id));
+            // return $request;
+            $role->syncPermissions($request->permissions);
+            $role->load('permissions');
+            return response()->json(['status' => 'success', 'rows' => $role]);
+        } catch (Exception $e) {
+            //throw $th;
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+        // return redirect()
+        //     ->route('roles.show', $role->id)
+        //     ->with('status', 'The record has been update successfully.');
+    }
+
+
+    private function validateData($request, $id = '')
+    {
+        return $request->validate([
+            'name' => 'required'
+        ]);
     }
 }

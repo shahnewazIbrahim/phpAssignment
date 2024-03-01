@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -71,7 +71,9 @@ class AdminController extends Controller
             ]);
             $admin_id = $request->input('id');
             $rows = User::where('id', $admin_id)->first();
-            $roleIds = $rows->roles->pluck('id');
+
+            // return
+            $roleIds = Role::whereIn('name', $rows->getRoleNames())->pluck('id');
 
             $rows->roleIds = $roleIds;
             $allRoles = Role::pluck('name', 'id');
