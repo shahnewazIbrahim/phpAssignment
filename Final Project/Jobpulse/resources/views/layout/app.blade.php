@@ -37,8 +37,8 @@
         </ul>
 
         <div class="text-end">
-          <a type="button" class="btn btn-outline-light me-2" href="{{ url('userLogin') }}">Login</a>
-          <button type="button" class="btn btn-warning">Sign-up</button>
+          <button type="button" class="btn btn-outline-light me-2 login" href="{{ url('userLogin') }}">Login</button>
+          <button type="button" class="btn btn-warning register">Sign-up</button>
         </div>
       </div>
     </div>
@@ -70,11 +70,66 @@
       </div>
     </div>
   </footer>
+
+
+  <div class="modal animated zoomIn" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register As</h5>
+            </div>
+            <div class="modal-body">
+                <form id="update-form">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 p-1">
+                                <a class="btn btn-outline-light me-2 bg-secondary" href="{{ url('userRegistration?type=candidate') }}"> As Candidate</a>
+                                <a class="btn btn-outline-light me-2 bg-info" href="{{ url('userRegistration?type=company') }}"> As Company</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal animated zoomIn" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login as</h5>
+            </div>
+            <div class="modal-body">
+                <form id="update-form">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 p-1">
+                                <a class="btn btn-outline-light me-2 bg-secondary" href="{{ url('userLogin?type=candidate') }}"> As Candidate</a>
+                                <a class="btn btn-outline-light me-2 bg-info" href="{{ url('userLogin?type=company') }}"> As Company</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+
 <script>
 
 </script>
 
 <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
-
+<script src="{{asset('js/jquery-3.7.0.min.js')}}"></script>
+<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
+<script>
+  $('.login').on('click', async function () {
+      $("#login").modal('show');
+  })
+  $('.register').on('click', async function () {
+      $("#register").modal('show');
+  })
+</script>
 </body>
 </html>

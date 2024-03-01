@@ -52,6 +52,7 @@
                 "email":document.getElementById('email').value,
                 "password":document.getElementById('password').value,
                 "mobile":document.getElementById('mobile').value,
+                "type": "{{ request()->type }}"
             }
 
               showLoader();

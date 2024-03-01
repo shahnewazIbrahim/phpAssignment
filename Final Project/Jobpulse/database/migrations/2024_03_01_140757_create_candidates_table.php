@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('loans', function (Blueprint $table) {
+        Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->enum('type',['Business', 'Personal'])->default('Business');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
+            
+            $table->text('address');
+            $table->text('ssc');
+            $table->text('hsc');
+            $table->text('Hons');
+            $table->text('other_qualification');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('loan');
+        Schema::dropIfExists('candidates');
     }
 };

@@ -13,7 +13,7 @@
                     <hr/>
                     <div class="float-end mt-3">
                         <span>
-                            <a class="text-center ms-3 h6" href="{{url('/userRegistration')}}">Sign Up </a>
+                            <a class="text-center ms-3 h6" href="{{url('/userRegistration?type='.request()->type)}}">Sign Up </a>
                             <span class="ms-1">|</span>
                             <a class="text-center ms-3 h6" href="{{url('/sendOtp')}}">Forget Password</a>
                         </span>
@@ -39,7 +39,7 @@
             }
             else{
                 showLoader();
-                let res=await axios.post("/api/user-login",{email:email, password:password});
+                let res=await axios.post("/api/user-login",{email:email, password:password, type: "{{ request()->type }}"});
                 hideLoader()
                 if(res.status===200 && res.data['status']==='success'){
                     setToken(res.data['token'])

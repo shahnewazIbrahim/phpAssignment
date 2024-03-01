@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Hash;
 use App\Mail\OTPMail;
 use App\Models\User;
@@ -11,13 +13,16 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
-    function UserRegistration(Request $request){
+    function UserRegistration(Request $request)
+    {
+        // return $request;
         try {
             $request->validate([
                 'firstName' => 'required|string|max:50',
                 'lastName' => 'required|string|max:50',
                 'email' => 'required|string|email|max:50|unique:users,email',
                 'mobile' => 'required|string|max:50',
+                'type' => 'required',
                 'password' => 'required|string|min:3'
             ]);
             User::create([
@@ -25,15 +30,17 @@ class UserController extends Controller
                 'lastName' => $request->input('lastName'),
                 'email' => $request->input('email'),
                 'mobile' => $request->input('mobile'),
+                'type' => ucfirst($request->input('type')),
                 'password' => Hash::make($request->input('password'))
             ]);
             return response()->json(['status' => 'success', 'message' => 'User Registration Successfully']);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
-}
+    }
 
-    function UserLogin(Request $request){
+    function UserLogin(Request $request)
+    {
         try {
             $request->validate([
                 'email' => 'required|string|email|max:50',
@@ -49,14 +56,14 @@ class UserController extends Controller
             // $roles = $user->roles->pluck('slug')->all();
 
             $token = $user->createToken('authToken', [])->plainTextToken;
-            return response()->json(['status' => 'success', 'message' => 'Login Successful','token'=>$token]);
-
-        }catch (Exception $e){
+            return response()->json(['status' => 'success', 'message' => 'Login Successful', 'token' => $token]);
+        } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-    function SendOTPCode(Request $request){
+    function SendOTPCode(Request $request)
+    {
 
         try {
 
@@ -64,28 +71,27 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:50'
             ]);
 
-            $email=$request->input('email');
-            $otp=rand(1000,9999);
-            $count=User::where('email','=',$email)->count();
+            $email = $request->input('email');
+            $otp = rand(1000, 9999);
+            $count = User::where('email', '=', $email)->count();
 
-            if($count==1){
+            if ($count == 1) {
                 Mail::to($email)->send(new OTPMail($otp));
-                User::where('email','=',$email)->update(['otp'=>$otp]);
+                User::where('email', '=', $email)->update(['otp' => $otp]);
                 return response()->json(['status' => 'success', 'message' => '4 Digit OTP Code has been send to your email !']);
-            }
-            else{
+            } else {
                 return response()->json([
                     'status' => 'fail',
                     'message' => 'Invalid Email Address'
                 ]);
             }
-
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-    function VerifyOTP(Request $request){
+    function VerifyOTP(Request $request)
+    {
 
         try {
             $request->validate([
@@ -93,51 +99,52 @@ class UserController extends Controller
                 'otp' => 'required|string|min:4'
             ]);
 
-            $email=$request->input('email');
-            $otp=$request->input('otp');
+            $email = $request->input('email');
+            $otp = $request->input('otp');
 
-            $user = User::where('email','=',$email)->where('otp','=',$otp)->first();
+            $user = User::where('email', '=', $email)->where('otp', '=', $otp)->first();
 
-            if(!$user){
+            if (!$user) {
                 return response()->json(['status' => 'fail', 'message' => 'Invalid OTP']);
             }
 
             // CurrentDate-UpdatedTe=4>Min
 
-            User::where('email','=',$email)->update(['otp'=>'0']);
+            User::where('email', '=', $email)->update(['otp' => '0']);
 
             $roles = $user->roles->pluck('slug')->all();
 
             $token = $user->createToken('authToken', $roles)->plainTextToken;
-            return response()->json(['status' => 'success', 'message' => 'OTP Verification Successful','token'=>$token]);
-
-        }catch (Exception $e){
+            return response()->json(['status' => 'success', 'message' => 'OTP Verification Successful', 'token' => $token]);
+        } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-    function ResetPassword(Request $request){
+    function ResetPassword(Request $request)
+    {
 
-        try{
+        try {
             $request->validate([
                 'password' => 'required|string|min:3'
             ]);
-            $id=Auth::id();
-            $password=$request->input('password');
-            User::where('id','=',$id)->update(['password'=>Hash::make($password)]);
+            $id = Auth::id();
+            $password = $request->input('password');
+            User::where('id', '=', $id)->update(['password' => Hash::make($password)]);
             return response()->json(['status' => 'success', 'message' => 'Request Successful']);
-
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage(),]);
         }
     }
 
-    function UserLogout(Request $request){
+    function UserLogout(Request $request)
+    {
         $request->user()->tokens()->delete();
         return redirect('/userLogin');
     }
 
-    function UserProfile(Request $request){
+    function UserProfile(Request $request)
+    {
         return Auth::user();
     }
 
@@ -153,26 +160,25 @@ class UserController extends Controller
 
 
 
-    function UpdateProfile(Request $request){
+    function UpdateProfile(Request $request)
+    {
 
-        try{
+        try {
             $request->validate([
                 'firstName' => 'required|string|max:50',
                 'lastName' => 'required|string|max:50',
                 'mobile' => 'required|string|max:50',
             ]);
 
-            User::where('id','=',Auth::id())->update([
-                'firstName'=>$request->input('firstName'),
-                'lastName'=>$request->input('lastName'),
-                'mobile'=>$request->input('mobile'),
+            User::where('id', '=', Auth::id())->update([
+                'firstName' => $request->input('firstName'),
+                'lastName' => $request->input('lastName'),
+                'mobile' => $request->input('mobile'),
             ]);
 
             return response()->json(['status' => 'success', 'message' => 'Request Successful']);
-
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
-
 }

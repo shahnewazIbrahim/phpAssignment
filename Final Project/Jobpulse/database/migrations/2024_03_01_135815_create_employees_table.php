@@ -11,22 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id');
-
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreign('category_id')->references('id')->on('categories')
-                ->cascadeOnUpdate()->restrictOnDelete();
-
-            $table->string('name',100);
-            $table->string('price',50);
-            $table->string('unit',50);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamps();
         });
     }
 
@@ -35,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('employees');
     }
 };
