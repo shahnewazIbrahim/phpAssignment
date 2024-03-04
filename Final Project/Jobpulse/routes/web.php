@@ -15,6 +15,9 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::view('/loan', 'pages.dashboard.loan');
+Route::group(['prefix' => 'owner'], function () {
+    Route::view('/userLogin', 'pages.auth.login-page')->name('login');
+});
 Route::view('/userLogin', 'pages.auth.login-page')->name('login');
 Route::view('/userRegistration', 'pages.auth.registration-page');
 Route::view('/sendOtp', 'pages.auth.send-otp-page');

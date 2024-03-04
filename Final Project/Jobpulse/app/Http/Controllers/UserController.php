@@ -42,12 +42,13 @@ class UserController extends Controller
     function UserLogin(Request $request)
     {
         try {
+            // if($request->input('type') == 'candidate' || $request->input('type') == 'owner') {
             $request->validate([
                 'email' => 'required|string|email|max:50',
                 'password' => 'required|string|min:3'
             ]);
 
-            $user = User::where('email', $request->input('email'))->first();
+            $user = User::where('email', $request->input('email'))->whereIn('type', ['company', 'candidate'])->first();
 
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
@@ -56,6 +57,32 @@ class UserController extends Controller
             // $roles = $user->roles->pluck('slug')->all();
 
             $token = $user->createToken('authToken', [])->plainTextToken;
+            return response()->json(['status' => 'success', 'message' => 'Login Successful', 'token' => $token]);
+            // }
+        } catch (Exception $e) {
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+    }
+
+    function UserOwnerLogin(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|string|email|max:50',
+                'password' => 'required|string|min:3'
+            ]);
+
+            $user = User::where('email', $request->input('email'))->where('type', 'owner')->first();
+
+            if (!$user || !Hash::check($request->input('password'), $user->password)) {
+                return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
+            }
+
+            // $roles = $user->roles->pluck('slug')->all();
+
+            $token = $user->createToken('authToken', [])->plainTextToken;
+
+
             return response()->json(['status' => 'success', 'message' => 'Login Successful', 'token' => $token]);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);

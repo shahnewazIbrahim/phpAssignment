@@ -77,18 +77,19 @@
         <i class="bi bi-graph-up"></i>
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
-
+    {{-- @can('Admin List') --}}
     <a href="{{url("users")}}" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
-        <span class="side-bar-item-caption">Admin</span>
+        <span class="side-bar-item-caption">User</span>
     </a>
+    {{-- @endcan --}}
 
     <a href="{{url("/admin/role")}}" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Roles</span>
     </a>
 
-    <a href="{{url("/customerPage")}}" class="side-bar-item {{ request()->segment(1) == 'customerPage' ? 'side-bar-item-active' : '' }}">
+    {{-- <a href="{{url("/customerPage")}}" class="side-bar-item {{ request()->segment(1) == 'customerPage' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Customer</span>
     </a>
@@ -121,7 +122,7 @@
     <a href="{{url('/reportPage')}}" class="side-bar-item {{ request()->segment(1) == 'reportPage' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-file-earmark-bar-graph"></i>
         <span class="side-bar-item-caption">Report</span>
-    </a>
+    </a> --}}
 
 
 </div>

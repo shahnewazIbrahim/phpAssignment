@@ -105,6 +105,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
+                                <a class="btn btn-outline-light me-2 bg-danger" href="{{ url('owner/userLogin') }}"> As Owner</a>
                                 <a class="btn btn-outline-light me-2 bg-secondary" href="{{ url('userLogin?type=candidate') }}"> As Candidate</a>
                                 <a class="btn btn-outline-light me-2 bg-info" href="{{ url('userLogin?type=company') }}"> As Company</a>
                             </div>

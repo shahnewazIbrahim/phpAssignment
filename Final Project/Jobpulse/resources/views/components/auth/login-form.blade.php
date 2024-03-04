@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-7 animated fadeIn col-lg-6 center-screen">
+            
             <div class="card w-90  p-4">
                 <div class="card-body">
                     <h4>SIGN IN</h4>
@@ -10,6 +11,7 @@
                     <input id="password" placeholder="User Password" class="form-control" type="password"/>
                     <br/>
                     <button onclick="SubmitLogin()" class="btn w-100 bg-gradient-primary">Next</button>
+                    @if (request()->segment(1) !== 'owner')
                     <hr/>
                     <div class="float-end mt-3">
                         <span>
@@ -18,6 +20,7 @@
                             <a class="text-center ms-3 h6" href="{{url('/sendOtp')}}">Forget Password</a>
                         </span>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -39,7 +42,9 @@
             }
             else{
                 showLoader();
-                let res=await axios.post("/api/user-login",{email:email, password:password, type: "{{ request()->type }}"});
+                let candidateOrCompany = "{{ request()->type }}"
+                let url  = candidateOrCompany ? "/api/user-login" : "/api/owner/user-login"
+                let res=await axios.post(url,{email:email, password:password, type: "{{ request()->type }}"});
                 hideLoader()
                 if(res.status===200 && res.data['status']==='success'){
                     setToken(res.data['token'])
