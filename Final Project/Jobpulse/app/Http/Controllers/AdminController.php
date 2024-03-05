@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     function AdminList(Request $request)
     {
-        // dd(Auth::user());
+        // return(Auth::user()->roles);
         try {
             $rows = User::all();
             return response()->json(['status' => 'success', 'rows' => $rows]);

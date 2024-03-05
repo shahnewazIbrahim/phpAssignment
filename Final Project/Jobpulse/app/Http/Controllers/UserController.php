@@ -54,9 +54,9 @@ class UserController extends Controller
                 return response()->json(['status' => 'failed', 'message' => 'Invalid User']);
             }
 
-            // $roles = $user->roles->pluck('slug')->all();
+            $roles = $user->roles;
 
-            $token = $user->createToken('authToken', [])->plainTextToken;
+            $token = $user->createToken('authToken', $roles)->plainTextToken;
             return response()->json(['status' => 'success', 'message' => 'Login Successful', 'token' => $token]);
             // }
         } catch (Exception $e) {
@@ -167,7 +167,7 @@ class UserController extends Controller
     function UserLogout(Request $request)
     {
         $request->user()->tokens()->delete();
-        return redirect('/userLogin');
+        return redirect('/');
     }
 
     function UserProfile(Request $request)

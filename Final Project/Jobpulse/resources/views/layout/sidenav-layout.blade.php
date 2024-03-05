@@ -41,12 +41,14 @@
 <nav class="navbar fixed-top px-0 shadow-sm bg-white">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="#">
             <span class="icon-nav m-0 h5" onclick="MenuBarClickHandler()">
                 <img class="nav-logo-sm mx-2"  src="{{asset('images/menu.svg')}}" alt="logo"/>
             </span>
             {{-- <img class="nav-logo  mx-2"  src="{{asset('images/logo.png')}}" alt="logo"/> --}}
-            Job Pulse
+            <div class="fs-5 text-primary font-weight-bold">
+                JobPulse
+            </div>
         </a>
 
         <div class="float-right h-auto d-flex">
@@ -77,17 +79,21 @@
         <i class="bi bi-graph-up"></i>
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
-    {{-- @can('Admin List') --}}
+
+    {{-- @role('Owner') --}}
     <a href="{{url("users")}}" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">User</span>
     </a>
-    {{-- @endcan --}}
+    {{-- @endrole --}}
 
+    {{-- @can('Role List') --}}
     <a href="{{url("/admin/role")}}" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Roles</span>
     </a>
+        
+    {{-- @endcan --}}
 
     {{-- <a href="{{url("/customerPage")}}" class="side-bar-item {{ request()->segment(1) == 'customerPage' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>

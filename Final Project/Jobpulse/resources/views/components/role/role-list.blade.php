@@ -6,7 +6,7 @@
                 <div class="align-items-center col">
                     <h4>Role</h4>
                 </div>
-
+                {{ request() }}
             </div>
             <hr class="bg-secondary"/>
             <div class="table-responsive">
