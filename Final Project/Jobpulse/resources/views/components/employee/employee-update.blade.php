@@ -2,21 +2,21 @@
     <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Customer</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Employee</h5>
             </div>
             <div class="modal-body">
                 <form id="update-form">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Customer Name *</label>
-                                <input type="text" class="form-control" id="customerNameUpdate">
+                                <label class="form-label">Employee Name *</label>
+                                <input type="text" class="form-control" id="employeeNameUpdate">
 
-                                <label class="form-label mt-3">Customer Email *</label>
-                                <input type="text" class="form-control" id="customerEmailUpdate">
+                                <label class="form-label mt-3">Employee Email *</label>
+                                <input type="text" class="form-control" id="employeeEmailUpdate">
 
-                                <label class="form-label mt-3">Customer Mobile *</label>
-                                <input type="text" class="form-control" id="customerMobileUpdate">
+                                <label class="form-label mt-3">Employee Mobile *</label>
+                                <input type="text" class="form-control" id="employeeMobileUpdate">
 
                                 <input type="text" class="d-none" id="updateID">
                             </div>
@@ -39,11 +39,11 @@
         try {
             document.getElementById('updateID').value=id;
             showLoader();
-            let res=await axios.post("/api/customer-by-id",{id:id},HeaderToken())
+            let res=await axios.post("/api/employee-by-id",{id:id},HeaderToken())
             hideLoader();
-            document.getElementById('customerNameUpdate').value=res.data['rows']['name'];
-            document.getElementById('customerEmailUpdate').value=res.data['rows']['email'];
-            document.getElementById('customerMobileUpdate').value=res.data['rows']['mobile'];
+            document.getElementById('employeeNameUpdate').value=res.data['rows']['name'];
+            document.getElementById('employeeEmailUpdate').value=res.data['rows']['email'];
+            document.getElementById('employeeMobileUpdate').value=res.data['rows']['mobile'];
         }catch (e) {
             unauthorized(e.response.status)
         }
@@ -54,14 +54,14 @@
     async function Update() {
 
         try {
-            let customerName = document.getElementById('customerNameUpdate').value;
-            let customerEmail = document.getElementById('customerEmailUpdate').value;
-            let customerMobile = document.getElementById('customerMobileUpdate').value;
+            let employeeName = document.getElementById('employeeNameUpdate').value;
+            let employeeEmail = document.getElementById('employeeEmailUpdate').value;
+            let employeeMobile = document.getElementById('employeeMobileUpdate').value;
             let updateID = document.getElementById('updateID').value;
 
             document.getElementById('update-modal-close').click();
             showLoader();
-            let res = await axios.post("/api/customer-by-id",{name:customerName,email:customerEmail,mobile:customerMobile,id:updateID},HeaderToken())
+            let res = await axios.post("/api/update-employee",{name:employeeName,email:employeeEmail,mobile:employeeMobile,id:updateID},HeaderToken())
             hideLoader();
 
             if(res.data['status']==="success"){

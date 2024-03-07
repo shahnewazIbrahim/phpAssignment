@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoanController;
@@ -71,11 +71,11 @@ Route::post("/update-category", [CategoryController::class, 'CategoryUpdate'])->
 Route::post("/category-by-id", [CategoryController::class, 'CategoryByID'])->middleware('auth:sanctum');
 
 // Customer Web API Routes
-Route::post("/create-customer", [CustomerController::class, 'CustomerCreate'])->middleware('auth:sanctum');
-Route::get("/list-customer", [CustomerController::class, 'CustomerList'])->middleware('auth:sanctum');
-Route::post("/delete-customer", [CustomerController::class, 'CustomerDelete'])->middleware('auth:sanctum');
-Route::post("/update-customer", [CustomerController::class, 'CustomerUpdate'])->middleware('auth:sanctum');
-Route::post("/customer-by-id", [CustomerController::class, 'CustomerByID'])->middleware('auth:sanctum');
+Route::post("/create-employee", [EmployeeController::class, 'EmployeeCreate'])->middleware('auth:sanctum');
+Route::get("/list-employee", [EmployeeController::class, 'EmployeeList'])->middleware('auth:sanctum');
+Route::post("/delete-employee", [EmployeeController::class, 'EmployeeDelete'])->middleware('auth:sanctum');
+Route::post("/update-employee", [EmployeeController::class, 'EmployeeUpdate'])->middleware('auth:sanctum');
+Route::post("/employee-by-id", [EmployeeController::class, 'EmployeeByID'])->middleware('auth:sanctum');
 
 // Product Web API Routes
 Route::post("/create-product", [ProductController::class, 'CreateProduct'])->middleware('auth:sanctum');

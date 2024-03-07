@@ -11,6 +11,7 @@ Route::view('/users', 'pages.dashboard.admin');
 Route::group(['prefix' => 'admin'], function () {
     Route::view('/role', 'pages.dashboard.role');
     // Route::resource('/permissions', 'pages.dashboard.role');
+    Route::view('/employee', 'pages.dashboard.employee-page');
 
     Route::resource('permissions', PermissionController::class);
 });
@@ -26,8 +27,6 @@ Route::view('/verifyOtp', 'pages.auth.verify-otp-page');
 Route::view('/resetPassword', 'pages.auth.reset-pass-page');
 Route::view('/userProfile', 'pages.dashboard.profile-page');
 Route::view('/categoryPage', 'pages.dashboard.category-page');
-Route::view('/customerPage', 'pages.dashboard.customer-page');
-Route::view('/customerPage', 'pages.dashboard.customer-page');
 Route::view('/productPage', 'pages.dashboard.product-page');
 
 Route::view('/invoicePage', 'pages.dashboard.invoice-page');

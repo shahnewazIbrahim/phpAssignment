@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\Employee;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CustomerController extends Controller
+class EmployeeController extends Controller
 {
 
-    function CustomerCreate(Request $request):JsonResponse
+    function EmployeeCreate(Request $request):JsonResponse
     {
         try {
             $request->validate([
@@ -22,7 +22,7 @@ class CustomerController extends Controller
             ]);
 
             $user_id=Auth::id();
-            Customer::create([
+            Employee::create([
                 'name'=>$request->input('name'),
                 'email'=>$request->input('email'),
                 'mobile'=>$request->input('mobile'),
@@ -34,46 +34,47 @@ class CustomerController extends Controller
         }
     }
 
-    function CustomerList(Request $request): JsonResponse
+    function EmployeeList(Request $request): JsonResponse
     {
         try {
             $user_id=Auth::id();
-            $rows= Customer::where('user_id',$user_id)->get();
+            $rows= Employee::where('user_id',$user_id)->get();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         }catch (Exception $e){
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-    function CustomerDelete(Request $request){
+    function EmployeeDelete(Request $request){
         try {
             $request->validate([
                 'id' => 'required|string|min:1'
             ]);
-            $customer_id=$request->input('id');
+            $employee_id=$request->input('id');
             $user_id=Auth::id();
-            Customer::where('id',$customer_id)->where('user_id',$user_id)->delete();
+            Employee::where('id',$employee_id)->where('user_id',$user_id)->delete();
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);
         }catch (Exception $e){
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-    function CustomerByID(Request $request){
+    function EmployeeByID(Request $request){
         try {
             $request->validate([
                 'id' => 'required|min:1'
             ]);
-            $customer_id=$request->input('id');
+            $employee_id=$request->input('id');
             $user_id=Auth::id();
-            $rows= Customer::where('id',$customer_id)->where('user_id',$user_id)->first();
+            // return 
+            $rows= Employee::where('id',$employee_id)->where('user_id',$user_id)->first();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         }catch (Exception $e){
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
 
-     function CustomerUpdate(Request $request){
+     function EmployeeUpdate(Request $request){
 
          try {
              $request->validate([
@@ -83,9 +84,10 @@ class CustomerController extends Controller
                  'id'=>'required|min:1',
              ]);
 
-             $customer_id=$request->input('id');
+             $employee_id=$request->input('id');
+            //  return
              $user_id=Auth::id();
-             Customer::where('id',$customer_id)->where('user_id',$user_id)->update([
+             Employee::where('id',$employee_id)->where('user_id',$user_id)->update([
                  'name'=>$request->input('name'),
                  'email'=>$request->input('email'),
                  'mobile'=>$request->input('mobile'),

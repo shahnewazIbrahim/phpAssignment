@@ -2,19 +2,19 @@
     <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Employee</h5>
                 </div>
                 <div class="modal-body">
                     <form id="save-form">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
-                                <label class="form-label">Customer Name *</label>
-                                <input type="text" class="form-control" id="customerName">
-                                <label class="form-label">Customer Email *</label>
-                                <input type="text" class="form-control" id="customerEmail">
-                                <label class="form-label">Customer Mobile *</label>
-                                <input type="text" class="form-control" id="customerMobile">
+                                <label class="form-label">Employee Name *</label>
+                                <input type="text" class="form-control" id="employeeName">
+                                <label class="form-label">Employee Email *</label>
+                                <input type="text" class="form-control" id="employeeEmail">
+                                <label class="form-label">Employee Mobile *</label>
+                                <input type="text" class="form-control" id="employeeMobile">
                             </div>
                         </div>
                     </div>
@@ -34,13 +34,13 @@
     async function Save() {
 
         try {
-            let customerName = document.getElementById('customerName').value;
-            let customerEmail = document.getElementById('customerEmail').value;
-            let customerMobile = document.getElementById('customerMobile').value;
+            let employeeName = document.getElementById('employeeName').value;
+            let employeeEmail = document.getElementById('employeeEmail').value;
+            let employeeMobile = document.getElementById('employeeMobile').value;
 
             document.getElementById('modal-close').click();
             showLoader();
-            let res = await axios.post("/api/create-customer",{name:customerName,email:customerEmail,mobile:customerMobile},HeaderToken())
+            let res = await axios.post("/api/create-employee",{name:employeeName,email:employeeEmail,mobile:employeeMobile},HeaderToken())
             hideLoader();
 
             if(res.data['status']==="success"){
