@@ -63,9 +63,9 @@
                     <a href="{{url('/userProfile')}}" class="side-bar-item">
                         <span class="side-bar-item-caption">Profile</span>
                     </a>
-                    <a href="{{url("/api/logout")}}" class="side-bar-item">
+                    <div onclick="logout()" class="side-bar-item cursor-pointer">
                         <span class="side-bar-item-caption">Logout</span>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,55 +80,42 @@
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
 
-    {{-- @role('Owner') --}}
-    <a href="{{url("users")}}" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("users")}}"  id="userOption" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">User</span>
     </a>
-    {{-- @endrole --}}
 
-    {{-- @can('Role List') --}}
-    <a href="{{url("/admin/role")}}" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("/admin/role")}}" id="rolesOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Roles</span>
     </a>
-        
-    {{-- @endcan --}}
 
-    {{-- <a href="{{url("/customerPage")}}" class="side-bar-item {{ request()->segment(1) == 'customerPage' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("/admin/role")}}" id="employesOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
-        <span class="side-bar-item-caption">Customer</span>
+        <span class="side-bar-item-caption">Employees</span>
     </a>
 
-    <a href="{{url("/categoryPage")}}" class="side-bar-item {{ request()->segment(1) == 'categoryPage' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-list-nested"></i>
-        <span class="side-bar-item-caption">Category</span>
+    <a href="{{url("/admin/role")}}" id="jobsOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}">
+        <i class="bi bi-people"></i>
+        <span class="side-bar-item-caption">Jobs</span>
     </a>
 
-    <a href="{{url("/loan")}}" class="side-bar-item {{ request()->segment(1) == 'loan' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-list-nested"></i>
-        <span class="side-bar-item-caption">Loan</span>
+    <a href="{{url("/admin/role")}}" id="aboutOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+        <i class="bi bi-people"></i>
+        <span class="side-bar-item-caption">About</span>
     </a>
 
-    <a href="{{url("/productPage")}}" class="side-bar-item {{ request()->segment(1) == 'productPage' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-bag"></i>
-        <span class="side-bar-item-caption">Product</span>
+    <a href="{{url("/admin/role")}}" id="serviceOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+        <i class="bi bi-people"></i>
+        <span class="side-bar-item-caption">Service</span>
     </a>
 
-    <a href="{{url('/salePage')}}" class="side-bar-item {{ request()->segment(1) == 'salePage' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-currency-dollar"></i>
-        <span class="side-bar-item-caption">Create Sale</span>
+    <a href="{{url("/admin/role")}}" id="pluginOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+        <i class="bi bi-people"></i>
+        <span class="side-bar-item-caption">Plugin</span>
     </a>
-
-    <a href="{{url('/invoicePage')}}" class="side-bar-item {{ request()->segment(1) == 'invoicePage' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-receipt"></i>
-        <span class="side-bar-item-caption">Invoice</span>
-    </a>
-
-    <a href="{{url('/reportPage')}}" class="side-bar-item {{ request()->segment(1) == 'reportPage' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-file-earmark-bar-graph"></i>
-        <span class="side-bar-item-caption">Report</span>
-    </a> --}}
+        
+    
 
 
 </div>
@@ -150,15 +137,40 @@
         showLoader();
         let res=await axios.get("/api/user-profile",HeaderToken());
         hideLoader();
-
+        menuHandler(res.data.assignedRole)
         const userName= document.getElementById('userName')
         userName.innerText = res.data?.firstName;
-
+        
     }catch (e) {
         unauthorized(e.response.status)
     }
+    
+}
+
+function menuHandler(roles) {
+    console.log(!(roles.includes('Owner') || (roles.includes('Company'))), roles);
+    if ((roles.includes('Owner') || (roles.includes('Company')))) {
+        // console.log(roles);
+        document.getElementById('rolesOption').style.display= 'block'
+        document.getElementById('employesOption').style.display= 'block'
+        document.getElementById('pluginOption').style.display= 'block'
+    }
+    if ((roles.includes('Owner'))) {
+        document.getElementById('aboutOption').style.display= 'block'
+        document.getElementById('serviceOption').style.display= 'block'
+    }
+}
+
+async function logout() {
+    try {
+        await axios.get("/api/logout",HeaderToken());
+        window.location.href="/";
+    }
+    catch(e) {
 
     }
+    }
+
     function MenuBarClickHandler() {
         let sideNav = document.getElementById('sideNavRef');
         let content = document.getElementById('contentRef');

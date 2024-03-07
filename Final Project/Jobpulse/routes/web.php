@@ -6,6 +6,7 @@ use Spatie\Permission\Models\Permission;
 // Page Routes
 // Route::view('/','pages.auth.login-page');
 Route::view('/', 'pages.home');
+Route::view('/home', 'pages.home');
 Route::view('/users', 'pages.dashboard.admin');
 Route::group(['prefix' => 'admin'], function () {
     Route::view('/role', 'pages.dashboard.role');

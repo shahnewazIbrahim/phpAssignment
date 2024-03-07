@@ -15,17 +15,17 @@ class UserController extends Controller
 {
     function UserRegistration(Request $request)
     {
-        // return $request;
         try {
             $request->validate([
                 'firstName' => 'required|string|max:50',
                 'lastName' => 'required|string|max:50',
                 'email' => 'required|string|email|max:50|unique:users,email',
                 'mobile' => 'required|string|max:50',
-                'type' => 'required',
+                'type' => 'required|string',
                 'password' => 'required|string|min:3'
             ]);
-            User::create([
+            // return ucfirst($request->input('type'));
+            $user = User::create([
                 'firstName' => $request->input('firstName'),
                 'lastName' => $request->input('lastName'),
                 'email' => $request->input('email'),
@@ -33,6 +33,8 @@ class UserController extends Controller
                 'type' => ucfirst($request->input('type')),
                 'password' => Hash::make($request->input('password'))
             ]);
+            // return $user;
+            $user->assignRole(ucfirst($request->input('type')));
             return response()->json(['status' => 'success', 'message' => 'User Registration Successfully']);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
@@ -81,7 +83,6 @@ class UserController extends Controller
             $roles = $user->roles->pluck('name')->toArray() ?? [];
 
             $token = $user->createToken('authToken', $roles)->plainTextToken;
-
 
             return response()->json(['status' => 'success', 'message' => 'Login Successful', 'token' => $token]);
         } catch (Exception $e) {
@@ -172,7 +173,9 @@ class UserController extends Controller
 
     function UserProfile(Request $request)
     {
-        return Auth::user();
+        $user = User::findOrFail(Auth::id());
+        $user->assignedRole = $user->roles->pluck('name')->toArray() ?? [];
+        return $user;
     }
 
 

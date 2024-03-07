@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-    protected $fillable = ['firstName', 'lastName', 'email', 'mobile', 'password', 'otp'];
+    protected $fillable = ['firstName', 'lastName', 'email', 'mobile', 'password', 'otp', 'type'];
     protected $attributes = ['otp' => '0'];
     protected $hidden = ['password', 'otp'];
 
