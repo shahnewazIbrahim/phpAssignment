@@ -80,7 +80,7 @@
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
 
-    <a href="{{url("users")}}"  id="userOption" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("users")}}"  id="userOption" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">User</span>
     </a>
@@ -90,27 +90,27 @@
         <span class="side-bar-item-caption">Roles</span>
     </a>
 
-    <a href="{{url("/admin/role")}}" id="employesOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="{{url("/admin/employee")}}" id="employesOption" class="side-bar-item {{ request()->segment(2) == 'employee' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Employees</span>
     </a>
 
-    <a href="{{url("/admin/role")}}" id="jobsOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("/admin/job")}}" id="jobsOption" class="side-bar-item {{ request()->segment(2) == 'job' ? 'side-bar-item-active' : '' }}">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Jobs</span>
     </a>
 
-    <a href="{{url("/admin/role")}}" id="aboutOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="{{url("/admin/about")}}" id="aboutOption" class="side-bar-item {{ request()->segment(2) == 'about' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">About</span>
     </a>
 
-    <a href="{{url("/admin/role")}}" id="serviceOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="{{url("/admin/service")}}" id="serviceOption" class="side-bar-item {{ request()->segment(2) == 'service' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Service</span>
     </a>
 
-    <a href="{{url("/admin/role")}}" id="pluginOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="{{url("/admin/plugin")}}" id="pluginOption" class="side-bar-item {{ request()->segment(2) == 'plugin' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Plugin</span>
     </a>
@@ -156,6 +156,7 @@ function menuHandler(roles) {
         document.getElementById('pluginOption').style.display= 'block'
     }
     if ((roles.includes('Owner'))) {
+        document.getElementById('userOption').style.display= 'block'
         document.getElementById('aboutOption').style.display= 'block'
         document.getElementById('serviceOption').style.display= 'block'
     }

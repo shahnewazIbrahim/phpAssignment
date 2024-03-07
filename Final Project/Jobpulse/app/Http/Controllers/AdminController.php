@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('role:Owner');
+    // }
     function AdminList(Request $request)
     {
         // return(Auth::user()->roles);
