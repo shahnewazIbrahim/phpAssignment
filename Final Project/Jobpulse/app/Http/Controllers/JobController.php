@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Job;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 
-class ProductController extends Controller
+class JobController extends Controller
 {
 
-    function CreateProduct(Request $request)
+    function CreateJob(Request $request)
     {
         try {
             $user_id=Auth::id();
             $request->validate([
-                'name' => 'required|string|max:50',
-                'price' => 'required|string|max:50',
-                'unit' => 'required|string|max:11',
-                "category_id"=> 'required|string',
+                'type' => 'required|string|max:50',
+                'specialities' => 'required|string|max:50',
+                'deadline' => '',
             ]);
-            Product::create([
-                'name'=>$request->input('name'),
-                'price'=>$request->input('price'),
-                'unit'=>$request->input('unit'),
-                'category_id'=>$request->input('category_id'),
+            // return $request;
+            Job::create([
+                'type'=>$request->input('type'),
+                'specialities'=>$request->input('specialities'),
+                'deadline'=>$request->input('deadline'),
                 'user_id'=>$user_id
             ]);
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);
@@ -36,14 +35,14 @@ class ProductController extends Controller
     }
 
 
-    function DeleteProduct(Request $request)
+    function DeleteJob(Request $request)
     {
         try {
             $user_id=Auth::id();
             $request->validate([
                 "id"=> 'required|string',
             ]);
-            Product::where('id',$request->input('id'))->where('user_id',$user_id)->delete();
+            Job::where('id',$request->input('id'))->where('user_id',$user_id)->delete();
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);
         }catch (Exception $e){
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
@@ -51,12 +50,12 @@ class ProductController extends Controller
     }
 
 
-    function ProductByID(Request $request)
+    function JobByID(Request $request)
     {
         try {
             $user_id=Auth::id();
             $request->validate(["id"=> 'required|string']);
-            $rows= Product::where('id',$request->input('id'))->where('user_id',$user_id)->first();
+            $rows= Job::where('id',$request->input('id'))->where('user_id',$user_id)->first();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         }catch (Exception $e){
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
@@ -64,11 +63,11 @@ class ProductController extends Controller
     }
 
 
-    function ProductList(Request $request)
+    function JobList(Request $request)
     {
         try {
             $user_id=Auth::id();
-            $rows= Product::where('user_id',$user_id)->get();
+            $rows= Job::with('user:id,firstName')->where('user_id',$user_id)->get();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         }catch (Exception $e){
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
@@ -76,23 +75,21 @@ class ProductController extends Controller
     }
 
 
-    function UpdateProduct(Request $request)
+    function UpdateJob(Request $request)
     {
         try {
             $user_id=Auth::id();
             $request->validate([
-                'name' => 'required|string|max:50',
-                'price' => 'required|string|max:50',
-                'unit' => 'required|string|max:11',
-                "category_id"=> 'required|string',
+                'type' => 'required|string|max:50',
+                'specialities' => 'required|string|max:50',
+                'deadline' => '',
                 "id"=> 'required|string',
             ]);
 
-            Product::where('id',$request->input('id'))->where('user_id',$user_id)->update([
-                'name'=>$request->input('name'),
-                'price'=>$request->input('price'),
-                'unit'=>$request->input('unit'),
-                'category_id'=>$request->input('category_id'),
+            Job::where('id',$request->input('id'))->where('user_id',$user_id)->update([
+                'type'=>$request->input('type'),
+                'specialities'=>$request->input('specialities'),
+                'deadline'=>$request->input('deadline'),
             ]);
 
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);

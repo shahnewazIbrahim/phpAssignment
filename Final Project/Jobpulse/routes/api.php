@@ -6,7 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoanController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -78,11 +78,11 @@ Route::post("/update-employee", [EmployeeController::class, 'EmployeeUpdate'])->
 Route::post("/employee-by-id", [EmployeeController::class, 'EmployeeByID'])->middleware('auth:sanctum');
 
 // Product Web API Routes
-Route::post("/create-product", [ProductController::class, 'CreateProduct'])->middleware('auth:sanctum');
-Route::post("/delete-product", [ProductController::class, 'DeleteProduct'])->middleware('auth:sanctum');
-Route::post("/update-product", [ProductController::class, 'UpdateProduct'])->middleware('auth:sanctum');
-Route::get("/list-product", [ProductController::class, 'ProductList'])->middleware('auth:sanctum');
-Route::post("/product-by-id", [ProductController::class, 'ProductByID'])->middleware('auth:sanctum');
+Route::post("/create-job", [JobController::class, 'CreateJob'])->middleware('auth:sanctum');
+Route::post("/delete-job", [JobController::class, 'DeleteJob'])->middleware('auth:sanctum');
+Route::post("/update-job", [JobController::class, 'UpdateJob'])->middleware('auth:sanctum');
+Route::get("/list-job", [JobController::class, 'JobList'])->middleware('auth:sanctum');
+Route::post("/job-by-id", [JobController::class, 'JobByID'])->middleware('auth:sanctum');
 
 // Invoice
 Route::post("/invoice-create", [InvoiceController::class, 'invoiceCreate'])->middleware('auth:sanctum');

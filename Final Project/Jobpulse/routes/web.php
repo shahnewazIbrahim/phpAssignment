@@ -12,6 +12,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::view('/role', 'pages.dashboard.role');
     // Route::resource('/permissions', 'pages.dashboard.role');
     Route::view('/employee', 'pages.dashboard.employee-page');
+    Route::view('/job', 'pages.dashboard.job-page');
 
     Route::resource('permissions', PermissionController::class);
 });

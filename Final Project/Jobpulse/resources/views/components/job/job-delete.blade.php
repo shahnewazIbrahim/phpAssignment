@@ -22,7 +22,7 @@
                 let id=document.getElementById('deleteID').value;
                 document.getElementById('delete-modal-close').click();
                 showLoader();
-                let res=await axios.post("/api/delete-product",{id:id},HeaderToken())
+                let res=await axios.post("/api/delete-job",{id:id},HeaderToken())
                 hideLoader();
                 if(res.data['status']==="success"){
                     successToast(res.data['message'])

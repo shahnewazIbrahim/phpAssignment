@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
-            $table->text('specialites')->nullable();
+            $table->text('specialities')->nullable();
             $table->date('deadline');
             $table->timestamps();
         });
