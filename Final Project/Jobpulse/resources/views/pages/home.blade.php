@@ -44,22 +44,24 @@
     async function getHomepage() {
         let specialities = '';
         let jobContainer = '';
+        let companyContainer = '';
         try {
             showLoader();
             let res=await axios.get("/api/get-homepage",HeaderToken());
-            let html = '';
             hideLoader();
             // return console.log(typeof res.data['company']);
             res.data['company'].forEach(function (item,index) {
                 // console.log(item);
-                html +=`<div class="card bg-info" style="width: 18rem;">
+                companyContainer +=`<div class="card bg-info" style="width: 18rem;">
                             <div class="card-body">
                             <h5 class="card-title text-center text-white">${item['firstName']}</h5>
                             </div>
                         </div>`
             })
+            document.getElementById('companySection').innerHTML = companyContainer 
 
             res.data['job'].forEach(function (item,index) {
+                specialities = ''
                 item['specialities'].split(',').forEach((speciality) => {
                     if (speciality) {
                         specialities += `<div class="px-3 py-2 bg-info rounded-2 text-white"> ${speciality}</div>`

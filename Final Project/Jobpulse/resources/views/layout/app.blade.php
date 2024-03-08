@@ -60,7 +60,7 @@
                     <p class="text-white">A place you find your way</p>
                 </div>
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="text-white">Footer Section 2</h5>
+                    <h5 class="text-white">Link</h5>
                     <ul class="list-unstyled text-white">
                         <li class="nav-item"><a href="{{ url('/') }}" class="text-white text-decoration-none hover">Home</a></li>
                         <li><a href="{{ url('/about') }}" class="text-white text-decoration-none">About</a></li>
@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div class="col-lg-4 text-white">
-                    <h5 class="text-white">Footer Section 3</h5>
+                    <h5 class="text-white">Contact</h5>
                     <p>Contact Info:<br> Email: example@example.com<br> Phone: +1234567890</p>
                 </div>
             </div>
