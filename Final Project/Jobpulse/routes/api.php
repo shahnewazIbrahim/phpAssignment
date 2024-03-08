@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AboutSettingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\JobController;
@@ -25,8 +27,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+// Home page Api
+Route::get('/get-about-setting', [HomeController::class, 'getAboutSetting']);
+Route::get('/get-homepage', [HomeController::class, 'getHomepage']);
 
 // User Web API Routes
+
 Route::post('/user-registration', [UserController::class, 'UserRegistration']);
 
 Route::post('/user-login', [UserController::class, 'UserLogin']);
@@ -83,6 +89,12 @@ Route::post("/delete-job", [JobController::class, 'DeleteJob'])->middleware('aut
 Route::post("/update-job", [JobController::class, 'UpdateJob'])->middleware('auth:sanctum');
 Route::get("/list-job", [JobController::class, 'JobList'])->middleware('auth:sanctum');
 Route::post("/job-by-id", [JobController::class, 'JobByID'])->middleware('auth:sanctum');
+
+// About Web API Routes
+Route::post("/create-about", [AboutSettingController::class, 'CreateAboutSetting'])->middleware('auth:sanctum');
+Route::get("/list-about", [AboutSettingController::class, 'AboutSettingList'])->middleware('auth:sanctum');
+Route::post("/update-about", [AboutSettingController::class, 'UpdateAboutSetting'])->middleware('auth:sanctum');
+Route::post("/about-by-id", [AboutSettingController::class, 'AboutSettingByID'])->middleware('auth:sanctum');
 
 // Invoice
 Route::post("/invoice-create", [InvoiceController::class, 'invoiceCreate'])->middleware('auth:sanctum');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PermissionController;
+use App\Models\AboutSetting;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
 // Page Routes
@@ -13,6 +14,7 @@ Route::group(['prefix' => 'admin'], function () {
     // Route::resource('/permissions', 'pages.dashboard.role');
     Route::view('/employee', 'pages.dashboard.employee-page');
     Route::view('/job', 'pages.dashboard.job-page');
+    Route::view('/about', 'pages.dashboard.about-page');
 
     Route::resource('permissions', PermissionController::class);
 });

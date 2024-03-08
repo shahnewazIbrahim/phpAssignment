@@ -19,6 +19,7 @@ class JobController extends Controller
             $request->validate([
                 'type' => 'required|string|max:50',
                 'specialities' => 'required|string|max:50',
+                'amount' => 'required|number',
                 'deadline' => '',
             ]);
             // return $request;
@@ -82,12 +83,14 @@ class JobController extends Controller
             $request->validate([
                 'type' => 'required|string|max:50',
                 'specialities' => 'required|string|max:50',
+                'amount' => 'required|number',
                 'deadline' => '',
                 "id"=> 'required|string',
             ]);
 
             Job::where('id',$request->input('id'))->where('user_id',$user_id)->update([
                 'type'=>$request->input('type'),
+                'amount' => $request->input('amount'),
                 'specialities'=>$request->input('specialities'),
                 'deadline'=>$request->input('deadline'),
             ]);

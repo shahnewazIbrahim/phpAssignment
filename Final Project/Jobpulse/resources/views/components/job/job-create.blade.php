@@ -14,6 +14,8 @@
 
                                 <label class="form-label mt-2">Specialities</label>
                                 <input type="text" class="form-control" id="jobSpecialities">
+                                <label class="form-label mt-2">Amount</label>
+                                <input type="text" class="form-control" id="jobAmount">
 
                                 <label class="form-label mt-2">Deadline</label>
                                 <input type="date" class="form-control" id="jobDeadline">

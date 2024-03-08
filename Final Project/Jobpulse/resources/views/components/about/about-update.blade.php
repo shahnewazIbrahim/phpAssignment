@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Job</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update About</h5>
             </div>
             <div class="modal-body">
                 <form id="update-form">
@@ -10,14 +10,11 @@
                         <div class="row">
                             <div class="col-12 p-1">
                                 <label class="form-label mt-2">Type</label>
-                                <input type="text" class="form-control" id="jobTypeUpdate">
+                                <input type="text" class="form-control" id="aboutTypeUpdate">
                                 <label class="form-label mt-2">Specialities</label>
-                                <input type="text" class="form-control" id="jobSpecialitiesUpdate">
-                                
-                                <label class="form-label mt-2">Amount</label>
-                                <input type="text" class="form-control" id="jobAmountUpdate">
+                                <input type="text" class="form-control" id="aboutSpecialitiesUpdate">
                                 <label class="form-label mt-2">Deadline</label>
-                                <input type="date" class="form-control" id="jobDeadlineUpdate">
+                                <input type="date" class="form-control" id="aboutDeadlineUpdate">
                                 <input type="text" class="d-none" id="updateID">
                             </div>
                         </div>
@@ -43,12 +40,11 @@
         try {
             document.getElementById('updateID').value=id;
             showLoader();
-            let res=await axios.post("/api/job-by-id",{id:id.toString()},HeaderToken())
+            let res=await axios.post("/api/about-by-id",{id:id.toString()},HeaderToken())
             hideLoader();
-            document.getElementById('jobTypeUpdate').value=res.data['rows']['type'];
-            document.getElementById('jobSpecialitiesUpdate').value=res.data['rows']['specialities'];
-            document.getElementById('jobDeadlineUpdate').value=res.data['rows']['deadline'];
-            document.getElementById('jobAmountUpdate').value=res.data['rows']['amount'];
+            document.getElementById('aboutTypeUpdate').value=res.data['rows']['type'];
+            document.getElementById('aboutSpecialitiesUpdate').value=res.data['rows']['specialities'];
+            document.getElementById('aboutDeadlineUpdate').value=res.data['rows']['deadline'];
         }catch (e) {
             unauthorized(e.response.status)
         }
@@ -59,24 +55,22 @@
     async function update() {
 
         try {
-            let jobTypeUpdate=document.getElementById('jobTypeUpdate').value;
-            let jobSpecialitiesUpdate=document.getElementById('jobSpecialitiesUpdate').value;
-            let jobDeadlineUpdate=document.getElementById('jobDeadlineUpdate').value;
-            let jobAmountUpdate=document.getElementById('jobAmountUpdate').value;
+            let aboutTypeUpdate=document.getElementById('aboutTypeUpdate').value;
+            let aboutSpecialitiesUpdate=document.getElementById('aboutSpecialitiesUpdate').value;
+            let aboutDeadlineUpdate=document.getElementById('aboutDeadlineUpdate').value;
             let updateID=document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();
             
             // return console.log(343);
             let PostBody= {
-                "type":jobTypeUpdate,
-                "specialities":jobSpecialitiesUpdate,
-                "deadline":jobDeadlineUpdate,
-                "amount":jobAmountUpdate,
+                "type":aboutTypeUpdate,
+                "specialities":aboutSpecialitiesUpdate,
+                "deadline":aboutDeadlineUpdate,
                 "id":updateID
             }
 
             showLoader();
-            let res = await axios.post("/api/update-job",PostBody,HeaderToken())
+            let res = await axios.post("/api/update-about",PostBody,HeaderToken())
             hideLoader();
             if(res.data['status']==="success"){
                 successToast(res.data['message'])
