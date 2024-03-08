@@ -9,12 +9,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 p-1">
+                                <div id="preview"></div>
                                 <label class="form-label mt-2">Type</label>
-                                <input type="text" class="form-control" id="aboutTypeUpdate">
-                                <label class="form-label mt-2">Specialities</label>
-                                <input type="text" class="form-control" id="aboutSpecialitiesUpdate">
-                                <label class="form-label mt-2">Deadline</label>
-                                <input type="date" class="form-control" id="aboutDeadlineUpdate">
+                                <input type="file" class="form-control" id="aboutBannerUpdate">
+                                <label class="form-label mt-2">Company History</label>
+                                <input type="text" class="form-control" id="aboutCompanyHistoryUpdate">
+                                <label class="form-label mt-2">Our Vision</label>
+                                <input type="text" class="form-control" id="aboutOurVisionUpdate">
                                 <input type="text" class="d-none" id="updateID">
                             </div>
                         </div>
@@ -42,9 +43,13 @@
             showLoader();
             let res=await axios.post("/api/about-by-id",{id:id.toString()},HeaderToken())
             hideLoader();
-            document.getElementById('aboutTypeUpdate').value=res.data['rows']['type'];
-            document.getElementById('aboutSpecialitiesUpdate').value=res.data['rows']['specialities'];
-            document.getElementById('aboutDeadlineUpdate').value=res.data['rows']['deadline'];
+            console.log(res.data['rows']['banner']);
+            document.getElementById('preview').innerHTML=`
+                <img src="${window.location.origin}/${res.data['rows']['banner']}" style="max-width: 100px;"/>
+            `;
+            // document.getElementById('aboutBannerUpdate').value=res.data['rows']['banner'];
+            // document.getElementById('aboutCompanyHistoryUpdate').value=res.data['rows']['company_history'];
+            // document.getElementById('aboutOurVisionUpdate').value=res.data['rows']['our_vision'];
         }catch (e) {
             unauthorized(e.response.status)
         }

@@ -64,7 +64,7 @@ class AboutSettingController extends Controller
         try {
             $user_id = Auth::id();
             $request->validate(["id" => 'required|string']);
-            $rows = AboutSetting::where('id', $request->input('id'))->where('user_id', $user_id)->first();
+            $rows = AboutSetting::where('id', $request->input('id'))->first();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
