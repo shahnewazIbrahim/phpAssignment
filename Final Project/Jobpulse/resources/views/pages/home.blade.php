@@ -32,7 +32,7 @@
             hideLoader();
             // console.log(res.data);
             document.getElementById('banner').innerHTML = `
-            <img src="${window.location.origin}/${res.data['banner']}" style="width:100%; height:400px"/>
+            <img src="${window.location.origin}/${res.data['about']['banner']}" style="width:100%; height:400px"/>
             `
         }catch (e) {
             unauthorized(e.response.status)
@@ -52,7 +52,7 @@
             // return console.log(typeof res.data['company']);
             res.data['company'].forEach(function (item,index) {
                 // console.log(item);
-                companyContainer +=`<div class="card bg-info" style="width: 18rem;">
+                companyContainer +=`<div class="card bg-info">
                             <div class="card-body">
                             <h5 class="card-title text-center text-white">${item['firstName']}</h5>
                             </div>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 `
-            console.log(item);
+            // console.log(item);
             })
 
             document.getElementById('jobSection').innerHTML = jobContainer 

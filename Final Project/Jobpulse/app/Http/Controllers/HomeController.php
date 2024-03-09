@@ -11,7 +11,11 @@ class HomeController extends Controller
 {
     function getAboutSetting()
     {
-        return AboutSetting::first();
+        $data = [];
+        $data['about'] = AboutSetting::first();
+        $data['company'] = User::where('type', 'Company')->get();
+        return $data;
+
     }
     function getHomepage()
     {
