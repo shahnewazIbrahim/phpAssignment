@@ -40,10 +40,31 @@
               </ul>
               
             </div>
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2 login"
-                    href="{{ url('userLogin') }}">Login</button>
-                <button type="button" class="btn btn-warning register">Sign-up</button>
+            
+
+            <div class="">
+                @auth
+                    <div class="user-dropdown">
+                        <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
+                        <div class="user-dropdown-content ">
+                            <div class="mt-4 text-center">
+                                <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
+                                <h6 id="userName">User Name</h6>
+                                <hr class="user-dropdown-divider  p-0"/>
+                            </div>
+                            <a href="{{url('/userProfile')}}" class="side-bar-item">
+                                <span class="side-bar-item-caption">Profile</span>
+                            </a>
+                            <div onclick="logout()" class="side-bar-item cursor-pointer">
+                                <span class="side-bar-item-caption">Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <button type="button" class="btn btn-outline-light me-2 login"
+                        href="{{ url('userLogin') }}">Login</button>
+                    <button type="button" class="btn btn-warning register">Sign-up</button>
+                @endauth
             </div>
         </div>
     </header>
@@ -51,7 +72,7 @@
     <div>
         @yield('content')
     </div>
-     
+
     <footer class="footer py-4 bg-primary">
         <div class="container">
             <div class="row">
@@ -71,12 +92,11 @@
                 </div>
                 <div class="col-lg-4 text-white">
                     <h5 class="text-white">Contact</h5>
-                    <p>Contact Info:<br> Email: example@example.com<br> Phone: +1234567890</p>
+                    <p>Contact Info:<br> Email: example@example.com<br> Phone: +01521480800</p>
                 </div>
             </div>
         </div>
     </footer>
-
 
     <div class="modal animated zoomIn" id="register" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -136,6 +156,33 @@
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script>
+        getUser();
+    
+        async function getUser() {
+        
+            try {
+                showLoader();
+                let res=await axios.get("/api/user-profile",HeaderToken());
+                hideLoader();
+                menuHandler(res.data.assignedRole)
+                const userName= document.getElementById('userName')
+                userName.innerText = res.data?.firstName;
+                
+            }catch (e) {
+                unauthorized(e.response.status)
+            }
+            
+        }
+        async function logout() {
+            try {
+                await axios.get("/api/logout",HeaderToken());
+                window.location.href="/";
+            }
+            catch(e) {
+
+            }
+        }
+
         $('.login').on('click', async function() {
             $("#login").modal('show');
         })

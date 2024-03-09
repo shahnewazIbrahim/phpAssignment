@@ -33,17 +33,19 @@
 
 <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script>
-// CKEDITOR.replace( 'aboutCompanyHistory');
-// CKEDITOR.replace( 'aboutOurVision');
+CKEDITOR.replace( 'aboutCompanyHistory');
+CKEDITOR.replace( 'aboutOurVision');
 
 
     async function Save() {
         try {
+            let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistory'];
+            let ourVisionEditor = CKEDITOR.instances['aboutOurVision'];
+
             let aboutBanner=document.getElementById('aboutBanner').files[0];
-            let aboutCompanyHistory = document.getElementById('aboutCompanyHistory').value;
-            // let aboutCompanyHistory = document.querySelector("[name='companyHistory']");
-            let aboutOurVision = document.getElementById('aboutOurVision').value;
-            // return console.log(aboutCompanyHistory);
+            let aboutCompanyHistory = companyHistoryEditor.getData();
+            let aboutOurVision = ourVisionEditor.getData();
+            
             document.getElementById('modal-close').click();
 
             let formData = new FormData();

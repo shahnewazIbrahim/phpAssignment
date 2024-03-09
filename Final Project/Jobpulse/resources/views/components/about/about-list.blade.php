@@ -52,8 +52,12 @@ async function getList() {
         res.data['rows'].forEach(function (item,index) {
             let row=`<tr>
                     <td><img src="${window.location.origin}/${item['banner']}" style="max-width: 100px;"/></td>
-                    <td>${item['company_history']}</td>
-                    <td>${item['our_vision']}</td>
+                    <td>
+                        ${item['company_history'].length > 50 ? item['company_history'].substring(0,50) + '...' : item['company_history']}
+                    </td>
+                    <td>
+                        ${item['our_vision'].length > 50 ? item['our_vision'].substring(0,50) + '...' : item['our_vision']}
+                    </td>
                     <td>
                         <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
                     </td>

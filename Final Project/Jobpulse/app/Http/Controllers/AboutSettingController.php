@@ -85,19 +85,29 @@ class AboutSettingController extends Controller
 
     function UpdateAboutSetting(Request $request)
     {
+        // return $request;
         try {
             $user_id = Auth::id();
             $request->validate([
-                'type' => 'required|string|max:50',
-                'specialities' => 'required|string|max:50',
-                'deadline' => '',
+                // 'banner' => 'required',
+                'companyHistory' => 'required',
+                'ourVision' => 'required',
                 "id" => 'required|string',
             ]);
-
-            AboutSetting::where('id', $request->input('id'))->where('user_id', $user_id)->update([
-                'type' => $request->input('type'),
-                'specialities' => $request->input('specialities'),
-                'deadline' => $request->input('deadline'),
+            if ($request->file('banner')) {
+                $file = $request->file('banner');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('uploads/'), $filename);
+                $url = 'uploads/' . $filename;
+                AboutSetting::where('id', $request->input('id'))->update([
+                    'banner' => $url,
+                ]);
+            }
+            AboutSetting::where('id', $request->input('id'))->update([
+                // 'banner' => $request->input('banner'),
+                'company_history' => $request->input('companyHistory'),
+                'our_vision' => $request->input('ourVision'),
             ]);
 
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);

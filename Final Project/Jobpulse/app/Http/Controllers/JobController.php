@@ -105,4 +105,11 @@ class JobController extends Controller
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
     }
+
+    function applyJob(Request $request)
+    {
+        $job = Job::findOrFail($request->id);
+        
+        // return Job::findOrFail($request->id);
+    }
 }

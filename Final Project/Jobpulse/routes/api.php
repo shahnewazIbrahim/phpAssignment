@@ -38,6 +38,8 @@ Route::post('/user-registration', [UserController::class, 'UserRegistration']);
 Route::post('/user-login', [UserController::class, 'UserLogin']);
 Route::post('/owner/user-login', [UserController::class, 'UserOwnerLogin']);
 
+Route::post('/apply-job', [JobController::class, 'applyJob'])->middleware('auth:sanctum');
+
 Route::get('/user-profile', [UserController::class, 'UserProfile'])->middleware('auth:sanctum');
 Route::get('/logout', [UserController::class, 'UserLogout'])->middleware('auth:sanctum');
 Route::post('/user-update', [UserController::class, 'UpdateProfile'])->middleware('auth:sanctum');

@@ -70,7 +70,7 @@
                 
                 jobContainer += `
                 <div class="bg-info px-2 py-3">
-                    <div class="bg-white p-2 d-flex justify-content-between">
+                    <div class="bg-white p-2 d-flex justify-content-between flex-wrap">
                         <div>
                             <div class="text-lg font-weight-bold">
                                 ${item['type']}
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn-sm btn-secondary">Apply</button>
+                            <button class="btn btn-sm btn-secondary" onclick="applyJob(${item['id']})">Apply</button>
                             <div class="text-center">
                                 ${item['amount']} tk.
                             </div>
@@ -99,6 +99,26 @@
     
     }
     
+    async function applyJob(jobId) {
+        // console.log({jobId});
+        try {
+            let PostBody= {
+                "id":jobId,
+            }
+            showLoader();
+            let res = await axios.post("/api/apply-job",PostBody,HeaderToken())
+            hideLoader();
+            // if(res.data['status']==="success"){
+            //     successToast(res.data['message'])
+            //     await getList();
+            // }
+            // else{
+            //     errorToast(res.data['message'])
+            // }
+        }catch (e) {
+            unauthorized(e.response.status)
+        }
     
+    }
     </script>
 @endsection

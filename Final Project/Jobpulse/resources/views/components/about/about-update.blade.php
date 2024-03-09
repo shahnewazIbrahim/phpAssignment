@@ -8,14 +8,15 @@
                 <form id="update-form">
                     <div class="container">
                         <div class="row">
+                            
                             <div class="col-12 p-1">
                                 <div id="preview"></div>
                                 <label class="form-label mt-2">Type</label>
                                 <input type="file" class="form-control" id="aboutBannerUpdate">
                                 <label class="form-label mt-2">Company History</label>
-                                <input type="text" class="form-control" id="aboutCompanyHistoryUpdate">
+                                <textarea type="text" class="form-control" id="aboutCompanyHistoryUpdate"></textarea>
                                 <label class="form-label mt-2">Our Vision</label>
-                                <input type="text" class="form-control" id="aboutOurVisionUpdate">
+                                <textarea type="text" class="form-control" id="aboutOurVisionUpdate"></textarea>
                                 <input type="text" class="d-none" id="updateID">
                             </div>
                         </div>
@@ -32,24 +33,29 @@
     </div>
 </div>
 
-
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script>
-
-
-
+CKEDITOR.replace( 'aboutCompanyHistoryUpdate');
+CKEDITOR.replace( 'aboutOurVisionUpdate');
     async function FillUpUpdateForm(id){
         try {
+
+            let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistoryUpdate'];
+            let ourVisionEditor = CKEDITOR.instances['aboutOurVisionUpdate'];
+            // console.log(companyHistoryEditor.setData(res.data['rows']['company_history']));
             document.getElementById('updateID').value=id;
             showLoader();
             let res=await axios.post("/api/about-by-id",{id:id.toString()},HeaderToken())
             hideLoader();
-            console.log(res.data['rows']['banner']);
+            // console.log(res.data['rows']['our_vision']);
             document.getElementById('preview').innerHTML=`
                 <img src="${window.location.origin}/${res.data['rows']['banner']}" style="max-width: 100px;"/>
             `;
-            // document.getElementById('aboutBannerUpdate').value=res.data['rows']['banner'];
-            // document.getElementById('aboutCompanyHistoryUpdate').value=res.data['rows']['company_history'];
-            // document.getElementById('aboutOurVisionUpdate').value=res.data['rows']['our_vision'];
+            
+            // document.getElementById('aboutBannerUpdate').value =res.data['rows']['banner'];
+            document.getElementById('aboutBannerUpdate').files[0] = res.data['rows']['banner'];
+            document.getElementById('aboutCompanyHistoryUpdate').value= companyHistoryEditor.setData(res.data['rows']['company_history']);
+            document.getElementById('aboutOurVisionUpdate').value= ourVisionEditor.setData(res.data['rows']['our_vision']);
         }catch (e) {
             unauthorized(e.response.status)
         }
@@ -58,19 +64,22 @@
 
 
     async function update() {
-
+        // return console.log(CKEDITOR.instances['aboutCompanyHistoryUpdate'].getData());
         try {
-            let aboutTypeUpdate=document.getElementById('aboutTypeUpdate').value;
-            let aboutSpecialitiesUpdate=document.getElementById('aboutSpecialitiesUpdate').value;
-            let aboutDeadlineUpdate=document.getElementById('aboutDeadlineUpdate').value;
-            let updateID=document.getElementById('updateID').value;
+            let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistoryUpdate'];
+            let ourVisionEditor = CKEDITOR.instances['aboutOurVisionUpdate'];
+
+            let aboutBannerUpdate = document.getElementById('aboutBannerUpdate').value;
+            let aboutCompanyHistoryUpdate = companyHistoryEditor.getData();
+            let aboutOurVisionUpdate = ourVisionEditor.getData();
+            let updateID = document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();
             
             // return console.log(343);
             let PostBody= {
-                "type":aboutTypeUpdate,
-                "specialities":aboutSpecialitiesUpdate,
-                "deadline":aboutDeadlineUpdate,
+                "banner":aboutBannerUpdate,
+                "companyHistory":aboutCompanyHistoryUpdate,
+                "ourVision":aboutOurVisionUpdate,
                 "id":updateID
             }
 
