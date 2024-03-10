@@ -41,34 +41,29 @@
               
             </div>
             
-                @auth
-                    mnew
-                @else
-                    edfasdfasd  
-                @endauth
             <div class="">
-                @auth
-                    <div class="user-dropdown">
-                        <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
-                        <div class="user-dropdown-content ">
-                            <div class="mt-4 text-center">
-                                <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
-                                <h6 id="userName">User Name</h6>
-                                <hr class="user-dropdown-divider  p-0"/>
-                            </div>
-                            <a href="{{url('/userProfile')}}" class="side-bar-item">
-                                <span class="side-bar-item-caption">Profile</span>
-                            </a>
-                            <div onclick="logout()" class="side-bar-item cursor-pointer">
-                                <span class="side-bar-item-caption">Logout</span>
-                            </div>
+                <div class="user-dropdown" style="display: none">
+                    <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
+                    <div class="user-dropdown-content ">
+                        <div class="mt-4 text-center">
+                            <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
+                            <h6 id="userName">User Name</h6>
+                            <hr class="user-dropdown-divider  p-0"/>
+                        </div>
+                        <a href="{{url('/userProfile')}}" class="side-bar-item">
+                            <span class="side-bar-item-caption">Profile</span>
+                        </a>
+                        <div onclick="logout()" class="side-bar-item cursor-pointer">
+                            <span class="side-bar-item-caption">Logout</span>
                         </div>
                     </div>
-                @else
+                </div>
+                <div class="login-register">
                     <button type="button" class="btn btn-outline-light me-2 login"
                         href="{{ url('userLogin') }}">Login</button>
                     <button type="button" class="btn btn-warning register">Sign-up</button>
-                @endauth
+                    
+                </div>
             </div>
         </div>
     </header>
@@ -160,18 +155,24 @@
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script>
-        @auth   
-        getUser();
-        @endauth
+        if (getToken()) {
+            getUser();
+        }   
     
         async function getUser() {
+            // console.log(getToken());
         
             try {
                 showLoader();
                 let res=await axios.get("/api/user-profile",HeaderToken());
                 hideLoader();
-                menuHandler(res.data.assignedRole)
                 const userName= document.getElementById('userName')
+                const userDropdown= document.querySelector('.user-dropdown')
+                const loginRegister= document.querySelector('.login-register')
+
+                userDropdown.style.display = '';
+                loginRegister.style.display = 'none';
+
                 userName.innerText = res.data?.firstName;
                 
             }catch (e) {
@@ -182,7 +183,7 @@
         async function logout() {
             try {
                 await axios.get("/api/logout",HeaderToken());
-                window.location.href="/";
+                clearSessionAndStorage()
             }
             catch(e) {
 

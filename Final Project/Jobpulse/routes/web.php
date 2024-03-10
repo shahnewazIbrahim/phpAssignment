@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\PermissionController;
 use App\Models\AboutSetting;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
 // Page Routes
-// Route::view('/','pages.auth.login-page');
+// Route::view('/','pages.auth.login-page')
 Route::view('/', 'pages.home');
 Route::view('/home', 'pages.home');
 Route::view('/users', 'pages.dashboard.admin');

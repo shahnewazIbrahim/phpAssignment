@@ -163,7 +163,7 @@ function menuHandler(roles) {
 async function logout() {
     try {
         await axios.get("/api/logout",HeaderToken());
-        window.location.href="/";
+        clearSessionAndStorage()
     }
     catch(e) {
 

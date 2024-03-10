@@ -15,6 +15,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoanController;
 use App\Http\Controllers\UserRoleController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Home page Api
+
+
 Route::get('/get-about-setting', [HomeController::class, 'getAboutSetting']);
 Route::get('/get-homepage', [HomeController::class, 'getHomepage']);
 

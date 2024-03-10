@@ -32,12 +32,15 @@ function errorToast(msg) {
 
 function unauthorized(code){
     if(code===401){
-        localStorage.clear();
-        sessionStorage.clear();
-        window.location.href="/"
+        clearSessionAndStorage()
     }
 }
 
+function clearSessionAndStorage() {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href="/"
+}
 function setToken(token){
     localStorage.setItem("token",`Bearer ${token}`)
 }
