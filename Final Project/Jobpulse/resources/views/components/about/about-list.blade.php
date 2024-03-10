@@ -45,9 +45,11 @@ async function getList() {
         // console.log(window.location.origin);
         tableData.DataTable().destroy();
         tableList.empty();
+        if(res.data['rows'].length) {
+            console.log(res.data['rows'].length);
 
-        if(res.data['rows'].length);
-        document.getElementById('createButton').style.display = 'none';
+            document.getElementById('createButton').style.display = 'none';
+        }
 
         res.data['rows'].forEach(function (item,index) {
             let row=`<tr>

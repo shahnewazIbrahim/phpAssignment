@@ -41,7 +41,11 @@
               
             </div>
             
-
+                @auth
+                    mnew
+                @else
+                    edfasdfasd  
+                @endauth
             <div class="">
                 @auth
                     <div class="user-dropdown">

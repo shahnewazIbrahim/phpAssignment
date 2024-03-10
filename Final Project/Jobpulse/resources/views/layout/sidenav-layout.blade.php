@@ -41,7 +41,7 @@
 <nav class="navbar fixed-top px-0 shadow-sm bg-white">
     <div class="container-fluid">
 
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="{{ url('/userProfile') }}">
             <span class="icon-nav m-0 h5" onclick="MenuBarClickHandler()">
                 <img class="nav-logo-sm mx-2"  src="{{asset('images/menu.svg')}}" alt="logo"/>
             </span>
@@ -78,7 +78,7 @@
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
 
-    <a href="{{url("users")}}"  id="userOption" class="side-bar-item {{ request()->segment(2) == 'users' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="{{url("users")}}"  id="userOption" class="side-bar-item {{ request()->segment(1) == 'users' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">User</span>
     </a>

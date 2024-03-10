@@ -16,7 +16,10 @@
 </div>
 <div class="p-5">
     <h5 class="text-center pb-2">Recent Published Job</h5>
-    <div class="p-3" id="jobSection">
+    <div class="d-flex justify-content-center">
+
+        <div class="p-3 col-6" id="jobSection">
+        </div>
     </div>
 </div>
 
