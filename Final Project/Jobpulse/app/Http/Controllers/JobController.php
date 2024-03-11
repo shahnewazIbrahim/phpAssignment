@@ -17,7 +17,7 @@ class JobController extends Controller
     {
         try {
             $user_id = Auth::id();
-           $data =  $request->validate([
+            $data =  $request->validate([
                 'type' => 'required|string|max:50',
                 'specialities' => 'required|string|max:50',
                 'salary' => 'required',
