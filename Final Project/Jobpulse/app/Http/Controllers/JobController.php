@@ -114,7 +114,7 @@ class JobController extends Controller
 
             Job::where('id', $request->input('id'))->where('user_id', $user_id)->update([
                 'type' => $request->input('type'),
-                'salary' => $request->input('amount'),
+                'salary' => $request->input('salary'),
                 'specialities' => $request->input('specialities'),
                 'deadline' => $request->input('deadline'),
                 'requirements' => $request->input('requirements'),

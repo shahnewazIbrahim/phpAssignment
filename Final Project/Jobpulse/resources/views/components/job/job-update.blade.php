@@ -73,6 +73,7 @@ CKEDITOR.replace( 'jobCompensationsUpdate');
             showLoader();
             let res=await axios.post("/api/job-by-id",{id:id.toString()},HeaderToken())
             hideLoader();
+            console.log(res.data['rows']);
             document.getElementById('jobTypeUpdate').value=res.data['rows']['type'];
             document.getElementById('jobSpecialitiesUpdate').value=res.data['rows']['specialities'];
             document.getElementById('jobDeadlineUpdate').value=res.data['rows']['deadline'];
