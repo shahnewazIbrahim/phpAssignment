@@ -13,9 +13,33 @@
                                 <input type="text" class="form-control" id="jobTypeUpdate">
                                 <label class="form-label mt-2">Specialities</label>
                                 <input type="text" class="form-control" id="jobSpecialitiesUpdate">
+
                                 
-                                <label class="form-label mt-2">Amount</label>
-                                <input type="text" class="form-control" id="jobAmountUpdate">
+                                <label class="form-label mt-2">Requirements</label>
+                                <textarea type="text" class="form-control" id="jobRequirementsUpdate"></textarea>
+
+                                <label class="form-label mt-2">Experience</label>
+                                <textarea type="text" class="form-control" id="jobExperienceUpdate"></textarea>
+
+                                <label class="form-label mt-2">Responsibilities</label>
+                                <textarea type="text" class="form-control" id="jobResponsibilitiesUpdate"></textarea>
+
+                                <label class="form-label mt-2">Compensations</label>
+                                <textarea type="text" class="form-control" id="jobCompensationsUpdate"></textarea>
+
+                                <label class="form-label mt-2">Location</label>
+                                <input type="text" class="form-control" id="jobLocationUpdate">
+                                
+                                <label class="form-label mt-2">Employee status</label>
+                                <select type="text" class="form-control" id="jobEmployeeStatusUpdate">
+                                    <option value="">Select</option>
+                                    <option value="Full Time">Full Time</option>
+                                    <option value="Part Time">Part Time</option>
+                                </select>
+                                
+                                <label class="form-label mt-2">Salary</label>
+                                <input type="text" class="form-control" id="jobSalaryUpdate">
+
                                 <label class="form-label mt-2">Deadline</label>
                                 <input type="date" class="form-control" id="jobDeadlineUpdate">
                                 <input type="text" class="d-none" id="updateID">
@@ -36,11 +60,15 @@
 
 
 <script>
+CKEDITOR.replace( 'jobRequirementsUpdate');
+CKEDITOR.replace( 'jobExperienceUpdate');
+CKEDITOR.replace( 'jobResponsibilitiesUpdate');
+CKEDITOR.replace( 'jobCompensationsUpdate');
 
 
 
     async function FillUpUpdateForm(id){
-        try {
+        // try {
             document.getElementById('updateID').value=id;
             showLoader();
             let res=await axios.post("/api/job-by-id",{id:id.toString()},HeaderToken())
@@ -48,10 +76,18 @@
             document.getElementById('jobTypeUpdate').value=res.data['rows']['type'];
             document.getElementById('jobSpecialitiesUpdate').value=res.data['rows']['specialities'];
             document.getElementById('jobDeadlineUpdate').value=res.data['rows']['deadline'];
-            document.getElementById('jobAmountUpdate').value=res.data['rows']['amount'];
-        }catch (e) {
-            unauthorized(e.response.status)
-        }
+            document.getElementById('jobSalaryUpdate').value=res.data['rows']['salary'];
+            document.getElementById('jobLocationUpdate').value=res.data['rows']['location'];
+            document.getElementById('jobEmployeeStatusUpdate').value = res.data['rows']['employee_status'];
+            document.getElementById('jobRequirementsUpdate').value = CKEDITOR.instances['jobRequirementsUpdate'].setData(res.data['rows']['requirements']);
+            document.getElementById('jobExperienceUpdate').value = CKEDITOR.instances['jobExperienceUpdate'].setData(res.data['rows']['experience']);
+            document.getElementById('jobResponsibilitiesUpdate').value = CKEDITOR.instances['jobResponsibilitiesUpdate'].setData(res.data['rows']['responsibilities']);
+            document.getElementById('jobCompensationsUpdate').value = CKEDITOR.instances['jobCompensationsUpdate'].setData(res.data['rows']['compensations']);
+            
+            
+        // }catch (e) {
+        //     unauthorized(e.response.status)
+        // }
     }
 
 
@@ -62,7 +98,15 @@
             let jobTypeUpdate=document.getElementById('jobTypeUpdate').value;
             let jobSpecialitiesUpdate=document.getElementById('jobSpecialitiesUpdate').value;
             let jobDeadlineUpdate=document.getElementById('jobDeadlineUpdate').value;
-            let jobAmountUpdate=document.getElementById('jobAmountUpdate').value;
+            let jobSalaryUpdate=document.getElementById('jobSalaryUpdate').value;
+            let jobLocationUpdate = document.getElementById('jobLocationUpdate').value;
+            let jobEmployeeStatusUpdate = document.getElementById('jobEmployeeStatusUpdate').value;
+
+            let jobRequirementsUpdate = CKEDITOR.instances['jobRequirementsUpdate'].getData();
+            let jobExperienceUpdate = CKEDITOR.instances['jobExperienceUpdate'].getData();
+            let jobResponsibilitiesUpdate = CKEDITOR.instances['jobResponsibilitiesUpdate'].getData();
+            let jobCompensationsUpdate = CKEDITOR.instances['jobCompensationsUpdate'].getData();
+
             let updateID=document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();
             
@@ -71,7 +115,13 @@
                 "type":jobTypeUpdate,
                 "specialities":jobSpecialitiesUpdate,
                 "deadline":jobDeadlineUpdate,
-                "amount":jobAmountUpdate,
+                "salary":jobSalaryUpdate,
+                "requirements":jobRequirementsUpdate,
+                "experience":jobExperienceUpdate,
+                "responsibilities":jobResponsibilitiesUpdate,
+                "compensations":jobCompensationsUpdate,
+                "location":jobLocationUpdate,
+                "employee_status":jobEmployeeStatusUpdate,
                 "id":updateID
             }
 

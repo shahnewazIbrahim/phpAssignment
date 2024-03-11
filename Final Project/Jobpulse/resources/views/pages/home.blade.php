@@ -86,7 +86,7 @@
                         <div>
                             <button class="btn btn-sm btn-secondary" onclick="applyJob(${item['id']})">Apply</button>
                             <div class="text-center">
-                                ${item['amount']} tk.
+                                ${item['salary']} tk.
                             </div>
                         </div>
                     </div>

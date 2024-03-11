@@ -17,17 +17,30 @@ class JobController extends Controller
     {
         try {
             $user_id = Auth::id();
-            $request->validate([
+           $data =  $request->validate([
                 'type' => 'required|string|max:50',
                 'specialities' => 'required|string|max:50',
-                'amount' => 'required',
+                'salary' => 'required',
                 'deadline' => '',
+                'requirements' => 'required',
+                'experience' => 'required',
+                'compensations' => 'required',
+                'responsibilities' => 'required',
+                'location' => 'required',
+                'employee_status' => 'required',
             ]);
-            // return $request;
+            // return $request->input('requirements');
             Job::create([
                 'type' => $request->input('type'),
                 'specialities' => $request->input('specialities'),
+                'salary' => $request->input('salary'),
                 'deadline' => $request->input('deadline'),
+                'requirements' => $request->input('requirements'),
+                'experience' => $request->input('experience'),
+                'compensations' => $request->input('compensations'),
+                'responsibilities' => $request->input('responsibilities'),
+                'location' => $request->input('location'),
+                'employee_status' => $request->input('employee_status'),
                 'user_id' => $user_id
             ]);
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);
@@ -88,16 +101,28 @@ class JobController extends Controller
             $request->validate([
                 'type' => 'required|string|max:50',
                 'specialities' => 'required|string|max:50',
-                'amount' => 'required',
+                'salary' => 'required',
                 'deadline' => '',
+                'requirements' => 'required',
+                'experience' => 'required',
+                'compensations' => 'required',
+                'responsibilities' => 'required',
+                'location' => 'required',
+                'employee_status' => 'required',
                 "id" => 'required|string',
             ]);
 
             Job::where('id', $request->input('id'))->where('user_id', $user_id)->update([
                 'type' => $request->input('type'),
-                'amount' => $request->input('amount'),
+                'salary' => $request->input('amount'),
                 'specialities' => $request->input('specialities'),
                 'deadline' => $request->input('deadline'),
+                'requirements' => $request->input('requirements'),
+                'experience' => $request->input('experience'),
+                'compensations' => $request->input('compensations'),
+                'responsibilities' => $request->input('responsibilities'),
+                'location' => $request->input('location'),
+                'employee_status' => $request->input('employee_status'),
             ]);
 
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);

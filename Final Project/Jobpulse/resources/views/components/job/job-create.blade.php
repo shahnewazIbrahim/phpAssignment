@@ -14,8 +14,31 @@
 
                                 <label class="form-label mt-2">Specialities</label>
                                 <input type="text" class="form-control" id="jobSpecialities">
-                                <label class="form-label mt-2">Amount</label>
-                                <input type="text" class="form-control" id="jobAmount">
+
+                                <label class="form-label mt-2">Requirements</label>
+                                <textarea type="text" class="form-control" id="jobRequirements"></textarea>
+
+                                <label class="form-label mt-2">Experience</label>
+                                <textarea type="text" class="form-control" id="jobExperience"></textarea>
+
+                                <label class="form-label mt-2">Responsibilities</label>
+                                <textarea type="text" class="form-control" id="jobResponsibilities"></textarea>
+
+                                <label class="form-label mt-2">Compensations</label>
+                                <textarea type="text" class="form-control" id="jobCompensations"></textarea>
+
+                                <label class="form-label mt-2">Location</label>
+                                <input type="text" class="form-control" id="jobLocation">
+
+                                <label class="form-label mt-2">Employee status</label>
+                                <select type="text" class="form-control" id="jobEmployeeStatus">
+                                    <option value="">Select</option>
+                                    <option value="Full Time">Full Time</option>
+                                    <option value="Part Time">Part Time</option>
+                                </select>
+
+                                <label class="form-label mt-2">Salary</label>
+                                <input type="text" class="form-control" id="jobSalary">
 
                                 <label class="form-label mt-2">Deadline</label>
                                 <input type="date" class="form-control" id="jobDeadline">
@@ -36,18 +59,39 @@
 
 <script>
 
+CKEDITOR.replace( 'jobRequirements');
+CKEDITOR.replace( 'jobExperience');
+CKEDITOR.replace( 'jobResponsibilities');
+CKEDITOR.replace( 'jobCompensations');
 
 
     async function Save() {
         try {
+            
+
             let jobType=document.getElementById('jobType').value;
             let jobSpecialities = document.getElementById('jobSpecialities').value;
             let jobDeadline = document.getElementById('jobDeadline').value;
+            let jobLocation = document.getElementById('jobLocation').value;
+            let jobEmployeeStatus = document.getElementById('jobEmployeeStatus').value;
+            let jobSalary = document.getElementById('jobSalary').value;
+            let jobRequirements= CKEDITOR.instances[ 'jobRequirements'].getData();
+            let jobExperience= CKEDITOR.instances[ 'jobExperience'].getData();
+            let jobResponsibilities= CKEDITOR.instances[ 'jobResponsibilities'].getData();
+            let jobCompensations = CKEDITOR.instances[ 'jobCompensations'].getData();
             document.getElementById('modal-close').click();
+
             let PostBody= {
                 "type":jobType,
                 "specialities":jobSpecialities,
                 "deadline":jobDeadline,
+                "salary":jobSalary,
+                "requirements":jobRequirements,
+                "experience":jobExperience,
+                "responsibilities":jobResponsibilities,
+                "compensations":jobCompensations,
+                "location":jobLocation,
+                "employee_status":jobEmployeeStatus,
             }
 
             showLoader();

@@ -24,6 +24,8 @@
     <script src="{{asset('js/axios.min.js')}}"></script>
     <script src="{{asset('js/config.js')}}"></script>
     <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
+    
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
 
 
