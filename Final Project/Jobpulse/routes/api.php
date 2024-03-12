@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutSettingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
@@ -100,6 +101,13 @@ Route::post("/create-about", [AboutSettingController::class, 'CreateAboutSetting
 Route::get("/list-about", [AboutSettingController::class, 'AboutSettingList'])->middleware('auth:sanctum');
 Route::post("/update-about", [AboutSettingController::class, 'UpdateAboutSetting'])->middleware('auth:sanctum');
 Route::post("/about-by-id", [AboutSettingController::class, 'AboutSettingByID'])->middleware('auth:sanctum');
+
+// Product Web API Routes
+Route::post("/create-blog", [BlogController::class, 'CreateBlog'])->middleware('auth:sanctum');
+Route::post("/delete-blog", [BlogController::class, 'DeleteBlog'])->middleware('auth:sanctum');
+Route::post("/update-blog", [BlogController::class, 'UpdateBlog'])->middleware('auth:sanctum');
+Route::get("/list-blog", [BlogController::class, 'BlogList'])->middleware('auth:sanctum');
+Route::post("/blog-by-id", [BlogController::class, 'BlogByID'])->middleware('auth:sanctum');
 
 // Invoice
 Route::post("/invoice-create", [InvoiceController::class, 'invoiceCreate'])->middleware('auth:sanctum');

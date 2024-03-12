@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'pages.home');
 Route::view('/home', 'pages.home');
 Route::view('/users', 'pages.dashboard.admin');
+Route::view('/dashboard', 'pages.dashboard.index');
 Route::group(['prefix' => 'admin'], function () {
-    Route::view('/role', 'pages.dashboard.role');
-    // Route::resource('/permissions', 'pages.dashboard.role');
+    Route::resource('/permissions', 'pages.dashboard.role');
     Route::view('/employee', 'pages.dashboard.employee-page');
     Route::view('/job', 'pages.dashboard.job-page');
-    Route::view('/about', 'pages.dashboard.about-page', ['about' => AboutSetting::first()]);
+    Route::view('/about', 'pages.dashboard.about-page');
+    Route::view('/blog', 'pages.dashboard.blog-page');
 
     Route::resource('permissions', PermissionController::class);
 });

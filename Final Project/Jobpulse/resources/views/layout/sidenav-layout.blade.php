@@ -105,9 +105,9 @@
         <span class="side-bar-item-caption">About</span>
     </a>
 
-    <a href="{{url("/admin/service")}}" id="serviceOption" class="side-bar-item {{ request()->segment(2) == 'service' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="{{url("/admin/blog")}}" id="blogOption" class="side-bar-item {{ request()->segment(2) == 'blog' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
-        <span class="side-bar-item-caption">Service</span>
+        <span class="side-bar-item-caption">Blog</span>
     </a>
 
     <a href="{{url("/admin/plugin")}}" id="pluginOption" class="side-bar-item {{ request()->segment(2) == 'plugin' ? 'side-bar-item-active' : '' }}"  style="display:none">
@@ -158,7 +158,7 @@ function menuHandler(roles) {
     if ((roles.includes('Owner'))) {
         document.getElementById('userOption').style.display= 'block'
         document.getElementById('aboutOption').style.display= 'block'
-        document.getElementById('serviceOption').style.display= 'block'
+        document.getElementById('blogOption').style.display= 'block'
     }
 }
 
