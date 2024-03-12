@@ -95,6 +95,7 @@ Route::post("/delete-job", [JobController::class, 'DeleteJob'])->middleware('aut
 Route::post("/update-job", [JobController::class, 'UpdateJob'])->middleware('auth:sanctum');
 Route::get("/list-job", [JobController::class, 'JobList'])->middleware('auth:sanctum');
 Route::post("/job-by-id", [JobController::class, 'JobByID'])->middleware('auth:sanctum');
+Route::post("/job-detail", [JobController::class, 'JobDetails'])->middleware('auth:sanctum');
 
 // About Web API Routes
 Route::post("/create-about", [AboutSettingController::class, 'CreateAboutSetting'])->middleware('auth:sanctum');

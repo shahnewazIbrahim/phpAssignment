@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->text('requirements')->after('amount');
-            $table->text('experience')->nullable();
-            $table->text('responsibilities');
-            $table->text('compensations');
+            $table->longText('requirements')->after('amount');
+            $table->longText('experience')->nullable();
+            $table->longText('responsibilities');
+            $table->longText('compensations');
             $table->text('location');
             $table->enum('employee_status',['Full Time', 'Part time']);
         });

@@ -85,11 +85,13 @@
                         </div>
                         <div>
                             <button class="btn btn-sm btn-secondary" onclick="applyJob(${item['id']})">Apply</button>
+                            <a class="btn btn-sm btn-danger" href="job/${item['id']}">Detais</a>
                             <div class="text-center">
                                 ${item['salary']} tk.
                             </div>
                         </div>
                     </div>
+
                 </div>
                 `
             // console.log(item);

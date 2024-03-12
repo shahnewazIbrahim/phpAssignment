@@ -70,7 +70,29 @@ class JobController extends Controller
         try {
             $user_id = Auth::id();
             $request->validate(["id" => 'required|string']);
-            $rows = Job::where('id', $request->input('id'))->where('user_id', $user_id)->first();
+            $rows = Job::query()
+                ->with('user:id,firstName')
+                ->where('id' , $request->input('id'))
+                ->first();
+
+            if (!request()->user()->hasRole('Owner')) {
+                $rows->where('user_id', $user_id);
+            }
+            return response()->json(['status' => 'success', 'rows' => $rows]);
+        } catch (Exception $e) {
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+    }
+
+    function JobDetails(Request $request)
+    {
+        try {
+            $user_id = Auth::id();
+            $request->validate(["id" => 'required|string']);
+            $rows = Job::query()
+                ->with('user:id,firstName')
+                ->where('id' , $request->input('id'))
+                ->first();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
@@ -133,6 +155,7 @@ class JobController extends Controller
 
     function applyJob(Request $request)
     {
+        return request()->user();
         $job = Job::findOrFail($request->id);
         
         // return Job::findOrFail($request->id);

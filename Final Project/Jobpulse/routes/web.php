@@ -16,7 +16,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::view('/job', 'pages.dashboard.job-page');
     Route::view('/about', 'pages.dashboard.about-page');
     Route::view('/blog', 'pages.dashboard.blog-page');
-
+    
     Route::resource('permissions', PermissionController::class);
 });
 
@@ -24,6 +24,7 @@ Route::view('/loan', 'pages.dashboard.loan');
 Route::group(['prefix' => 'owner'], function () {
     Route::view('/userLogin', 'pages.auth.login-page')->name('login');
 });
+Route::view('/job/{job}', 'pages.job-detail-page');
 Route::view('/userLogin', 'pages.auth.login-page')->name('login');
 Route::view('/userRegistration', 'pages.auth.registration-page');
 Route::view('/sendOtp', 'pages.auth.send-otp-page');
