@@ -106,19 +106,25 @@
         }
 
         async function applyJob(jobId) {
-            // console.log({jobId});
+            // return console.log(!getToken());
             try {
-                let PostBody = {
-                    "id": jobId,
+                if(!getToken()) {
+                    return window.location.href = '/userLogin?type=Candidate'
                 }
-                showLoader();
-                let res = await axios.post("/api/apply-job", PostBody, HeaderToken())
-                hideLoader();
-
-            } catch (e) {
+                if (confirm("Are you want to apply this post?")) {
+                    let PostBody= {
+                        "id":jobId,
+                    }
+                    showLoader();
+                    let res = await axios.post("/api/apply-job",PostBody,HeaderToken())
+                    hideLoader();
+                    
+                }
+                
+            }catch (e) {
                 unauthorized(e.response.status)
             }
-
+        
         }
     </script>
 @endsection
