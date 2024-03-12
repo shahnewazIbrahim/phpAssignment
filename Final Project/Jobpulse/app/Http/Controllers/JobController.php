@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplyJob;
 use App\Models\Job;
 use App\Models\User;
 use Exception;
@@ -155,9 +156,21 @@ class JobController extends Controller
 
     function applyJob(Request $request)
     {
-        return request()->user();
-        $job = Job::findOrFail($request->id);
-        
-        // return Job::findOrFail($request->id);
+        try {
+            if ($request->user()->candidate) {
+                ApplyJob::create(
+                    [
+                        'job_id' => $request->id,
+                        'user_id' => $request->user()->id,
+                    ]
+                );
+                return response()->json(['status' => 'success', 'message' => "Request Successful"]);
+            }else {
+                return response()->json(['status' => 'incomplete profile', 'message' => "Request failed"]);
+            }
+        } catch (Exception $e) {
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+
     }
 }
