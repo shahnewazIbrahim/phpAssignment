@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
+            $table->string('image');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnUpdate()->restrictOnDelete();
@@ -20,8 +21,8 @@ return new class extends Migration
             $table->text('address');
             $table->text('ssc');
             $table->text('hsc');
-            $table->text('Hons');
-            $table->text('other_qualification');
+            $table->text('hons');
+            $table->longText('other_qualification');
             $table->timestamps();
         });
     }

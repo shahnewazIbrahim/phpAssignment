@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\OTPMail;
+use App\Models\Candidate;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -178,6 +179,52 @@ class UserController extends Controller
         $user = User::findOrFail(Auth::id());
         $user->assignedRole = $user->roles->pluck('name')->toArray() ?? [];
         return $user;
+    }
+
+    function CandidateProfile(Request $request)
+    {
+        $user = User::with('candidate')->findOrFail(Auth::id());
+        $user->assignedRole = $user->roles->pluck('name')->toArray() ?? [];
+        return $user;
+    }
+
+    function CandidateCreate(Request $request)
+    {
+        try {
+            $user_id = Auth::id();
+            $request->validate([
+                // 'image' => 'required',
+                'ssc' => 'required',
+                'hsc' => 'required',
+                'hons' => '',
+                'other_qualification' => 'required',
+            ]);
+            // return dd($request->file('image'));
+            if ($request->file('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('uploads/candidate/'), $filename);
+                $url = 'uploads/candidate/' . $filename;
+            }
+
+            Candidate::where('user_id', '=', Auth::id())->updateOrCreate(
+                [
+                    'user_id' => Auth::id()
+                ],
+                [
+                    'image'                 => $url ?? "",
+                    'address'               => $request->input('address'),
+                    'ssc'                   => $request->input('ssc'),
+                    'hsc'                   => $request->input('hsc'),
+                    'hons'                  => $request->input('hons'),
+                    'other_qualification'   => $request->input('other_qualification'),
+                ]
+            );
+            return response()->json(['status' => 'success', 'message' => "Request Successful"]);
+        } catch (Exception $e) {
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
     }
 
     function UpdateProfile(Request $request)

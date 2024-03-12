@@ -95,9 +95,19 @@
         <span class="side-bar-item-caption">Employees</span>
     </a>
 
-    <a href="{{url("/admin/job")}}" id="jobsOption" class="side-bar-item {{ request()->segment(2) == 'job' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("/admin/job")}}" id="jobsOption" class="side-bar-item {{ request()->segment(2) == 'job' ? 'side-bar-item-active' : '' }}" style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Jobs</span>
+    </a>
+
+    <a href="{{url("/admin/applied-job")}}" id="appliedJobsOption" class="side-bar-item {{ request()->segment(2) == 'applied-job' ? 'side-bar-item-active' : '' }}">
+        <i class="bi bi-people" style="display:none"></i>
+        <span class="side-bar-item-caption">Applied Jobs</span>
+    </a>
+
+    <a href="{{url("/admin/candidate-profile")}}" id="candidateProfileOption" class="side-bar-item {{ request()->segment(2) == 'candidate-profile' ? 'side-bar-item-active' : '' }}">
+        <i class="bi bi-people" style="display:none"></i>
+        <span class="side-bar-item-caption">Candidate Profile</span>
     </a>
 
     <a href="{{url("/admin/about")}}" id="aboutOption" class="side-bar-item {{ request()->segment(2) == 'about' ? 'side-bar-item-active' : '' }}"  style="display:none">
@@ -154,11 +164,17 @@ function menuHandler(roles) {
         document.getElementById('rolesOption').style.display= 'block'
         document.getElementById('employesOption').style.display= 'block'
         document.getElementById('pluginOption').style.display= 'block'
+        document.getElementById('jobsOption').style.display= 'block'
     }
     if ((roles.includes('Owner'))) {
         document.getElementById('userOption').style.display= 'block'
         document.getElementById('aboutOption').style.display= 'block'
         document.getElementById('blogOption').style.display= 'block'
+    }
+
+    if ((roles.includes('Candidaet'))) {
+        document.getElementById('appliedJobsOption').style.display= 'block'
+        document.getElementById('candidateProfileOption').style.display= 'block'
     }
 }
 
