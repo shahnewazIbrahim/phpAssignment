@@ -101,12 +101,12 @@
     </a>
 
     <a href="{{url("/admin/applied-job")}}" id="appliedJobsOption" class="side-bar-item {{ request()->segment(2) == 'applied-job' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-people" style="display:none"></i>
+        <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Applied Jobs</span>
     </a>
 
     <a href="{{url("/admin/candidate-profile")}}" id="candidateProfileOption" class="side-bar-item {{ request()->segment(2) == 'candidate-profile' ? 'side-bar-item-active' : '' }}">
-        <i class="bi bi-people" style="display:none"></i>
+        <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Candidate Profile</span>
     </a>
 

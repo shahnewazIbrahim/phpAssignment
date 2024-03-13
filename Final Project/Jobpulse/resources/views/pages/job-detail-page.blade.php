@@ -86,7 +86,9 @@
                         specialities += `<li class="px-3 py-2 rounded-2"> ${speciality}</li>`
                     }
                 })
-
+                let button = res.data['rows']['is_applied_by_user'] 
+                    ? `<button class="btn btn-lg btn-success">Applied</button>`
+                    : `<button class="btn btn-lg btn-danger" onclick="applyJob(${res.data['rows']['id']})">Apply</button>`; 
                 document.getElementById('type').innerHTML = res.data['rows']['type']
                 document.getElementById('salary').innerHTML = res.data['rows']['salary'] + " tk."
                 document.getElementById('requirements').innerHTML = res.data['rows']['requirements']
@@ -97,8 +99,7 @@
                 document.getElementById('compensations').innerHTML = res.data['rows']['compensations']
                 document.getElementById('deadline').innerHTML = new Date(res.data['rows']['deadline'])
                     .toLocaleDateString()
-                document.getElementById('applyJob').innerHTML =
-                    `<button class="btn btn-lg btn-danger" onclick="applyJob(${res.data['rows']['id']})">Apply</button>`;
+                document.getElementById('applyJob').innerHTML = button;
 
             } catch (e) {
                 unauthorized(e.response.status)

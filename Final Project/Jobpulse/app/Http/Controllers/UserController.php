@@ -60,7 +60,7 @@ class UserController extends Controller
             $roles = $user->roles->pluck('name')->toArray() ?? [];
 
             $token = $user->createToken('authToken', $roles)->plainTextToken;
-            
+
             return response()->json(['status' => 'success', 'message' => 'Login Successful', 'token' => $token]);
             // }
         } catch (Exception $e) {
@@ -178,6 +178,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         $user->assignedRole = $user->roles->pluck('name')->toArray() ?? [];
+        $user->applied_ids = $user->applyJob->pluck('job_id')->toArray() ?? [];
         return $user;
     }
 

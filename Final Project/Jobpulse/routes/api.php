@@ -92,13 +92,17 @@ Route::post("/delete-employee", [EmployeeController::class, 'EmployeeDelete'])->
 Route::post("/update-employee", [EmployeeController::class, 'EmployeeUpdate'])->middleware('auth:sanctum');
 Route::post("/employee-by-id", [EmployeeController::class, 'EmployeeByID'])->middleware('auth:sanctum');
 
-// Product Web API Routes
+// job Web API Routes
 Route::post("/create-job", [JobController::class, 'CreateJob'])->middleware('auth:sanctum');
 Route::post("/delete-job", [JobController::class, 'DeleteJob'])->middleware('auth:sanctum');
 Route::post("/update-job", [JobController::class, 'UpdateJob'])->middleware('auth:sanctum');
 Route::get("/list-job", [JobController::class, 'JobList'])->middleware('auth:sanctum');
 Route::post("/job-by-id", [JobController::class, 'JobByID'])->middleware('auth:sanctum');
 Route::post("/job-detail", [JobController::class, 'JobDetails'])->middleware('auth:sanctum');
+
+// Product Web API Routes
+Route::post("/delete-applied-job", [JobController::class, 'DeleteJob'])->middleware('auth:sanctum');
+Route::get("/list-applied-job", [JobController::class, 'JobList'])->middleware('auth:sanctum');
 
 // About Web API Routes
 Route::post("/create-about", [AboutSettingController::class, 'CreateAboutSetting'])->middleware('auth:sanctum');
