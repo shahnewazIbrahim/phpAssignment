@@ -37,7 +37,7 @@
 </div>
 
 <script>
-
+    console.log(getToken());
     getProfile();
     async function getProfile(){
         try{

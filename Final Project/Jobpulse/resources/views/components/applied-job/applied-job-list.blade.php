@@ -15,10 +15,11 @@
             <table class="table" id="tableData">
                 <thead>
                 <tr class="bg-light">
-                    <th>Banner</th>
-                    <th>History</th>
-                    <th>vision</th>
-                    <th>Action</th>
+                    <th>JobID</th>
+                    <th>Applicant</th>
+                    <th>Company</th>
+                    <th>AppliedAt</th>
+                    <th id="action">Action</th>
                 </tr>
                 </thead>
                 <tbody id="tableList">
@@ -42,36 +43,46 @@ async function getList() {
         hideLoader();
         let tableList=$("#tableList");
         let tableData=$("#tableData");
-        // console.log(window.location.origin);
+        console.log(res.data);
         tableData.DataTable().destroy();
         tableList.empty();
         if(res.data['rows'].length) {
-            console.log(res.data['rows'].length);
+            // console.log(res.data['rows'].length);
 
             document.getElementById('createButton').style.display = 'none';
         }
 
         res.data['rows'].forEach(function (item,index) {
             let row=`<tr>
-                    <td><img src="${window.location.origin}/${item['banner']}" style="max-width: 100px;"/></td>
+                    <td>${item['job_id']}</td>
                     <td>
-                        ${item['company_history'].length > 50 ? item['company_history'].substring(0,50) + '...' : item['company_history']}
+                        ${item['applicant']['firstName']}
                     </td>
                     <td>
-                        ${item['our_vision'].length > 50 ? item['our_vision'].substring(0,50) + '...' : item['our_vision']}
+                        ${item['job']['user']['firstName']}
                     </td>
                     <td>
-                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
+                        ${new Date(item['created_at']).toLocaleDateString()}
+                    </td>
+                    <td>
+                        <button data-id="${item['id']}" class="btn acceptBtn ${item['accept'] ? 'btn-success' : 'btn-outline-success'} btn-sm btn-outline-success"
+                        style="display: ${item['can_accept'] ? '' : 'none'} "
+                        onclick="acceptJob(${item['id']}, ${item['accept']})"
+                        >${item['accept'] ? 'Accepted' : 'Accept'}</button>
+                        <button data-id="${item['id']}" class="btn btn-sm ${item['accept'] ? 'btn-outline-success' : 'btn-outline-danger'} btn-outline-success"
+                        style="display: ${item['can_accept'] ? 'none' : ''} "
+                        >${item['accept'] ? 'Accepted' : 'Not Accepted'}</button>
                     </td>
                  </tr>`
+                //  document.getElementById('action').style.display = item['can_accept'] ? '' : 'none'
             tableList.append(row)
         })
 
-        $('.editBtn').on('click', async function () {
-            let id= $(this).data('id');
-            await FillUpUpdateForm(id)
-            $("#update-modal").modal('show');
-        })
+        // $('.acceptBtn').on('click', async function () {
+        //     let id= $(this).data('id');
+        //     await FillUpUpdateForm(id)
+        //     $("#update-modal").modal('show');
+        // })
 
         $('.deleteBtn').on('click',function () {
             let id= $(this).data('id');
@@ -87,6 +98,25 @@ async function getList() {
     }
 
 }
+
+async function acceptJob(id, accepted) {
+            if (accepted) {
+                return ;
+            }
+            try {
+                if (confirm("Are You Sure?")) {
+                    let res=await axios.post("/api/accept-applied-job", {
+                        id:id
+                    }, HeaderToken());
+                    
+                    getList();
+                }
+            } catch (e) {
+                unauthorized(e.response.status)
+            }
+
+
+    }
 
 
 </script>

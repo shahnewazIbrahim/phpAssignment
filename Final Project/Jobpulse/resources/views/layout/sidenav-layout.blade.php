@@ -158,7 +158,7 @@
 }
 
 function menuHandler(roles) {
-    console.log(!(roles.includes('Owner') || (roles.includes('Company'))), roles);
+    // console.log(!(roles.includes('Owner') || (roles.includes('Company'))), roles);
     if ((roles.includes('Owner') || (roles.includes('Company')))) {
         // console.log(roles);
         document.getElementById('rolesOption').style.display= 'block'
@@ -172,8 +172,11 @@ function menuHandler(roles) {
         document.getElementById('blogOption').style.display= 'block'
     }
 
-    if ((roles.includes('Candidaet'))) {
+    if ((roles.includes('Candidate') || (roles.includes('Company')))) {
         document.getElementById('appliedJobsOption').style.display= 'block'
+    }
+    
+    if ((roles.includes('Candidate'))) {
         document.getElementById('candidateProfileOption').style.display= 'block'
     }
 }

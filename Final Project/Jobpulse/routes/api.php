@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutSettingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppliedJobController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
@@ -100,9 +101,10 @@ Route::get("/list-job", [JobController::class, 'JobList'])->middleware('auth:san
 Route::post("/job-by-id", [JobController::class, 'JobByID'])->middleware('auth:sanctum');
 Route::post("/job-detail", [JobController::class, 'JobDetails'])->middleware('auth:sanctum');
 
-// Product Web API Routes
-Route::post("/delete-applied-job", [JobController::class, 'DeleteJob'])->middleware('auth:sanctum');
-Route::get("/list-applied-job", [JobController::class, 'JobList'])->middleware('auth:sanctum');
+// Applied Job Web API Routes
+Route::post("/delete-applied-job", [AppliedJobController::class, 'DeleteAppliedJob'])->middleware('auth:sanctum');
+Route::get("/list-applied-job", [AppliedJobController::class, 'AppliedJobList'])->middleware('auth:sanctum');
+Route::post("/accept-applied-job", [AppliedJobController::class, 'AcceptAppliedJob'])->middleware('auth:sanctum');
 
 // About Web API Routes
 Route::post("/create-about", [AboutSettingController::class, 'CreateAboutSetting'])->middleware('auth:sanctum');
@@ -110,7 +112,7 @@ Route::get("/list-about", [AboutSettingController::class, 'AboutSettingList'])->
 Route::post("/update-about", [AboutSettingController::class, 'UpdateAboutSetting'])->middleware('auth:sanctum');
 Route::post("/about-by-id", [AboutSettingController::class, 'AboutSettingByID'])->middleware('auth:sanctum');
 
-// Product Web API Routes
+// Blog Web API Routes
 Route::post("/create-blog", [BlogController::class, 'CreateBlog'])->middleware('auth:sanctum');
 Route::post("/delete-blog", [BlogController::class, 'DeleteBlog'])->middleware('auth:sanctum');
 Route::post("/update-blog", [BlogController::class, 'UpdateBlog'])->middleware('auth:sanctum');
