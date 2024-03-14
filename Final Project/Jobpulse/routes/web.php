@@ -18,11 +18,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::view('/blog', 'pages.dashboard.blog-page');
     Route::view('/candidate-profile', 'pages.dashboard.candidate-page');
     Route::view('/applied-job', 'pages.dashboard.applied-job-page');
+    Route::view('/view-profile/{user}', 'pages.dashboard.view-profile');
 
     Route::resource('permissions', PermissionController::class);
 });
 
-Route::view('/loan', 'pages.dashboard.loan');
 Route::group(['prefix' => 'owner'], function () {
     Route::view('/userLogin', 'pages.auth.login-page')->name('login');
 });

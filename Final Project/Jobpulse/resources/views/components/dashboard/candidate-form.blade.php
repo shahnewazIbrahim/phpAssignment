@@ -18,6 +18,12 @@
                                 <input type="file" class="form-control" id="image">
 
                             </div>
+                            
+                            <div class="col-md-12 p-2">
+                                <label>Occupation</label>
+                                <input type="text" id="occupation" placeholder="Occupation" class="form-control"/>
+                            </div>
+
                             <div class="col-md-12 p-2">
                                 <label>Address</label>
                                 <textarea id="address" placeholder="User Adress" class="form-control"></textarea>
@@ -39,8 +45,8 @@
                             </div>
 
                             <div class="col-md-12 p-2">
-                                <label>Other Qualification</label>
-                                <textarea id="otherQualification" placeholder="Mobile" class="form-control" type="mobile"></textarea>
+                                <label>Other Qualification and Skills</label>
+                                <textarea id="otherQualification" placeholder="Mobile" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
@@ -79,6 +85,7 @@ let otherQualificationEditor = CKEDITOR.instances['otherQualification'];
                 `;
             }
             document.getElementById('address').value=res.data['candidate']['address'] ?? "";
+            document.getElementById('occupation').value=res.data['candidate']['occupation'] ?? "";
             document.getElementById('ssc').value= sscEditor.setData(res.data['candidate']['ssc']) ?? "";
             document.getElementById('hsc').value= hscEditor.setData(res.data['candidate']['hsc']) ?? "";
             document.getElementById('hons').value= honsEditor.setData(res.data['candidate']['hons']) ?? "";
@@ -93,10 +100,12 @@ let otherQualificationEditor = CKEDITOR.instances['otherQualification'];
     async function onUpdate(){
         let image = document.getElementById('image').files[0];
         let address = document.getElementById('address').value;
+        let occupation = document.getElementById('occupation').value;
 
         let formData = new FormData();
         formData.append('image', image); // Append the image file
         formData.append('address', address);
+        formData.append('occupation', occupation);
         formData.append('ssc', sscEditor.getData());
         formData.append('hsc', hscEditor.getData());
         formData.append('hons', honsEditor.getData());

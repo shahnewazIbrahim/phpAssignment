@@ -72,6 +72,9 @@ async function getList() {
                         <button data-id="${item['id']}" class="btn btn-sm ${item['accept'] ? 'btn-outline-success' : 'btn-outline-danger'} btn-outline-success"
                         style="display: ${item['can_accept'] ? 'none' : ''} "
                         >${item['accept'] ? 'Accepted' : 'Not Accepted'}</button>
+
+                        <a href="/admin/view-profile/${item['user_id']}" class="btn profileShow btn-sm btn-outline-danger"
+                        >View Profile</a>
                     </td>
                  </tr>`
                 //  document.getElementById('action').style.display = item['can_accept'] ? '' : 'none'
@@ -84,10 +87,9 @@ async function getList() {
         //     $("#update-modal").modal('show');
         // })
 
-        $('.deleteBtn').on('click',function () {
+        $('.profileShow').on('click',function () {
             let id= $(this).data('id');
-            $("#delete-modal").modal('show');
-            $("#deleteID").val(id);
+            
         })
         new DataTable('#tableData',{
             order:[[0,'desc']],

@@ -192,6 +192,7 @@ class UserController extends Controller
     function CandidateCreate(Request $request)
     {
         try {
+            $url = '';
             $user_id = Auth::id();
             $request->validate([
                 // 'image' => 'required',
@@ -199,8 +200,15 @@ class UserController extends Controller
                 'hsc' => 'required',
                 'hons' => '',
                 'other_qualification' => 'required',
+                'occupation' => '',
             ]);
-            // return dd($request->file('image'));
+
+            $candidate = Candidate::where('user_id', Auth::id())->first();
+
+            if ($candidate) {
+                $url = $candidate->image ?? "";
+            }
+
             if ($request->file('image')) {
                 $file = $request->file('image');
                 $extension = $file->getClientOriginalExtension();
@@ -216,6 +224,7 @@ class UserController extends Controller
                 [
                     'image'                 => $url ?? "",
                     'address'               => $request->input('address'),
+                    'occupation'               => $request->input('occupation'),
                     'ssc'                   => $request->input('ssc'),
                     'hsc'                   => $request->input('hsc'),
                     'hons'                  => $request->input('hons'),
@@ -245,6 +254,19 @@ class UserController extends Controller
             ]);
 
             return response()->json(['status' => 'success', 'message' => 'Request Successful']);
+        } catch (Exception $e) {
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+    }
+
+
+    function ViewProfile(Request $request) 
+    {
+        try {
+
+            $user= User::with('candidate')->findOrFail($request->id);
+
+            return response()->json(['status' => 'success', 'user' => $user]);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }

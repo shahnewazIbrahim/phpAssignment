@@ -12,6 +12,7 @@ class Candidate extends Model
         'image',
         'user_id',
         'address',
+        'occupation',
         'ssc',
         'hsc',
         'hons',

@@ -48,6 +48,7 @@ Route::post('/apply-job', [JobController::class, 'applyJob'])->middleware('auth:
 Route::get('/user-profile', [UserController::class, 'UserProfile'])->middleware('auth:sanctum');
 Route::get('/candidate-profile', [UserController::class, 'CandidateProfile'])->middleware('auth:sanctum');
 Route::post('/candidate-update', [UserController::class, 'CandidateCreate'])->middleware('auth:sanctum');
+Route::post('/view-profile', [UserController::class, 'ViewProfile'])->middleware('auth:sanctum');
 
 Route::get('/logout', [UserController::class, 'UserLogout'])->middleware('auth:sanctum');
 Route::post('/user-update', [UserController::class, 'UpdateProfile'])->middleware('auth:sanctum');
