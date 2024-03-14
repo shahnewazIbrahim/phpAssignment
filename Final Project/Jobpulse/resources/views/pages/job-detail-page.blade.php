@@ -70,7 +70,7 @@
 
             </div>
             <div class="d-flex justify-content-center align-items-center py-2 text-lg" id="applyJob">
-                adfasdfdf
+                
             </div>
         </div>
     </div>
