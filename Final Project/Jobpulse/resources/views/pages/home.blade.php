@@ -9,12 +9,12 @@
     </div>
 </div>
  
-<div class="p-5">
+<div class="p-3">
     <h5 class="text-center pb-2">Top Companies</h5>
     <div class="d-flex justify-content-center gap-4" id="companySection">
     </div>
 </div>
-<div class="p-5">
+<div class="p-3">
     <h5 class="text-center pb-2">Recent Published Job</h5>
     <div class="d-flex justify-content-center">
 
