@@ -35,8 +35,8 @@
               <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-5">
                   <li class="nav-item"><a href="{{ url('/') }}" class="nav-link px-2 text-white">Home</a></li>
                   <li class="nav-item"><a href="{{ url('/about') }}" class="nav-link px-2 text-white">About</a></li>
-                  <li class="nav-item"><a href="{{ url('/jobs') }}" class="nav-link px-2 text-white">Jobs</a></li>
-                  <li class="nav-item"><a href="{{ url('/blogs') }}" class="nav-link px-2 text-white">Blog</a></li>
+                  <li class="nav-item"><a href="{{ url('/job') }}" class="nav-link px-2 text-white">Jobs</a></li>
+                  <li class="nav-item"><a href="{{ url('/blog') }}" class="nav-link px-2 text-white">Blog</a></li>
               </ul>
               
             </div>
@@ -68,7 +68,7 @@
         </div>
     </header>
 
-    <div>
+    <div style="min-height:100vh">
         @yield('content')
     </div>
 
@@ -84,8 +84,8 @@
                     <ul class="list-unstyled text-white">
                         <li class="nav-item"><a href="{{ url('/') }}" class="text-white text-decoration-none hover">Home</a></li>
                         <li><a href="{{ url('/about') }}" class="text-white text-decoration-none">About</a></li>
-                        <li><a href="{{ url('/jobs') }}" class="text-white text-decoration-none">Job</a></li>
-                        <li><a href="{{ url('/blogs') }}" class="text-white text-decoration-none">Blog</a></li>
+                        <li><a href="{{ url('/job') }}" class="text-white text-decoration-none">Job</a></li>
+                        <li><a href="{{ url('/blog') }}" class="text-white text-decoration-none">Blog</a></li>
                         <li><a href="{{ url('/contact') }}" class="text-white text-decoration-none">Contact</a></li>
                     </ul>
                 </div>

@@ -68,7 +68,7 @@ CKEDITOR.replace( 'jobCompensationsUpdate');
 
 
     async function FillUpUpdateForm(id){
-        // try {
+        try {
             document.getElementById('updateID').value=id;
             showLoader();
             let res=await axios.post("/api/job-by-id",{id:id.toString()},HeaderToken())
@@ -86,9 +86,9 @@ CKEDITOR.replace( 'jobCompensationsUpdate');
             document.getElementById('jobCompensationsUpdate').value = CKEDITOR.instances['jobCompensationsUpdate'].setData(res.data['rows']['compensations']);
             
             
-        // }catch (e) {
-        //     unauthorized(e.response.status)
-        // }
+        }catch (e) {
+            unauthorized(e.response.status)
+        }
     }
 
 

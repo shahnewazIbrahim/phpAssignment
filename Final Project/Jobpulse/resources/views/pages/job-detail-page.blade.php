@@ -120,6 +120,11 @@
                     let res = await axios.post("/api/apply-job",PostBody,HeaderToken())
                     hideLoader();
                     
+                    if(res.data['status']==="success"){
+                        successToast(res.data['message'])
+                    }else{
+                        errorToast(res.data['message'])
+                    }
                 }
                 
             }catch (e) {

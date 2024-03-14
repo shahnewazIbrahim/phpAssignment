@@ -33,7 +33,7 @@
 CKEDITOR.replace( 'textUpdate');
 
     async function FillUpUpdateForm(id){
-        // try {
+        try {
 
             let textUpdateEditor = CKEDITOR.instances['textUpdate'];
 
@@ -43,9 +43,9 @@ CKEDITOR.replace( 'textUpdate');
             hideLoader();
 
             document.getElementById('textUpdate').value= textUpdateEditor.setData(res.data['rows']['text']);
-        // }catch (e) {
-        //     unauthorized(e.response.status)
-        // }
+        }catch (e) {
+            unauthorized(e.response.status)
+        }
     }
 
 

@@ -166,7 +166,7 @@ class JobController extends Controller
                 );
                 return response()->json(['status' => 'success', 'message' => "Request Successful"]);
             }else {
-                return response()->json(['status' => 'incomplete profile', 'message' => "Request failed"]);
+                return response()->json(['status' => 'fail', 'message' => "Incomplete Profile"]);
             }
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);

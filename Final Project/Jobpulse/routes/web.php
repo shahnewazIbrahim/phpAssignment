@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'owner'], function () {
     Route::view('/userLogin', 'pages.auth.login-page')->name('login');
 });
+Route::view('/job', 'pages.homepage-job');
 Route::view('/job/{job}', 'pages.job-detail-page');
 Route::view('/userLogin', 'pages.auth.login-page')->name('login');
 Route::view('/userRegistration', 'pages.auth.registration-page');
