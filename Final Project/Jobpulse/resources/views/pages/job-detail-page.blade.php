@@ -7,58 +7,64 @@
 
                 <!-- Designation -->
                 <div class="mb-4">
-                    <h2>Designation</h2>
+                    <h4>Designation</h4>
                     <p id="type"></p>
+                </div>
+
+                <!-- Designation -->
+                <div class="mb-4">
+                    <h4>Employee Status</h4>
+                    <p id="employeeStatus"></p>
                 </div>
 
                 <!-- Salary -->
                 <div class="mb-4">
-                    <h2>Salary</h2>
+                    <h4>Salary</h4>
                     <p id="salary"></p>
                 </div>
 
                 <!-- Requirements -->
                 <div class="mb-4">
-                    <h2>Requirements</h2>
+                    <h4>Requirements</h4>
                     <div id="requirements">
                     </div>
                 </div>
 
                 <!-- Specialties -->
                 <div class="mb-4">
-                    <h2>Specialties</h2>
+                    <h4>Specialties</h4>
                     <div id="specialties">
                     </div>
                 </div>
 
                 <!-- Specialties -->
                 <div class="mb-4">
-                    <h2>Responsibilities</h2>
+                    <h4>Responsibilities</h4>
                     <div id="responsibilities">
                     </div>
                 </div>
 
                 <!-- Company Name -->
                 <div class="mb-4">
-                    <h2>Company Name</h2>
+                    <h4>Company Name</h4>
                     <p id="companyName"></p>
                 </div>
 
                 <!-- Location -->
                 <div class="mb-4">
-                    <h2>Location</h2>
+                    <h4>Location</h4>
                     <p id="location"></p>
                 </div>
 
                 <!-- Company Name -->
                 <div class="mb-4">
-                    <h2>Compensations</h2>
+                    <h4>Compensations</h4>
                     <p id="compensations"></p>
                 </div>
 
                 <!-- Deadline -->
                 <div class="mb-4">
-                    <h2>Deadline</h2>
+                    <h4>Deadline</h4>
                     <p id="deadline"></p>
                 </div>
 
@@ -90,6 +96,7 @@
                     ? `<button class="btn btn-lg btn-success">Applied</button>`
                     : `<button class="btn btn-lg btn-danger" onclick="applyJob(${res.data['rows']['id']})">Apply</button>`; 
                 document.getElementById('type').innerHTML = res.data['rows']['type']
+                document.getElementById('employeeStatus').innerHTML = res.data['rows']['employee_status']
                 document.getElementById('salary').innerHTML = res.data['rows']['salary'] + " tk."
                 document.getElementById('requirements').innerHTML = res.data['rows']['requirements']
                 document.getElementById('specialties').innerHTML = specialities
