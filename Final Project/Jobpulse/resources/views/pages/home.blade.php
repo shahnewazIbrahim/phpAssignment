@@ -73,7 +73,7 @@
                 
                 jobContainer += `
                 <div class="bg-info px-2 py-3 rounded-3 mb-2">
-                    <div class="bg-white p-2 d-flex justify-content-between flex-wrap">
+                    <div class="bg-white px-2 py-3 d-flex justify-content-between flex-wrap">
                         <div>
                             <div class="text-lg font-weight-bold">
                                 ${item['type']}
