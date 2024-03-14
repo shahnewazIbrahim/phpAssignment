@@ -48,15 +48,9 @@
         let specialities = '';
         let jobContainer = '';
         let companyContainer = '';
-        let applied_ids = '';
-        // try {
+        try {
             showLoader();
             let res=await axios.get("/api/get-homepage",HeaderToken());
-            if (getToken()) {
-                
-                let user =await axios.get("/api/user-profile",HeaderToken());
-                applied_ids = user.data['applied_ids'];
-            }
             hideLoader();
             // return console.log(typeof res.data['company']);
             res.data['company'].forEach(function (item,index) {
@@ -76,7 +70,7 @@
                         specialities += `<div class="px-3 py-2 bg-info rounded-2 text-white"> ${speciality}</div>`
                     }
                 })
-                // console.log(applied_ids.includes(parseInt(item['id'])));
+                
                 jobContainer += `
                 <div class="bg-info px-2 py-3">
                     <div class="bg-white p-2 d-flex justify-content-between flex-wrap">
@@ -90,10 +84,7 @@
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn-sm btn-secondary" onclick="applyJob(${item['id']})" style="display: ${applied_ids.includes(parseInt(item['id']))? 'none' : ''}">Apply</button>
-
-                            <button class="btn btn-sm btn-success"style="display: ${applied_ids.includes(parseInt(item['id']))? '' : 'none'}">Applied</button>
-
+                            <button class="btn btn-sm btn-secondary" onclick="applyJob(${item['id']})">Apply</button>
                             <a class="btn btn-sm btn-danger" href="job/${item['id']}">Detais</a>
                             <div class="text-center">
                                 ${item['salary']} tk.
@@ -107,9 +98,9 @@
             })
 
             document.getElementById('jobSection').innerHTML = jobContainer 
-        // }catch (e) {
-        //     unauthorized(e.response.status)
-        // }
+        }catch (e) {
+            unauthorized(e.response.status)
+        }
     
     }
     

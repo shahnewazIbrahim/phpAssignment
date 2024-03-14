@@ -70,6 +70,23 @@ class BlogController extends Controller
         }
     }
 
+    function BlogDetails(Request $request)
+    {
+        try {
+            $request->validate(["id" => 'required|string']);
+
+            $rows = Blog::query()
+                ->with([
+                    'user:id,firstName'
+                ])
+                ->where( 'id' , $request->input('id') )
+                ->first();
+
+            return response()->json(['status' => 'success', 'rows' => $rows]);
+        } catch (Exception $e) {
+            return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
+        }
+    }
 
     function BlogList(Request $request)
     {
@@ -92,25 +109,11 @@ class BlogController extends Controller
         try {
             $user_id = Auth::id();
             $request->validate([
-                // 'banner' => 'required',
-                'companyHistory' => 'required',
-                'ourVision' => 'required',
+                'text' => 'required',
                 "id" => 'required|string',
             ]);
-            if ($request->file('banner')) {
-                $file = $request->file('banner');
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('uploads/'), $filename);
-                $url = 'uploads/' . $filename;
-                Blog::where('id', $request->input('id'))->update([
-                    'banner' => $url,
-                ]);
-            }
             Blog::where('id', $request->input('id'))->update([
-                // 'banner' => $request->input('banner'),
-                'company_history' => $request->input('companyHistory'),
-                'our_vision' => $request->input('ourVision'),
+                'text' => $request->input('text'),
             ]);
 
             return response()->json(['status' => 'success', 'message' => "Request Successful"]);

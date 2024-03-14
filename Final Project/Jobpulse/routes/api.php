@@ -119,6 +119,7 @@ Route::post("/delete-blog", [BlogController::class, 'DeleteBlog'])->middleware('
 Route::post("/update-blog", [BlogController::class, 'UpdateBlog'])->middleware('auth:sanctum');
 Route::get("/list-blog", [BlogController::class, 'BlogList'])->middleware('auth:sanctum');
 Route::post("/blog-by-id", [BlogController::class, 'BlogByID'])->middleware('auth:sanctum');
+Route::post("/blog-details", [BlogController::class, 'BlogDetails'])->middleware('auth:sanctum');
 
 // Invoice
 Route::post("/invoice-create", [InvoiceController::class, 'invoiceCreate'])->middleware('auth:sanctum');

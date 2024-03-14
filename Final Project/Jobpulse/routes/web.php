@@ -34,3 +34,5 @@ Route::view('/verifyOtp', 'pages.auth.verify-otp-page');
 Route::view('/resetPassword', 'pages.auth.reset-pass-page');
 Route::view('/userProfile', 'pages.dashboard.profile-page');
 Route::view('/about', 'pages.homepage-about');
+Route::view('/blog', 'pages.homepage-blog');
+Route::view('/blog/{blog}', 'pages.blog-details');

@@ -53,33 +53,26 @@
 
       async function getList() {
 
-          // try {
-          let id = "{{ request()->segment(3) }}"
-          showLoader();
-          let res = await axios.post("/api/view-profile", {
-              id: id
-          }, HeaderToken());
-          hideLoader();
-          // return console.log(res.data['user']['candidate']);
-          document.querySelector('.profile-img').src =
-              `${window.location.origin}/${res.data['user']['candidate']['image']}`;
-          document.querySelector('.email').innerHTML = res.data['user']['email'];
-          document.querySelector('.mobile').innerHTML = res.data['user']['mobile'];
-          document.querySelector('.address').innerHTML = res.data['user']['candidate']['address'];
-          document.querySelector('.occupation').innerHTML = res.data['user']['candidate']['occupation'];
-          document.querySelector('.hons').innerHTML = res.data['user']['candidate']['hons'];
-          document.querySelector('.hsc').innerHTML = res.data['user']['candidate']['hsc'];
-          document.querySelector('.ssc').innerHTML = res.data['user']['candidate']['ssc'];
-          document.querySelector('.experience').innerHTML = res.data['user']['candidate']['other_qualification'];
-
-          return console.log(res.data);
-
-
-
-
-          // }catch (e) {
-          //     unauthorized(e.response.status)
-          // }
+          try {
+            let id = "{{ request()->segment(3) }}"
+            showLoader();
+            let res = await axios.post("/api/view-profile", {
+                id: id
+            }, HeaderToken());
+            hideLoader();
+            // return console.log(res.data['user']['candidate']);
+            document.querySelector('.profile-img').src = `${window.location.origin}/${res.data['user']['candidate']['image']}`;
+            document.querySelector('.email').innerHTML = res.data['user']['email'];
+            document.querySelector('.mobile').innerHTML = res.data['user']['mobile'];
+            document.querySelector('.address').innerHTML = res.data['user']['candidate']['address'];
+            document.querySelector('.occupation').innerHTML = res.data['user']['candidate']['occupation'];
+            document.querySelector('.hons').innerHTML = res.data['user']['candidate']['hons'];
+            document.querySelector('.hsc').innerHTML = res.data['user']['candidate']['hsc'];
+            document.querySelector('.ssc').innerHTML = res.data['user']['candidate']['ssc'];
+            document.querySelector('.experience').innerHTML = res.data['user']['candidate']['other_qualification'];
+          }catch (e) {
+              unauthorized(e.response.status)
+          }
 
       }
   </script>

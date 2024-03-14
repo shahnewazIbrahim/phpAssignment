@@ -28,6 +28,6 @@ class ApplyJob extends Model
     }
      
     public function getCanAcceptAttribute()    {
-        return in_array('Company',  User::find(Auth::id())->roles->pluck('name')->toArray());
+        return Auth::id()?  in_array('Company',  User::find(Auth::id())->roles->pluck('name')->toArray()) : false;
     }
 }
