@@ -35,7 +35,7 @@ class AppliedJobController extends Controller
         try {
             $user_id = Auth::id();
             $rows = ApplyJob::query()
-                ->with('applicant:id,firstName', 'job:id,type,user_id', 'job.user:id,firstName')
+                ->with('applicant:id,firstName,lastName', 'job:id,type,user_id', 'job.user:id,firstName,lastName')
                 ->when(in_array('Candidate',  User::find(Auth::id())->roles->pluck('name')->toArray()), function ($q) {
                     $q->where('user_id', Auth::id());
                 })

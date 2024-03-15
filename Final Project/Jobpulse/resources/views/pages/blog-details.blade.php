@@ -20,7 +20,7 @@
             let res=await axios.post("/api/blog-details", {id: id.toString()},HeaderToken());
             hideLoader();
             
-            document.getElementById('author').innerHTML =`<h4><i>Written By-</i>${res.data['rows']['user']['firstName']}</h4>`
+            document.getElementById('author').innerHTML =`<h4><i>Written By-</i>${res.data['rows']['user']['full_name']}</h4>`
             document.getElementById('blogDetails').innerHTML = res.data['rows']['text']
 
         }catch (e) {

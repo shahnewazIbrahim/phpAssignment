@@ -56,10 +56,10 @@ async function getList() {
             let row=`<tr>
                     <td>${item['job_id']}</td>
                     <td>
-                        ${item['applicant']['firstName']}
+                        ${item['applicant']['full_name']}
                     </td>
                     <td>
-                        ${item['job']['user']['firstName']}
+                        ${item['job']['user']['full_name']}
                     </td>
                     <td>
                         ${new Date(item['created_at']).toLocaleDateString()}

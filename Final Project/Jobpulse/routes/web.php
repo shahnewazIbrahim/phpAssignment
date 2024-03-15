@@ -19,6 +19,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::view('/candidate-profile', 'pages.dashboard.candidate-page');
     Route::view('/applied-job', 'pages.dashboard.applied-job-page');
     Route::view('/view-profile/{user}', 'pages.dashboard.view-profile');
+    Route::view('/plugin', 'pages.dashboard.plugin-page');
 
     Route::resource('permissions', PermissionController::class);
 });

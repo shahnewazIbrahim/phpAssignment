@@ -29,7 +29,7 @@ async function getList() {
             html += `
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Written By -${item['user']['firstName']}</h5>
+                        <h5 class="card-title">Written By -${item['user']['full_name']}</h5>
                         <p class="card-text">${item['text'].length > 50 ? item['text'].substring(0,50) + '...' : item['text']}</p>
                     </div>
                     <a href="blog/${item['id']}" class="btn btn-primary stretched-link">Details</a>

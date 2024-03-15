@@ -17,6 +17,7 @@ class User extends Authenticatable
     protected $fillable = ['firstName', 'lastName', 'email', 'mobile', 'password', 'otp', 'type'];
     protected $attributes = ['otp' => '0'];
     protected $hidden = ['password', 'otp'];
+    protected $appends = ['full_name'];
 
     // public function roles()
     // {
@@ -35,5 +36,13 @@ class User extends Authenticatable
     public function applyJob(): HasMany
     {
         return $this->hasMany(ApplyJob::class);
+    }
+    public function plugins(): HasMany
+    {
+        return $this->hasMany(Plugin::class);
+    }
+    public function getFullNameAttribute()
+    {
+        return "{$this->firstName} {$this->lastName}";
     }
 }

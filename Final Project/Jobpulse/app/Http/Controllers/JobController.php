@@ -72,7 +72,7 @@ class JobController extends Controller
             $user_id = Auth::id();
             $request->validate(["id" => 'required|string']);
             $rows = Job::query()
-                ->with('user:id,firstName')
+                ->with('user:id,firstName,lastName')
                 ->where('id' , $request->input('id'))
                 ->first();
 
@@ -91,7 +91,7 @@ class JobController extends Controller
             $user_id = Auth::id();
             $request->validate(["id" => 'required|string']);
             $rows = Job::query()
-                ->with('user:id,firstName')
+                ->with('user:id,firstName,lastName')
                 ->where('id' , $request->input('id'))
                 ->first();
             return response()->json(['status' => 'success', 'rows' => $rows]);
@@ -105,7 +105,7 @@ class JobController extends Controller
     {
         try {
             $user_id = Auth::id();
-            $rows = Job::with('user:id,firstName')->get();
+            $rows = Job::with('user:id,firstName,lastName')->get();
             // return in_array('Owner',  User::find(Auth::id())->roles->pluck('name')->toArray());
             if (in_array('Owner',  User::find(Auth::id())->roles->pluck('name')->toArray())) {
                 $rows->where('user_id', $user_id);

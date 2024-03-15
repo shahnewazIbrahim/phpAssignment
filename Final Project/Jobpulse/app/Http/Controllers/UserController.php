@@ -176,9 +176,10 @@ class UserController extends Controller
 
     function UserProfile(Request $request)
     {
-        $user = User::findOrFail(Auth::id());
+        $user = User::with('plugins')->findOrFail(Auth::id());
         $user->assignedRole = $user->roles->pluck('name')->toArray() ?? [];
         $user->applied_ids = $user->applyJob->pluck('job_id')->toArray() ?? [];
+        $user->activated_plugins = $user->plugins->where('active', 1)->pluck('name')->toArray() ?? [];
         return $user;
     }
 

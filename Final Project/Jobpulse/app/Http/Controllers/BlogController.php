@@ -56,7 +56,7 @@ class BlogController extends Controller
 
             $rows = Blog::query()
                 ->with([
-                    'user:id,firstName'
+                    'user:id,firstName,lastName'
                 ])
                 ->where([
                     'id' => $request->input('id'),
@@ -77,7 +77,7 @@ class BlogController extends Controller
 
             $rows = Blog::query()
                 ->with([
-                    'user:id,firstName'
+                    'user:id,firstName,lastName'
                 ])
                 ->where( 'id' , $request->input('id') )
                 ->first();
@@ -93,7 +93,7 @@ class BlogController extends Controller
         try {
             $rows = Blog::query()
                 ->with([
-                    'user:id,firstName'
+                    'user:id,firstName,lastName'
                 ])
                 ->get();
             return response()->json(['status' => 'success', 'rows' => $rows]);

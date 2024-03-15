@@ -101,7 +101,7 @@
                 document.getElementById('requirements').innerHTML = res.data['rows']['requirements']
                 document.getElementById('specialties').innerHTML = specialities
                 document.getElementById('responsibilities').innerHTML = res.data['rows']['responsibilities']
-                document.getElementById('companyName').innerHTML = res.data['rows']['user']['firstName']
+                document.getElementById('companyName').innerHTML = res.data['rows']['user']['full_name']
                 document.getElementById('location').innerHTML = res.data['rows']['location']
                 document.getElementById('compensations').innerHTML = res.data['rows']['compensations']
                 document.getElementById('deadline').innerHTML = new Date(res.data['rows']['deadline'])

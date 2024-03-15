@@ -50,7 +50,7 @@ async function getList() {
         res.data['rows'].forEach(function (item,index) {
             let row=`<tr>
                     <td>${item['type']}</td>
-                    <td>${item['user']['firstName']}</td>
+                    <td>${item['user']['full_name']}</td>
                     <td>${item['specialities']}</td>
                     <td>${item['deadline']}</td>
                     <td>

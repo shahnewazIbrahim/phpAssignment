@@ -33,7 +33,7 @@ async function getList() {
                         <h5 class="card-title">${item['type']}</h5>
                         <p class="card-text">Salary -${item['salary']}</p>
                         <p class="card-text">${item['specialities']}</p>
-                        <p class="card-text">Offered By- <b>${item['user']['firstName']}</b></p>
+                        <p class="card-text">Offered By- <b>${item['user']['full_name']}</b></p>
                         <div class="my-5">
                             <a href="job/${item['id']}" class="btn btn-primary stretched-link">Details</a>
                         </div>

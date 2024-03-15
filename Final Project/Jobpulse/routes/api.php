@@ -4,7 +4,7 @@ use App\Http\Controllers\AboutSettingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AppliedJobController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PluginController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -63,31 +63,14 @@ Route::post("/delete-admin", [AdminController::class, 'AdminDelete'])->middlewar
 Route::post("/update-admin", [AdminController::class, 'AdminUpdate'])->middleware('auth:sanctum');
 Route::post("/admin-by-id", [AdminController::class, 'AdminByID'])->middleware('auth:sanctum');
 
-// Category Web API Routes
+// Role Web API Routes
 Route::post("/create-role", [RoleController::class, 'store'])->middleware('auth:sanctum');
 Route::get("/list-role", [RoleController::class, 'index'])->middleware('auth:sanctum');
 Route::post("/delete-role", [RoleController::class, 'destroy'])->middleware('auth:sanctum');
 Route::post("/update-role", [RoleController::class, 'update'])->middleware('auth:sanctum');
 Route::post("/role-by-id", [RoleController::class, 'show'])->middleware('auth:sanctum');
 
-// Category Web API Routes
-Route::post("/create-loan", [LoanController::class, 'store'])->middleware('auth:sanctum');
-Route::get("/list-loan", [LoanController::class, 'index'])->middleware('auth:sanctum');
-Route::post("/delete-loan", [LoanController::class, 'destroy'])->middleware('auth:sanctum');
-Route::post("/update-loan", [LoanController::class, 'update'])->middleware('auth:sanctum');
-Route::post("/loan-by-id", [LoanController::class, 'show'])->middleware('auth:sanctum');
-
-// Customer Loan Web API Routes
-Route::post("/create-user-loan", [UserLoanController::class, 'store'])->middleware('auth:sanctum');
-
-// Category Web API Routes
-Route::post("/create-category", [CategoryController::class, 'CategoryCreate'])->middleware('auth:sanctum');
-Route::get("/list-category", [CategoryController::class, 'CategoryList'])->middleware('auth:sanctum');
-Route::post("/delete-category", [CategoryController::class, 'CategoryDelete'])->middleware('auth:sanctum');
-Route::post("/update-category", [CategoryController::class, 'CategoryUpdate'])->middleware('auth:sanctum');
-Route::post("/category-by-id", [CategoryController::class, 'CategoryByID'])->middleware('auth:sanctum');
-
-// Customer Web API Routes
+// Employee Web API Routes
 Route::post("/create-employee", [EmployeeController::class, 'EmployeeCreate'])->middleware('auth:sanctum');
 Route::get("/list-employee", [EmployeeController::class, 'EmployeeList'])->middleware('auth:sanctum');
 Route::post("/delete-employee", [EmployeeController::class, 'EmployeeDelete'])->middleware('auth:sanctum');
@@ -122,10 +105,12 @@ Route::post("/blog-by-id", [BlogController::class, 'BlogByID'])->middleware('aut
 Route::post("/blog-details", [BlogController::class, 'BlogDetails'])->middleware('auth:sanctum');
 
 // Invoice
-Route::post("/invoice-create", [InvoiceController::class, 'invoiceCreate'])->middleware('auth:sanctum');
-Route::get("/invoice-select", [InvoiceController::class, 'invoiceSelect'])->middleware('auth:sanctum');
-Route::post("/invoice-details", [InvoiceController::class, 'InvoiceDetails'])->middleware('auth:sanctum');
-Route::post("/invoice-delete", [InvoiceController::class, 'invoiceDelete'])->middleware('auth:sanctum');
+Route::post("/create-plugin", [PluginController::class, 'PluginCreate'])->middleware('auth:sanctum');
+Route::get("/list-plugin", [PluginController::class, 'PluginList'])->middleware('auth:sanctum');
+Route::post("/delete-plugin", [PluginController::class, 'PluginDelete'])->middleware('auth:sanctum');
+Route::post("/update-plugin", [PluginController::class, 'PluginUpdate'])->middleware('auth:sanctum');
+Route::post("/plugin-by-id", [PluginController::class, 'PluginByID'])->middleware('auth:sanctum');
+Route::post("/acitve-plugin", [PluginController::class, 'PluginActive'])->middleware('auth:sanctum');
 
 
 // Report

@@ -138,7 +138,7 @@
 
 
 <script>
-
+    let activatedPlugins = '';
     getUser();
 
     async function getUser() {
@@ -147,10 +147,11 @@
         showLoader();
         let res=await axios.get("/api/user-profile",HeaderToken());
         hideLoader();
+        activatedPlugins= res.data.activated_plugins;
         menuHandler(res.data.assignedRole)
         const userName= document.getElementById('userName')
-        userName.innerText = res.data?.firstName;
-        
+        userName.innerText = res.data?.full_name;
+        // console.log({activatedPlugins});
     }catch (e) {
         unauthorized(e.response.status)
     }
@@ -163,10 +164,10 @@ function menuHandler(roles) {
         // console.log(roles);
         document.getElementById('rolesOption').style.display= 'block'
         document.getElementById('employesOption').style.display= 'block'
-        document.getElementById('pluginOption').style.display= 'block'
         document.getElementById('jobsOption').style.display= 'block'
     }
     if ((roles.includes('Owner'))) {
+        document.getElementById('pluginOption').style.display= 'block'
         document.getElementById('userOption').style.display= 'block'
         document.getElementById('aboutOption').style.display= 'block'
         document.getElementById('blogOption').style.display= 'block'
@@ -174,6 +175,10 @@ function menuHandler(roles) {
 
     if ((roles.includes('Candidate') || (roles.includes('Company')))) {
         document.getElementById('appliedJobsOption').style.display= 'block'
+    }
+    // console.log(activatedPlugins.includes('Blog'));
+    if(roles.includes('Company') && activatedPlugins.includes('Blog')) {
+        document.getElementById('blogOption').style.display= 'block'
     }
     
     if ((roles.includes('Candidate'))) {

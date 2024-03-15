@@ -35,7 +35,7 @@
             hideLoader();
             // console.log(res.data);
             document.getElementById('banner').innerHTML = `
-            <img src="${window.location.origin}/${res.data['about']['banner']}" style="width:100%; height:400px"/>
+            <img src="${window.location.origin}/${res.data['about']['banner']}" style="width:100%; height:450px"/>
             `
         }catch (e) {
             unauthorized(e.response.status)

@@ -33,23 +33,23 @@
             <div>
                 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-5">
-                    <li class="nav-item btn btn-sm {{ request()->segment(1) == '' ? 'bg-white rounded-2' : '' }}">
+                    <li class="nav-item {{ request()->segment(1) == '' ? 'bg-white rounded-2' : '' }}">
                         <a href="{{ url('/') }}" class="nav-link px-2  {{ request()->segment(1) == '' ? 'text-black' : 'text-white' }}">
                             Home
                         </a>
                     </li>
                     
-                    <li class="nav-item btn btn-sm {{ request()->segment(1) == 'about' ? ' bg-white rounded-2' : '' }}">
+                    <li class="nav-item {{ request()->segment(1) == 'about' ? ' bg-white rounded-2' : '' }}">
                         <a href="{{ url('/about') }}" class="nav-link px-2  {{ request()->segment(1) == 'about' ? 'text-dark' : 'text-white' }}">
                             About
                         </a>
                     </li>
-                    <li class="nav-item btn btn-sm {{ request()->segment(1) == 'job' ? ' bg-white rounded-2' : '' }}">
+                    <li class="nav-item {{ request()->segment(1) == 'job' ? ' bg-white rounded-2' : '' }}">
                         <a href="{{ url('/job') }}" class="nav-link px-2  {{ request()->segment(1) == 'job' ? 'text-dark' : 'text-white' }}">
                             Jobs
                         </a>
                     </li>
-                    <li class="nav-item btn btn-sm {{ request()->segment(1) == 'blog' ? ' bg-white rounded-2' : '' }}">
+                    <li class="nav-item {{ request()->segment(1) == 'blog' ? ' bg-white rounded-2' : '' }}">
                         <a href="{{ url('/blog') }}" class="nav-link px-2  {{ request()->segment(1) == 'blog' ? 'text-dark' : 'text-white' }}">
                             Blog
                         </a>
@@ -190,7 +190,7 @@
                 userDropdown.style.display = '';
                 loginRegister.style.display = 'none';
 
-                userName.innerText = res.data?.firstName;
+                userName.innerText = res.data?.full_name;
                 
             }catch (e) {
                 unauthorized(e.response.status)

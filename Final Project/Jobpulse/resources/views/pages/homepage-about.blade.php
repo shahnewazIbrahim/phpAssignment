@@ -44,7 +44,7 @@
             hideLoader();
             // console.log(res.data['about']);
             document.getElementById('banner').innerHTML = `
-            <img src="${window.location.origin}/${res.data['about']['banner']}" style="width:100%; height:400px"/>
+            <img src="${window.location.origin}/${res.data['about']['banner']}" style="width:100%; height:450px"/>
             `
             document.getElementById('companyHistory').innerHTML = res.data['about']['company_history'];
             document.getElementById('ourVision').innerHTML = res.data['about']['our_vision'];
