@@ -12,6 +12,7 @@ Route::view('/users', 'pages.dashboard.admin');
 Route::view('/dashboard', 'pages.dashboard.index');
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('/permissions', 'pages.dashboard.role');
+    Route::view('/role', 'pages.dashboard.role');
     Route::view('/employee', 'pages.dashboard.employee-page');
     Route::view('/job', 'pages.dashboard.job-page');
     Route::view('/about', 'pages.dashboard.about-page');

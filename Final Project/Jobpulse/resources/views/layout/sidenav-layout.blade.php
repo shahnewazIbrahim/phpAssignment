@@ -105,7 +105,7 @@
         <span class="side-bar-item-caption">Applied Jobs</span>
     </a>
 
-    <a href="{{url("/admin/candidate-profile")}}" id="candidateProfileOption" class="side-bar-item {{ request()->segment(2) == 'candidate-profile' ? 'side-bar-item-active' : '' }}">
+    <a href="{{url("/admin/candidate-profile")}}" id="candidateProfileOption" class="side-bar-item {{ request()->segment(2) == 'candidate-profile' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Candidate Profile</span>
     </a>
