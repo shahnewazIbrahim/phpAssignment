@@ -73,7 +73,7 @@ class JobController extends Controller
             $request->validate(["id" => 'required|string']);
             $rows = Job::query()
                 ->with('user:id,firstName,lastName')
-                ->where('id' , $request->input('id'))
+                ->where('id', $request->input('id'))
                 ->first();
 
             if (!request()->user()->hasRole('Owner')) {
@@ -92,7 +92,7 @@ class JobController extends Controller
             $request->validate(["id" => 'required|string']);
             $rows = Job::query()
                 ->with('user:id,firstName,lastName')
-                ->where('id' , $request->input('id'))
+                ->where('id', $request->input('id'))
                 ->first();
             return response()->json(['status' => 'success', 'rows' => $rows]);
         } catch (Exception $e) {
@@ -105,11 +105,13 @@ class JobController extends Controller
     {
         try {
             $user_id = Auth::id();
-            $rows = Job::with('user:id,firstName,lastName')->get();
-            // return in_array('Owner',  User::find(Auth::id())->roles->pluck('name')->toArray());
-            if (in_array('Owner',  User::find(Auth::id())->roles->pluck('name')->toArray())) {
-                $rows->where('user_id', $user_id);
-            }
+            $rows = Job::query()
+                ->with('user:id,firstName,lastName')
+                ->when(in_array('Company',  User::find(Auth::id())->roles->pluck('name')->toArray()), function ($query) {
+                    $query->where('user_id', Auth::id());
+                })
+                ->get();
+
             return response()->json(['status' => 'success', 'rows' => $rows]);
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
@@ -119,6 +121,7 @@ class JobController extends Controller
 
     function UpdateJob(Request $request)
     {
+        // return $request;
         try {
             $user_id = Auth::id();
             $request->validate([
@@ -165,12 +168,11 @@ class JobController extends Controller
                     ]
                 );
                 return response()->json(['status' => 'success', 'message' => "Request Successful"]);
-            }else {
+            } else {
                 return response()->json(['status' => 'fail', 'message' => "Incomplete Profile"]);
             }
         } catch (Exception $e) {
             return response()->json(['status' => 'fail', 'message' => $e->getMessage()]);
         }
-
     }
 }
