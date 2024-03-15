@@ -10,20 +10,10 @@
                         <div class="row">
                             <div class="col-12 p-1">
                                 <label class="form-label">Name</label>
-                                <input type="text" class="form-control" id="pluginName">
-
-                                {{-- <label class="form-label mt-2">Active</label>
-                                <select type="text" class="form-control" id="pluginActive">
-                                    <option value="">Select</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">In Active</option>
-                                </select> --}}
+                                <input type="text" class="form-control" id="pluginName"/>
 
                                 <label class="form-label mt-2">user</label>
-                                <select type="text" class="form-control" id="pluginUser">
-                                    
-                                </select>
-
+                                <select type="text" class="form-control" id="pluginUser"></select>
                             </div>
                         </div>
                     </div>
@@ -51,8 +41,6 @@ async function getUsers() {
                 options +=`<option value="${item['id']}">${item['full_name']}</option>`
             })
             pluginUser.innerHTML = options;
-
-
         }catch (e) {
             unauthorized(e.response.status)
         }
