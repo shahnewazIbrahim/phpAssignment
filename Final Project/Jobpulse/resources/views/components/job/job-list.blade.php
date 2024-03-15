@@ -17,6 +17,7 @@
                     <th>Type</th>
                     <th>CreatedBy</th>
                     <th>Specialities</th>
+                    <th>Salary</th>
                     <th>Deadline</th>
                     <th>Action</th>
                 </tr>
@@ -52,6 +53,7 @@ async function getList() {
                     <td>${item['type']}</td>
                     <td>${item['user']['full_name']}</td>
                     <td>${item['specialities']}</td>
+                    <td>${item['salary']}</td>
                     <td>${item['deadline']}</td>
                     <td>
                         <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>

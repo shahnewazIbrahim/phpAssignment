@@ -12,7 +12,7 @@
                                 <label class="form-label">Name</label>
                                 <input type="text" class="form-control" id="pluginName"/>
 
-                                <label class="form-label mt-2">user</label>
+                                <label class="form-label mt-2">User</label>
                                 <select type="text" class="form-control" id="pluginUser"></select>
                             </div>
                         </div>

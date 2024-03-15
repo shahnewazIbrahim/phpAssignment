@@ -30,6 +30,13 @@
                     </div>
                 </div>
 
+                <!-- Requirements -->
+                <div class="mb-4">
+                    <h4>Experience</h4>
+                    <div id="experience">
+                    </div>
+                </div>
+
                 <!-- Specialties -->
                 <div class="mb-4">
                     <h4>Specialties</h4>
@@ -99,6 +106,7 @@
                 document.getElementById('employeeStatus').innerHTML = res.data['rows']['employee_status']
                 document.getElementById('salary').innerHTML = res.data['rows']['salary'] + " tk."
                 document.getElementById('requirements').innerHTML = res.data['rows']['requirements']
+                document.getElementById('experience').innerHTML = res.data['rows']['experience']
                 document.getElementById('specialties').innerHTML = specialities
                 document.getElementById('responsibilities').innerHTML = res.data['rows']['responsibilities']
                 document.getElementById('companyName').innerHTML = res.data['rows']['user']['full_name']

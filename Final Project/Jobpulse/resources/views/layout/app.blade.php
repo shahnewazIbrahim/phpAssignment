@@ -67,6 +67,9 @@
                             <h6 id="userName">User Name</h6>
                             <hr class="user-dropdown-divider  p-0"/>
                         </div>
+                        <a href="{{url('/dashboard')}}" class="side-bar-item">
+                            <span class="side-bar-item-caption">Dashboard</span>
+                        </a>
                         <a href="{{url('/userProfile')}}" class="side-bar-item">
                             <span class="side-bar-item-caption">Profile</span>
                         </a>
