@@ -137,6 +137,7 @@
                     
                     if(res.data['status']==="success"){
                         successToast(res.data['message'])
+                        getDetail()
                     }else{
                         errorToast(res.data['message'])
                     }
