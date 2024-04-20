@@ -9,14 +9,14 @@
             <div class="modal-footer justify-content-end">
                 <div>
                     <button type="button" id="delete-modal-close" class="btn bg-gradient-success mx-2" data-bs-dismiss="modal">Cancel</button>
-                    <button onclick="itemDelete()" type="button" id="confirmDelete" class="btn bg-gradient-danger" >Delete</button>
+                    <button onclick="userDelete()" type="button" id="confirmDelete" class="btn bg-gradient-danger" >Delete</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
+{{-- <script>
 
      async  function  itemDelete(){
          try {
@@ -36,4 +36,4 @@
              unauthorized(e.response.status)
          }
      }
-</script>
+</script> --}}

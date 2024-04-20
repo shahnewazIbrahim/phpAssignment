@@ -29,79 +29,8 @@
             </div>
             <div class="modal-footer">
                 <button id="update-modal-close" class="btn bg-gradient-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                <button onclick="Update()" id="update-btn" class="btn bg-gradient-success" >Update</button>
+                <button onclick="userUpdate()" id="update-btn" class="btn bg-gradient-success" >Update</button>
             </div>
         </div>
     </div>
 </div>
-
-
-<script>
-
-
-   async function FillUpUpdateForm(id){
-       try {
-           document.getElementById('updateID').value=id;
-           showLoader();
-           let res=await axios.post("/api/admin-by-id",{id:id},HeaderToken())
-           hideLoader();
-
-           document.getElementById('adminFirstNameUpdate').value=res.data['rows']['firstName'];
-           document.getElementById('adminLastNameUpdate').value=res.data['rows']['lastName'];
-           document.getElementById('adminEmailUpdate').value=res.data['rows']['email'];
-           document.getElementById('adminMobileUpdate').value=res.data['rows']['mobile'];
-
-           const roles = res.data['rows']['allRoles']
-           const roleIds = res.data['rows']['roleIds']
-            if (roles) {
-                let options = `<option value="">Select</option>`
-                for (const roleId in roles) {
-                    options += `<option value="${roleId}" ${roleIds.indexOf(parseInt(roleId)) != -1 ? 'selected' :''}>${roles[roleId]}</option>`
-                }
-                document.getElementById('adminRoleUpdate').innerHTML=options;
-            }
-       }catch (e) {
-           unauthorized(e.response.status)
-       }
-    }
-
-
-
-
-    async function Update() {
-
-       try {
-            // return console.log(document.getElementById('updateID').value);
-            let data = {
-                id:  document.getElementById('updateID').value,
-                firstName: document.getElementById('adminFirstNameUpdate').value,
-                lastName: document.getElementById('adminLastNameUpdate').value,
-                email: document.getElementById('adminEmailUpdate').value,
-                mobile: document.getElementById('adminMobileUpdate').value,
-                roleId: document.getElementById('adminRoleUpdate').value,
-                updateID:  document.getElementById('updateID').value,
-            };
-
-           document.getElementById('update-modal-close').click();
-           showLoader();
-           let res = await axios.post("/api/update-admin",data,HeaderToken())
-           hideLoader();
-        //    return console.log(res);
-
-           if(res.data['status']==="success"){
-               document.getElementById("update-form").reset();
-               successToast(res.data['message'])
-               await getList();
-           }
-           else{
-               errorToast(res.data['message'])
-           }
-
-       }catch (e) {
-           unauthorized(e.response.status)
-       }
-    }
-
-
-
-</script>

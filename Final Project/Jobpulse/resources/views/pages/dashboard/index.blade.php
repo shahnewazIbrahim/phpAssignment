@@ -1,6 +1,8 @@
 @extends('layout.sidenav-layout')
 
-@section('content')
+<div id="app"></div>
+
+{{-- @section('content')
 
     <div class="container-fluid">
     <div class="row">
@@ -37,34 +39,34 @@
 
 <script>
 
-getList();
+    getList();
 
 
-async function getList() {
+    async function getList() {
 
-    try {
-        showLoader();
-        let res=await axios.get("/api/count-properties",HeaderToken());
-        hideLoader();
+        try {
+            showLoader();
+            let res=await axios.get("/api/count-properties",HeaderToken());
+            hideLoader();
 
-        let category=$("#applyJob");
-        let product=$("#employee");
-        let invoice=$("#job");
+            let category=$("#applyJob");
+            let product=$("#employee");
+            let invoice=$("#job");
 
-        category.text(`${res.data["data"]["applyJobCount"]} Apply Jobs`); 
-        product.text(`${res.data["data"]["employeeCount"]} Employees`); 
-        invoice.text(`${res.data["data"]["jobCount"]} Jobs`); 
+            category.text(`${res.data["data"]["applyJobCount"]} Apply Jobs`); 
+            product.text(`${res.data["data"]["employeeCount"]} Employees`); 
+            invoice.text(`${res.data["data"]["jobCount"]} Jobs`); 
 
 
-    }catch (e) {
-        unauthorized(e.response.status)
+        }catch (e) {
+            unauthorized(e.response.status)
+        }
+
     }
 
-}
 
-
-</script>
+</scrip>
 
 
 
-@endsection
+@endsection --}}

@@ -41,67 +41,8 @@
                 </div>
                 <div class="modal-footer">
                     <button id="modal-close" class="btn bg-gradient-primary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                    <button onclick="Save()" id="save-btn" class="btn bg-gradient-success" >Save</button>
+                    <button onclick="userSave()" id="save-btn" class="btn bg-gradient-success" >Save</button>
                 </div>
             </div>
     </div>
 </div>
-
-
-<script>
-    async function getRoles(){
-       try {
-           showLoader();
-           let res=await axios.get("/api/list-role",HeaderToken());
-           hideLoader();
-        //    return console.log({res});
-
-        //    document.getElementById('adminFirstNameUpdate').value=res.data['rows']['firstName'];
-        //    document.getElementById('adminLastNameUpdate').value=res.data['rows']['lastName'];
-        //    document.getElementById('adminEmailUpdate').value=res.data['rows']['email'];
-        //    document.getElementById('adminMobileUpdate').value=res.data['rows']['mobile'];
-
-           const roles = res.data['rows']
-            if (roles) {
-                let options = `<option value="">Select</option>`
-                for (const roleId in roles) {
-                    console.log(roles[roleId]);
-                    options += `<option value="${roles[roleId]['id']}">${roles[roleId]['name']}</option>`
-                }
-                document.getElementById('role').innerHTML=options;
-            }
-       }catch (e) {
-           unauthorized(e.response.status)
-       }
-    }
-    getRoles()
-    async function Save() {
-        try {
-            let data = {
-               firstName : document.getElementById('firstName').value,
-               lastName : document.getElementById('lastName').value,
-               email : document.getElementById('email').value,
-               mobile : document.getElementById('mobile').value,
-               password : document.getElementById('mobile').value,
-               roleId: document.getElementById('role').value,
-
-            }
-            document.getElementById('modal-close').click();
-            showLoader();
-            let res = await axios.post("/api/create-admin",data,HeaderToken())
-            hideLoader();
-
-            if(res.data['status']==="success"){
-                successToast(res.data['message']);
-                document.getElementById("save-form").reset();
-                await getList();
-            }
-            else{
-                errorToast(res.data['message'])
-            }
-
-        }catch (e) {
-            unauthorized(e.response.status)
-        }
-    }
-</script>

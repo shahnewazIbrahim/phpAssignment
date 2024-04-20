@@ -83,12 +83,12 @@
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
 
-    <a href="{{url("users")}}"  id="userOption" class="side-bar-item {{ request()->segment(1) == 'users' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a href="#" onclick="loadView(this,'/users')"  id="userOption" class="side-bar-item {{ request()->segment(1) == 'users' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">User</span>
     </a>
 
-    <a href="{{url("/admin/role")}}" id="rolesOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
+    <a  onclick="loadView(this,'/admin/role')" id="rolesOption" class="side-bar-item {{ request()->segment(2) == 'role' ? 'side-bar-item-active' : '' }}"  style="display:none">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Roles</span>
     </a>
@@ -144,7 +144,9 @@
     let activatedPlugins = '';
     getUser();
 
-    async function getUser() {
+    console.log(232);
+
+async function getUser() {
 
     try {
         showLoader();
@@ -159,6 +161,36 @@
         unauthorized(e.response.status)
     }
     
+}
+
+async function loadView(event,url) {
+    
+    showLoader();
+    let res=await axios.get(url,HeaderToken());
+    hideLoader();
+    document.getElementById('app').innerHTML = res.data
+
+    document.querySelectorAll('.side-bar-item').forEach(element => {
+        element.classList.remove('side-bar-item-active');
+        
+    });
+    event.classList.add('side-bar-item-active');
+    
+    history.pushState({"html":res.data,"pageTitle":"res"},"", url)
+
+    switch (url) {
+        case "/users":
+            getUserList()
+            break;
+
+        case "/admin/role":
+            getRoleList()
+            break;
+    
+        default:
+            break;
+    }
+
 }
 
 function menuHandler(roles) {
