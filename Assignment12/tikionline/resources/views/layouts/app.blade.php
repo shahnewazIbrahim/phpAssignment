@@ -6,7 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiki Online Ticketing System</title>
-
+    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/animate.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/style.css')}}" rel="stylesheet" />
+    <link href="{{asset('css/toastify.min.css')}}" rel="stylesheet" />
     <!-- Add your stylesheets, scripts, or other meta tags here -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>

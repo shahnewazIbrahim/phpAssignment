@@ -15,6 +15,9 @@
             <label for="email">Email:</label>
             <input type="email" name="email" required>
 
+            <label for="password">password:</label>
+            <input type="password" name="password" required>
+
             <button type="submit">Register User</button>
         </form>
     </div>

@@ -11,7 +11,8 @@ class TripController extends Controller
     public function index()
     {
         $trips = Trip::all();
-        return view('trips.index', compact('trips'));
+        $locations = Location::all();
+        return view('trips.index', compact('trips', 'locations'));
     }
 
     public function create()
