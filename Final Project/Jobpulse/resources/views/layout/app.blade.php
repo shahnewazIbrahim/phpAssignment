@@ -16,8 +16,14 @@
     <script src="{{ asset('js/config.js') }}"></script>
 </head>
 
-<body>
-
+<body>           
+    <style>
+        .nav-link:hover{
+            background-color: #fff !important;
+            color: black !important;
+            border-radius: 3px;
+        }
+    </style>
     <div id="loader" class="LoadingOverlay d-none">
         <div class="Line-Progress">
             <div class="indeterminate"></div>
@@ -31,7 +37,6 @@
                 <span class="fs-4">JobPulse</span>
             </a>
             <div>
-                
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-5">
                     <li class="nav-item {{ request()->segment(1) == '' ? 'bg-white rounded-2' : '' }}">
                         <a href="{{ url('/') }}" class="nav-link px-2  {{ request()->segment(1) == '' ? 'text-black' : 'text-white' }}">

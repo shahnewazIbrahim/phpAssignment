@@ -54,7 +54,7 @@ async function getAboutSetting() {
 
         res.data['company'].forEach(function (item) {
             companyContainer += `
-                <div class="card border-0 shadow-sm rounded" style="width: 16rem;">
+                <div class="card border-0 shadow-sm btn-secondary rounded" style="width: 16rem;">
                     <div class="card-body text-center">
                         <h6 class="card-title text-dark">${item['firstName']}</h6>
                     </div>
