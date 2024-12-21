@@ -1,54 +1,46 @@
 <div class="container-fluid">
     <div class="row">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-        <div class="card px-5 py-5">
-            <h4 class="text-center">All Jobs</h4>
-            <hr class="bg-dark">
-            <div class="d-flex justify-content-center align-items-center gap-3" id="dataContainer">
-            
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="card px-5 py-5 border-0 shadow-sm rounded">
+                <h5 class="text-center pb-3 text-uppercase text-primary">All Jobs</h5>
+                <hr class="bg-dark">
+                <div class="d-flex flex-wrap justify-content-center gap-4" id="dataContainer">
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 
 <script>
-
 getList();
 
-
 async function getList() {
-
     try {
         showLoader();
-        let res=await axios.get("/api/list-job",HeaderToken());
+        let res = await axios.get("/api/list-job", HeaderToken());
         hideLoader();
-        let html = ''
-        let dataContainer=document.getElementById("dataContainer");
+        let html = '';
+        let dataContainer = document.getElementById("dataContainer");
 
-        res.data['rows'].forEach(function (item,index) {
+        res.data['rows'].forEach(function (item) {
             html += `
-                <div class="card" style="width: 18rem;">
+                <div class="card border-0 shadow-sm rounded" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">${item['type']}</h5>
-                        <p class="card-text">Salary -${item['salary']}</p>
-                        <p class="card-text">${item['specialities']}</p>
-                        <p class="card-text">Offered By- <b>${item['user']['full_name']}</b></p>
-                        <div class="my-5">
-                            <a href="job/${item['id']}" class="btn btn-primary stretched-link">Details</a>
-                        </div>
+                        <h6 class="card-title text-primary">${item['type']}</h6>
+                        <p class="card-text text-secondary">Salary: <strong>${item['salary']}</strong></p>
+                        <p class="card-text text-secondary">Specialities: ${item['specialities']}</p>
+                        <p class="card-text text-secondary">Offered By: <strong>${item['user']['full_name']}</strong></p>
                     </div>
-                </div>
-                `
-        })
-        dataContainer.innerHTML = html
+                    <div class="card-footer bg-white border-0 d-flex justify-content-center">
+                        <a href="job/${item['id']}" class="btn btn-sm btn-primary">Details</a>
+                    </div>
+                </div>`;
+        });
 
-    }catch (e) {
-        unauthorized(e.response.status)
+        dataContainer.innerHTML = html;
+
+    } catch (e) {
+        unauthorized(e.response.status);
     }
-
 }
-
-
 </script>
-

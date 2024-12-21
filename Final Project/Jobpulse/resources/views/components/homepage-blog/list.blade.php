@@ -1,49 +1,44 @@
 <div class="container-fluid">
     <div class="row">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-        <div class="card px-5 py-5">
-            <hr class="bg-dark "/>
-            <div class="d-flex justify-content-center gap-3" id="dataContainer">
-                
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="card px-5 py-5 border-0 shadow-sm rounded">
+                <h5 class="text-center pb-3 text-uppercase text-primary">Blog List</h5>
+                <hr class="bg-dark" />
+                <div class="d-flex flex-wrap justify-content-center gap-4" id="dataContainer">
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 
 <script>
-
 getList();
 
-
 async function getList() {
-
-    // try {
+    try {
         showLoader();
-        let res=await axios.get("/api/list-blog",HeaderToken());
+        let res = await axios.get("/api/list-blog", HeaderToken());
         hideLoader();
-        let html = ''
-        let dataContainer=document.getElementById("dataContainer");
+        let html = '';
+        let dataContainer = document.getElementById("dataContainer");
 
-        res.data['rows'].forEach(function (item,index) {
+        res.data['rows'].forEach(function (item) {
             html += `
-                <div class="card" style="width: 18rem;">
+                <div class="card border-0 shadow-sm rounded" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Written By -${item['user']['full_name']}</h5>
-                        <p class="card-text">${item['text'].length > 50 ? item['text'].substring(0,50) + '...' : item['text']}</p>
+                        <h6 class="card-title text-primary">Written By - ${item['user']['full_name']}</h6>
+                        <p class="card-text text-secondary">${item['text'].length > 50 ? item['text'].substring(0, 50) + '...' : item['text']}</p>
                     </div>
-                    <a href="blog/${item['id']}" class="btn btn-primary stretched-link">Details</a>
-                </div>
-                `
-        })
-        dataContainer.innerHTML = html
+                    <div class="card-footer bg-white border-0 d-flex justify-content-center">
+                        <a href="blog/${item['id']}" class="btn btn-sm btn-primary">Details</a>
+                    </div>
+                </div>`;
+        });
 
-    // }catch (e) {
-    //     unauthorized(e.response.status)
-    // }
+        dataContainer.innerHTML = html;
 
+    } catch (e) {
+        unauthorized(e.response.status);
+    }
 }
-
-
 </script>
-
