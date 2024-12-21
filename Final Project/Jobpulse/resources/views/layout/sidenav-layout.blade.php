@@ -155,6 +155,9 @@
         const userName= document.getElementById('userName')
         userName.innerText = res.data?.full_name;
         // console.log({activatedPlugins});
+        if (activatedPlugins.length) {
+            document.getElementById('pluginOption').style.display= 'block'
+        }
     }catch (e) {
         unauthorized(e.response.status)
     }
