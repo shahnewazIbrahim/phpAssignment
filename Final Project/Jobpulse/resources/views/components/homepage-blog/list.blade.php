@@ -5,6 +5,9 @@
                 <h5 class="text-center pb-3 text-uppercase text-primary">Blog List</h5>
                 <hr class="bg-dark" />
                 <div class="d-flex flex-wrap justify-content-center gap-4" id="dataContainer">
+                    <div class="spinner-border text-primary" role="status">
+                
+                    </div>
                 </div>
             </div>
         </div>

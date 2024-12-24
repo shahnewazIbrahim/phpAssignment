@@ -4,6 +4,9 @@
 <div class="row">
     <div class="col">
         <div class="d-flex justify-content-center" role="alert" id="banner">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
         </div>
     </div>
 </div>
@@ -13,6 +16,9 @@
     <div class="d-flex justify-content-center align-content-center">
         <div class="col-10">
             <div id="companyHistory" class="card border-0 shadow-sm rounded p-4 bg-light">
+                <div class="spinner-border text-primary" role="status">
+                
+                </div>
             </div>
         </div>
     </div>
@@ -23,6 +29,9 @@
     <div class="d-flex justify-content-center align-content-center">
         <div class="col-10">
             <div id="ourVision" class="card border-0 shadow-sm rounded p-4 bg-light">
+                <div class="spinner-border text-primary" role="status">
+                
+                </div>
             </div>
         </div>
     </div>
@@ -31,6 +40,9 @@
 <div class="p-4">
     <h5 class="text-center pb-3 text-uppercase text-primary">Companies Believe in Us</h5>
     <div class="d-flex flex-wrap justify-content-center gap-3" id="companySection">
+        <div class="spinner-border text-primary" role="status">
+                
+        </div>
     </div>
 </div>
 

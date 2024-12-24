@@ -4,6 +4,9 @@
 <div class="row">
     <div class="col">
         <div class="d-flex justify-content-center" role="alert" id="banner">
+            <div class="spinner-border text-primary mt-4" role="status">
+                
+            </div>
         </div>
     </div>
 </div>
@@ -11,12 +14,18 @@
 <div class="p-4">
     <h5 class="text-center pb-3 text-uppercase text-primary">Top Companies</h5>
     <div class="d-flex flex-wrap justify-content-center gap-3" id="companySection">
+        <div class="spinner-border text-primary" role="status">
+            
+        </div>
     </div>
 </div>
 <div class="p-4">
     <h5 class="text-center pb-3 text-uppercase text-primary">Recent Published Jobs</h5>
     <div class="d-flex justify-content-center">
         <div class="col-12 col-md-8" id="jobSection">
+            <div class="spinner-border text-primary" role="status">
+                
+            </div>
         </div>
     </div>
 </div>
