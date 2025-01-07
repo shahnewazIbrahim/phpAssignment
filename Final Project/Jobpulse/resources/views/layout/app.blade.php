@@ -34,7 +34,12 @@
         <div class="d-flex justify-content-between align-items-center container">
             <a href="{{ url('/') }}"
                 class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <span class="fs-4">JobPulse</span>
+                <span class="fs-4">
+                    <div class="d-inline-block img-fluid">
+                        <img class="rounded-circle" width="50" height="35" src="{{ asset('images/jobpulseLogo.webp') }}" alt="">
+                    </div>
+                    JobPulse
+                </span>
             </a>
             <div>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-5">
