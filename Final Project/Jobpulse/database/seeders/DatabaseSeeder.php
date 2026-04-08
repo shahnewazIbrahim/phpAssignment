@@ -16,6 +16,16 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PermissionSeeder::class,
             RoleSeeder::class,
+            UserRoleSeeder::class,
+            CategorySeeder::class,
+            EmployeeSeeder::class,
+            JobSeeder::class,
+            AboutSettingSeeder::class,
+            BlogSeeder::class,
+            CandidateSeeder::class,
+            ContactSettingSeeder::class,
+            PluginSeeder::class,
+            ApplyJobSeeder::class,
         ]);
     }
 }
