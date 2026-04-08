@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-12 p-1">
                                 <label class="form-label">Banner</label>
-                                <input type="file" class="form-control" id="aboutBanner">
+                                <input type="file" class="form-control" id="aboutBanner" accept="image/*">
 
                                 <label class="form-label mt-2">Company History</label>
                                 <textarea type="text" class="form-control" name="companyHistory" id="aboutCompanyHistory"></textarea>
@@ -44,23 +44,24 @@ CKEDITOR.replace( 'aboutOurVision');
             let aboutBanner=document.getElementById('aboutBanner').files[0];
             let aboutCompanyHistory = companyHistoryEditor.getData();
             let aboutOurVision = ourVisionEditor.getData();
+
+            if (!aboutBanner) {
+                errorToast('Please select a banner image');
+                return;
+            }
             
             document.getElementById('modal-close').click();
 
             let formData = new FormData();
-            formData.append('banner', aboutBanner); // Append the image file
+            formData.append('banner', aboutBanner);
             formData.append('companyHistory', aboutCompanyHistory);
             formData.append('ourVision', aboutOurVision);
-
-            // let PostBody= {
-            //     "banner":aboutBanner,
-            //     "companyHistory":aboutCompanyHistory,
-            //     "ourVision":aboutOurVision,
-            // }
 
             showLoader();
             let res = await axios.post("/api/create-about",formData,HeaderToken())
             document.getElementById("save-form").reset();
+            companyHistoryEditor.setData('');
+            ourVisionEditor.setData('');
             hideLoader();
 
             if(res.data['status']==="success"){

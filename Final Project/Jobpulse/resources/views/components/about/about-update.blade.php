@@ -11,8 +11,8 @@
                             
                             <div class="col-12 p-1">
                                 <div id="preview"></div>
-                                <label class="form-label mt-2">Type</label>
-                                <input type="file" class="form-control" id="aboutBannerUpdate">
+                                <label class="form-label mt-2">Banner</label>
+                                <input type="file" class="form-control" id="aboutBannerUpdate" accept="image/*">
                                 <label class="form-label mt-2">Company History</label>
                                 <textarea type="text" class="form-control" id="aboutCompanyHistoryUpdate"></textarea>
                                 <label class="form-label mt-2">Our Vision</label>
@@ -51,9 +51,8 @@ CKEDITOR.replace( 'aboutOurVisionUpdate');
             document.getElementById('preview').innerHTML=`
                 <img src="${window.location.origin}/${res.data['rows']['banner']}" style="max-width: 100px;"/>
             `;
-            
-            // document.getElementById('aboutBannerUpdate').value =res.data['rows']['banner'];
-            document.getElementById('aboutBannerUpdate').files[0] = res.data['rows']['banner'];
+
+            document.getElementById('aboutBannerUpdate').value = '';
             document.getElementById('aboutCompanyHistoryUpdate').value= companyHistoryEditor.setData(res.data['rows']['company_history']);
             document.getElementById('aboutOurVisionUpdate').value= ourVisionEditor.setData(res.data['rows']['our_vision']);
         }catch (e) {
@@ -69,22 +68,22 @@ CKEDITOR.replace( 'aboutOurVisionUpdate');
             let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistoryUpdate'];
             let ourVisionEditor = CKEDITOR.instances['aboutOurVisionUpdate'];
 
-            let aboutBannerUpdate = document.getElementById('aboutBannerUpdate').value;
+            let aboutBannerUpdate = document.getElementById('aboutBannerUpdate').files[0];
             let aboutCompanyHistoryUpdate = companyHistoryEditor.getData();
             let aboutOurVisionUpdate = ourVisionEditor.getData();
             let updateID = document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();
-            
-            // return console.log(343);
-            let PostBody= {
-                "banner":aboutBannerUpdate,
-                "companyHistory":aboutCompanyHistoryUpdate,
-                "ourVision":aboutOurVisionUpdate,
-                "id":updateID
+
+            let formData = new FormData();
+            if (aboutBannerUpdate) {
+                formData.append('banner', aboutBannerUpdate);
             }
+            formData.append('companyHistory', aboutCompanyHistoryUpdate);
+            formData.append('ourVision', aboutOurVisionUpdate);
+            formData.append('id', updateID);
 
             showLoader();
-            let res = await axios.post("/api/update-about",PostBody,HeaderToken())
+            let res = await axios.post("/api/update-about",formData,HeaderToken())
             hideLoader();
             if(res.data['status']==="success"){
                 successToast(res.data['message'])

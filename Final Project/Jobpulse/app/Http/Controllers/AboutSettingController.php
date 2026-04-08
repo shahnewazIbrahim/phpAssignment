@@ -14,11 +14,9 @@ class AboutSettingController extends Controller
 
     function CreateAboutSetting(Request $request)
     {
-        // return $request;
         try {
-            $user_id = Auth::id();
             $request->validate([
-                'banner' => 'required',
+                'banner' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
                 'companyHistory' => 'required',
                 'ourVision' => 'required',
             ]);
@@ -27,6 +25,7 @@ class AboutSettingController extends Controller
                 $file = $request->file('banner');
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
+                File::ensureDirectoryExists(public_path('uploads'));
                 $file->move(public_path('uploads/'), $filename);
                 $url = 'uploads/' . $filename;
             }
@@ -85,11 +84,9 @@ class AboutSettingController extends Controller
 
     function UpdateAboutSetting(Request $request)
     {
-        // return $request;
         try {
-            $user_id = Auth::id();
             $request->validate([
-                // 'banner' => 'required',
+                'banner' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
                 'companyHistory' => 'required',
                 'ourVision' => 'required',
                 "id" => 'required|string',
@@ -98,6 +95,7 @@ class AboutSettingController extends Controller
                 $file = $request->file('banner');
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
+                File::ensureDirectoryExists(public_path('uploads'));
                 $file->move(public_path('uploads/'), $filename);
                 $url = 'uploads/' . $filename;
                 AboutSetting::where('id', $request->input('id'))->update([
