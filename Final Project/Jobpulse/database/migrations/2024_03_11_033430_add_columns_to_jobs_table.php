@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->longText('requirements')->after('amount');
+            $table->longText('requirements')->after('salary');
             $table->longText('experience')->nullable();
             $table->longText('responsibilities');
             $table->longText('compensations');
@@ -27,12 +27,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->dropColumn('requirements');
-            $table->dropColumn('experience')->nullable();
-            $table->dropColumn('responsibilities');
-            $table->dropColumn('compensations');
-            $table->dropColumn('location');
-            $table->dropColumn('employee_status',['Full Time', 'Part time']);
+            $table->dropColumn([
+                'requirements',
+                'experience',
+                'responsibilities',
+                'compensations',
+                'location',
+                'employee_status',
+            ]);
         });
     }
 };
