@@ -103,7 +103,8 @@ a:hover {
   top: 0;
   z-index: 1030;
   backdrop-filter: blur(18px);
-  background: rgba(10, 24, 44, 0.84);
+  background:
+    linear-gradient(135deg, rgba(8, 21, 40, 0.94), rgba(24, 46, 79, 0.90));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -136,6 +137,91 @@ a:hover {
   border-radius: 999px;
   padding-inline: 18px;
   font-weight: 700;
+}
+
+.jp-header-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 96px;
+}
+
+.jp-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.jp-brand-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.jp-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.jp-brand-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.jp-header-center {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.jp-header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.jp-header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.jp-header-support {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+
+.jp-header-support span {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+}
+
+.jp-header-support strong {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.jp-auth-cluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .jp-page {
@@ -429,6 +515,7 @@ a:hover {
 
 .jp-footer {
   background:
+    radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 24%),
     linear-gradient(135deg, rgba(7, 18, 34, 0.98), rgba(17, 46, 79, 0.96));
   color: rgba(255, 255, 255, 0.8);
 }
@@ -441,12 +528,83 @@ a:hover {
 }
 
 .jp-footer .footer-panel {
-  padding: 40px 0 28px;
+  padding: 58px 0 28px;
 }
 
 .jp-footer-brand {
   font-family: 'Space Grotesk', sans-serif !important;
   color: #fff;
+}
+
+.jp-footer-top {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.jp-footer-card {
+  padding: 26px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.jp-footer-card h5,
+.jp-footer-card h4 {
+  color: #fff;
+}
+
+.jp-footer-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jp-footer-card li + li {
+  margin-top: 10px;
+}
+
+.jp-footer-card a {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.jp-footer-card a:hover {
+  color: #fff;
+}
+
+.jp-footer-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.jp-footer-metric {
+  min-width: 120px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.jp-footer-metric strong {
+  display: block;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.jp-footer-metric span {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.86rem;
+}
+
+.jp-footer-note {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .jp-footer-bottom {
@@ -540,6 +698,95 @@ a:hover {
   padding: 24px;
 }
 
+.jp-job-detail-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  padding: 36px;
+  background:
+    linear-gradient(135deg, rgba(7, 24, 48, 0.96), rgba(15, 110, 253, 0.78)),
+    #0e223d;
+  box-shadow: var(--jp-shadow);
+}
+
+.jp-job-detail-hero h1,
+.jp-job-detail-hero p,
+.jp-job-detail-hero .jp-eyebrow,
+.jp-job-detail-hero .jp-meta span,
+.jp-job-detail-hero .jp-stat-card span {
+  color: #fff;
+}
+
+.jp-job-detail-hero .jp-meta {
+  margin-top: 18px;
+}
+
+.jp-job-detail-hero .jp-meta strong {
+  color: #fff;
+}
+
+.jp-detail-main,
+.jp-detail-sidebar {
+  height: 100%;
+}
+
+.jp-detail-sidebar {
+  position: sticky;
+  top: 104px;
+  padding: 24px;
+}
+
+.jp-detail-section {
+  padding: 24px;
+}
+
+.jp-detail-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.jp-detail-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jp-detail-html p:last-child,
+.jp-detail-html ul:last-child,
+.jp-detail-html ol:last-child {
+  margin-bottom: 0;
+}
+
+.jp-detail-facts {
+  display: grid;
+  gap: 14px;
+}
+
+.jp-detail-fact {
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: var(--jp-surface-soft);
+}
+
+.jp-detail-fact .label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jp-primary-deep);
+  margin-bottom: 6px;
+}
+
+.jp-detail-fact .value {
+  color: var(--jp-text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 .jp-content-loading {
   position: relative;
   pointer-events: none;
@@ -562,6 +809,30 @@ a:hover {
 }
 
 @media (max-width: 991.98px) {
+  .jp-header-shell,
+  .jp-header-center,
+  .jp-header-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .jp-header-center {
+    justify-content: flex-start;
+  }
+
+  .jp-header-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .jp-header-support {
+    align-items: flex-start;
+  }
+
+  .jp-footer-top {
+    grid-template-columns: 1fr;
+  }
+
   .jp-nav-links {
     gap: 2px;
   }
@@ -575,11 +846,28 @@ a:hover {
   .jp-hero-stats {
     grid-template-columns: 1fr;
   }
+
+  .jp-detail-sidebar {
+    position: static;
+  }
 }
 
 @media (max-width: 767.98px) {
   .jp-page {
     padding-top: 18px;
+  }
+
+  .jp-header-shell {
+    min-height: auto;
+    padding-block: 10px;
+  }
+
+  .jp-auth-cluster {
+    width: 100%;
+  }
+
+  .jp-auth-cluster .btn {
+    flex: 1 1 auto;
   }
 
   .jp-navbar .container {
