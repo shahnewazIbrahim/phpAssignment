@@ -125,7 +125,7 @@
 
         <a href="{{url('/admin/plugin')}}" id="pluginOption" class="side-bar-item {{ request()->segment(2) == 'plugin' ? 'side-bar-item-active' : '' }}" style="display:none" data-async-nav="true">
             <i class="bi bi-puzzle-fill side-bar-item-icon"></i>
-            <span class="side-bar-item-caption">Plugin</span>
+            <span class="side-bar-item-caption">Feature Access</span>
         </a>
     </nav>
 </aside>
@@ -257,7 +257,7 @@
             document.getElementById('appliedJobsOption').style.display = 'block';
         }
 
-        if (roles.includes('Company') && activatedPlugins.includes('Blog')) {
+        if (roles.includes('Company') && activatedPlugins.includes('blog_management')) {
             document.getElementById('blogOption').style.display = 'block';
         }
 

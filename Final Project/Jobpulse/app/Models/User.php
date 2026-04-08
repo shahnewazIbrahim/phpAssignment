@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -44,5 +45,21 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->firstName} {$this->lastName}";
+    }
+
+    public function hasActivePlugin(string $slug): bool
+    {
+        if ($this->hasRole('Owner')) {
+            return true;
+        }
+
+        $normalizedSlug = Str::slug($slug, '_');
+
+        return $this->plugins
+            ->where('active', 1)
+            ->contains(function ($plugin) use ($normalizedSlug) {
+                $currentSlug = $plugin->slug ?: Str::slug($plugin->name, '_');
+                return $currentSlug === $normalizedSlug;
+            });
     }
 }

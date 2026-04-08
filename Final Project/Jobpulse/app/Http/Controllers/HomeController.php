@@ -22,10 +22,19 @@ class HomeController extends Controller
     {
         $data = [];
         $data['company'] = User::where('type', 'Company')->get();
-        $data['job'] = Job::with([
+        $jobs = Job::with([
             'applyJobs',
-            'user:id,firstName,lastName'
+            'user:id,firstName,lastName',
+            'user.plugins:id,name,slug,active,user_id'
         ])->get();
+
+        $data['job'] = $jobs
+            ->map(function ($job) {
+                $job->is_featured = (bool) optional($job->user)->hasActivePlugin('featured_jobs');
+                return $job;
+            })
+            ->sortByDesc('is_featured')
+            ->values();
         $data['apply_job_ids'] = ApplyJob::where('user_id', Auth::id())->pluck('job_id')->toArray();
         return $data;
     }

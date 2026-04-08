@@ -122,7 +122,9 @@ async function getHomepage() {
 
             jobContainer += `
                 <div class="jp-job-card">
-                    <span class="jp-eyebrow text-dark" style="background: var(--jp-surface-soft); color: var(--jp-primary-deep);">Now Hiring</span>
+                    <span class="jp-eyebrow text-dark" style="background: ${item['is_featured'] ? 'linear-gradient(135deg, #ffcb6b, #ff9f43)' : 'var(--jp-surface-soft)'}; color: ${item['is_featured'] ? '#1d2634' : 'var(--jp-primary-deep)'};">
+                        ${item['is_featured'] ? 'Featured Job' : 'Now Hiring'}
+                    </span>
                     <h4>${item['type']}</h4>
                     <p>Published by <strong>${item['user']['full_name']}</strong> with a clearly defined hiring brief.</p>
                     <div class="jp-chip-row">${specialities}</div>

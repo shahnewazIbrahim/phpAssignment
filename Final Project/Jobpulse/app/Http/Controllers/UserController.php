@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Testing\Fluent\Concerns\Has;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -179,7 +180,11 @@ class UserController extends Controller
         $user = User::with('plugins')->findOrFail(Auth::id());
         $user->assignedRole = $user->roles->pluck('name')->toArray() ?? [];
         $user->applied_ids = $user->applyJob->pluck('job_id')->toArray() ?? [];
-        $user->activated_plugins = $user->plugins->where('active', 1)->pluck('name')->toArray() ?? [];
+        $user->activated_plugins = $user->plugins
+            ->where('active', 1)
+            ->map(fn ($plugin) => $plugin->slug ?: Str::slug($plugin->name, '_'))
+            ->values()
+            ->toArray();
         return $user;
     }
 

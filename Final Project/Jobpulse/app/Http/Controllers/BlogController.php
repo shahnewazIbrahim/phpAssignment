@@ -11,11 +11,25 @@ use Illuminate\View\View;
 
 class BlogController extends Controller
 {
+    private function ensureBlogAccess(Request $request): ?\Illuminate\Http\JsonResponse
+    {
+        if ($request->user()->hasRole('Company') && !$request->user()->hasActivePlugin('blog_management')) {
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'Blog Management feature is not active for this company.',
+            ]);
+        }
+
+        return null;
+    }
 
     function CreateBlog(Request $request)
     {
-        // return $request;
         try {
+            if ($response = $this->ensureBlogAccess($request)) {
+                return $response;
+            }
+
             $user_id = Auth::id();
             $request->validate([
                 'text' => 'required|string',
@@ -36,6 +50,10 @@ class BlogController extends Controller
     function DeleteBlog(Request $request)
     {
         try {
+            if ($response = $this->ensureBlogAccess($request)) {
+                return $response;
+            }
+
             $user_id = Auth::id();
             $request->validate([
                 "id" => 'required|string',
@@ -51,6 +69,10 @@ class BlogController extends Controller
     function BlogByID(Request $request)
     {
         try {
+            if ($response = $this->ensureBlogAccess($request)) {
+                return $response;
+            }
+
             $user_id = Auth::id();
             $request->validate(["id" => 'required|string']);
 
@@ -91,6 +113,10 @@ class BlogController extends Controller
     function BlogList(Request $request)
     {
         try {
+            if ($response = $this->ensureBlogAccess($request)) {
+                return $response;
+            }
+
             $rows = Blog::query()
                 ->with([
                     'user:id,firstName,lastName'
@@ -105,8 +131,11 @@ class BlogController extends Controller
 
     function UpdateBlog(Request $request)
     {
-        // return $request;
         try {
+            if ($response = $this->ensureBlogAccess($request)) {
+                return $response;
+            }
+
             $user_id = Auth::id();
             $request->validate([
                 'text' => 'required',
