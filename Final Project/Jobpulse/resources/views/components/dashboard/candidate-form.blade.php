@@ -63,16 +63,11 @@
 
 <script>
 
-CKEDITOR.replace( 'ssc');
-CKEDITOR.replace( 'hsc');
-CKEDITOR.replace( 'hons');
-CKEDITOR.replace( 'otherQualification');
+initRichTextEditor('ssc');
+initRichTextEditor('hsc');
+initRichTextEditor('hons');
+initRichTextEditor('otherQualification');
     getProfile();
-
-let sscEditor = CKEDITOR.instances['ssc'];
-let hscEditor = CKEDITOR.instances['hsc'];
-let honsEditor = CKEDITOR.instances['hons'];
-let otherQualificationEditor = CKEDITOR.instances['otherQualification'];
     async function getProfile(){
         try{
             showLoader();
@@ -86,10 +81,10 @@ let otherQualificationEditor = CKEDITOR.instances['otherQualification'];
             }
             document.getElementById('address').value=res.data['candidate']['address'] ?? "";
             document.getElementById('occupation').value=res.data['candidate']['occupation'] ?? "";
-            document.getElementById('ssc').value= sscEditor.setData(res.data['candidate']['ssc']) ?? "";
-            document.getElementById('hsc').value= hscEditor.setData(res.data['candidate']['hsc']) ?? "";
-            document.getElementById('hons').value= honsEditor.setData(res.data['candidate']['hons']) ?? "";
-            document.getElementById('otherQualification').value= otherQualificationEditor.setData(res.data['candidate']['other_qualification']) ?? "";
+            setRichTextData('ssc', res.data['candidate']['ssc'] ?? "");
+            setRichTextData('hsc', res.data['candidate']['hsc'] ?? "");
+            setRichTextData('hons', res.data['candidate']['hons'] ?? "");
+            setRichTextData('otherQualification', res.data['candidate']['other_qualification'] ?? "");
 
         }catch (e) {
            unauthorized(e.response.status)
@@ -106,10 +101,10 @@ let otherQualificationEditor = CKEDITOR.instances['otherQualification'];
         formData.append('image', image); // Append the image file
         formData.append('address', address);
         formData.append('occupation', occupation);
-        formData.append('ssc', sscEditor.getData());
-        formData.append('hsc', hscEditor.getData());
-        formData.append('hons', honsEditor.getData());
-        formData.append('other_qualification', otherQualificationEditor.getData());
+        formData.append('ssc', getRichTextData('ssc'));
+        formData.append('hsc', getRichTextData('hsc'));
+        formData.append('hons', getRichTextData('hons'));
+        formData.append('other_qualification', getRichTextData('otherQualification'));
         showLoader();
         let res=await axios.post("/api/candidate-update",formData,HeaderToken());
         hideLoader();
@@ -126,4 +121,3 @@ let otherQualificationEditor = CKEDITOR.instances['otherQualification'];
 
 
 </script>
-

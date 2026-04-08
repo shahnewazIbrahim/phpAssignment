@@ -26,14 +26,12 @@
 </div>
 
 <script>
-CKEDITOR.replace( 'text');
+initRichTextEditor('text');
 
 
     async function Save() {
         try {
-            let text = CKEDITOR.instances['text'];
-
-            let textContent = text.getData();
+            let textContent = getRichTextData('text');
             
             document.getElementById('modal-close').click();
 
@@ -49,6 +47,7 @@ CKEDITOR.replace( 'text');
             showLoader();
             let res = await axios.post("/api/create-blog",formData,HeaderToken())
             document.getElementById("save-form").reset();
+            clearRichTextData('text');
             hideLoader();
 
             if(res.data['status']==="success"){

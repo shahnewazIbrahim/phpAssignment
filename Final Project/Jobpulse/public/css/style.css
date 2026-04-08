@@ -787,6 +787,32 @@ a:hover {
   font-weight: 700;
 }
 
+.jp-editor-host {
+  margin-top: 8px;
+}
+
+.jp-editor-host .ql-toolbar.ql-snow,
+.jp-editor-host .ql-container.ql-snow {
+  border-color: rgba(19, 34, 56, 0.12);
+}
+
+.jp-editor-host .ql-toolbar.ql-snow {
+  border-radius: 14px 14px 0 0;
+  background: #f8fbff;
+}
+
+.jp-editor-host .ql-container.ql-snow {
+  border-radius: 0 0 14px 14px;
+  background: #fff;
+  min-height: 180px;
+}
+
+.jp-editor-host .ql-editor {
+  min-height: 180px;
+  font-family: 'Manrope', sans-serif;
+  color: var(--jp-text);
+}
+
 .jp-content-loading {
   position: relative;
   pointer-events: none;

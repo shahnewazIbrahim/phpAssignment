@@ -33,28 +33,22 @@
     </div>
 </div>
 
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script>
-CKEDITOR.replace( 'aboutCompanyHistoryUpdate');
-CKEDITOR.replace( 'aboutOurVisionUpdate');
+initRichTextEditor('aboutCompanyHistoryUpdate');
+initRichTextEditor('aboutOurVisionUpdate');
     async function FillUpUpdateForm(id){
         try {
-
-            let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistoryUpdate'];
-            let ourVisionEditor = CKEDITOR.instances['aboutOurVisionUpdate'];
-            // console.log(companyHistoryEditor.setData(res.data['rows']['company_history']));
             document.getElementById('updateID').value=id;
             showLoader();
             let res=await axios.post("/api/about-by-id",{id:id.toString()},HeaderToken())
             hideLoader();
-            // console.log(res.data['rows']['our_vision']);
             document.getElementById('preview').innerHTML=`
                 <img src="${window.location.origin}/${res.data['rows']['banner']}" style="max-width: 100px;"/>
             `;
 
             document.getElementById('aboutBannerUpdate').value = '';
-            document.getElementById('aboutCompanyHistoryUpdate').value= companyHistoryEditor.setData(res.data['rows']['company_history']);
-            document.getElementById('aboutOurVisionUpdate').value= ourVisionEditor.setData(res.data['rows']['our_vision']);
+            setRichTextData('aboutCompanyHistoryUpdate', res.data['rows']['company_history']);
+            setRichTextData('aboutOurVisionUpdate', res.data['rows']['our_vision']);
         }catch (e) {
             unauthorized(e.response.status)
         }
@@ -63,14 +57,10 @@ CKEDITOR.replace( 'aboutOurVisionUpdate');
 
 
     async function update() {
-        // return console.log(CKEDITOR.instances['aboutCompanyHistoryUpdate'].getData());
         try {
-            let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistoryUpdate'];
-            let ourVisionEditor = CKEDITOR.instances['aboutOurVisionUpdate'];
-
             let aboutBannerUpdate = document.getElementById('aboutBannerUpdate').files[0];
-            let aboutCompanyHistoryUpdate = companyHistoryEditor.getData();
-            let aboutOurVisionUpdate = ourVisionEditor.getData();
+            let aboutCompanyHistoryUpdate = getRichTextData('aboutCompanyHistoryUpdate');
+            let aboutOurVisionUpdate = getRichTextData('aboutOurVisionUpdate');
             let updateID = document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();
 

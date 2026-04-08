@@ -13,6 +13,7 @@
     <link href="{{asset('css/toastify.min.css')}}" rel="stylesheet" />
     <link href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css')}}" rel="stylesheet" />
     <link href="{{asset('css/jquery.dataTables.min.css')}}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 
     <script src="{{asset('js/jquery-3.7.0.min.js')}}"></script>
     <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
@@ -20,7 +21,7 @@
     <script src="{{asset('js/axios.min.js')}}"></script>
     <script src="{{asset('js/config.js')}}"></script>
     <script src="{{asset('js/bootstrap.bundle.js')}}"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 </head>
 
 <body>
@@ -134,6 +135,90 @@
 </main>
 
 <script>
+    window.AppEditors = window.AppEditors || {};
+
+    function createEditorToolbarOptions() {
+        return [
+            [{ header: [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ color: [] }, { background: [] }],
+            ['blockquote', 'code-block', 'link'],
+            ['clean']
+        ];
+    }
+
+    function initRichTextEditor(id) {
+        const textarea = document.getElementById(id);
+
+        if (!textarea) {
+            return null;
+        }
+
+        const existing = window.AppEditors[id];
+        if (existing && existing.container?.isConnected) {
+            return existing;
+        }
+
+        if (existing && !existing.container?.isConnected) {
+            delete window.AppEditors[id];
+        }
+
+        textarea.style.display = 'none';
+        let host = textarea.nextElementSibling;
+
+        if (!host || !host.classList.contains('jp-editor-host')) {
+            host = document.createElement('div');
+            host.className = 'jp-editor-host';
+            textarea.insertAdjacentElement('afterend', host);
+        }
+
+        host.innerHTML = '';
+        const container = document.createElement('div');
+        container.className = 'jp-editor-surface';
+        host.appendChild(container);
+
+        const initialHtml = textarea.value || '';
+        const quill = new Quill(container, {
+            theme: 'snow',
+            modules: {
+                toolbar: createEditorToolbarOptions()
+            }
+        });
+
+        if (initialHtml) {
+            quill.clipboard.dangerouslyPasteHTML(initialHtml);
+        }
+
+        window.AppEditors[id] = { quill, textarea, host, container };
+        return window.AppEditors[id];
+    }
+
+    function getRichTextEditor(id) {
+        return initRichTextEditor(id)?.quill || null;
+    }
+
+    function getRichTextData(id) {
+        const editor = getRichTextEditor(id);
+        return editor ? editor.root.innerHTML : '';
+    }
+
+    function setRichTextData(id, html) {
+        const editor = getRichTextEditor(id);
+        if (!editor) {
+            return;
+        }
+
+        editor.setContents([]);
+        if (html) {
+            editor.clipboard.dangerouslyPasteHTML(html);
+        }
+    }
+
+    function clearRichTextData(id) {
+        setRichTextData(id, '');
+    }
+
     let activatedPlugins = [];
     let assignedRoles = [];
     getUser();

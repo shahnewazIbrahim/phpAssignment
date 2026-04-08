@@ -60,10 +60,10 @@
 
 
 <script>
-CKEDITOR.replace( 'jobRequirementsUpdate');
-CKEDITOR.replace( 'jobExperienceUpdate');
-CKEDITOR.replace( 'jobResponsibilitiesUpdate');
-CKEDITOR.replace( 'jobCompensationsUpdate');
+initRichTextEditor('jobRequirementsUpdate');
+initRichTextEditor('jobExperienceUpdate');
+initRichTextEditor('jobResponsibilitiesUpdate');
+initRichTextEditor('jobCompensationsUpdate');
 
 
 
@@ -80,10 +80,10 @@ CKEDITOR.replace( 'jobCompensationsUpdate');
             document.getElementById('jobSalaryUpdate').value=res.data['rows']['salary'];
             document.getElementById('jobLocationUpdate').value=res.data['rows']['location'];
             document.getElementById('jobEmployeeStatusUpdate').value = res.data['rows']['employee_status'];
-            document.getElementById('jobRequirementsUpdate').value = CKEDITOR.instances['jobRequirementsUpdate'].setData(res.data['rows']['requirements']);
-            document.getElementById('jobExperienceUpdate').value = CKEDITOR.instances['jobExperienceUpdate'].setData(res.data['rows']['experience']);
-            document.getElementById('jobResponsibilitiesUpdate').value = CKEDITOR.instances['jobResponsibilitiesUpdate'].setData(res.data['rows']['responsibilities']);
-            document.getElementById('jobCompensationsUpdate').value = CKEDITOR.instances['jobCompensationsUpdate'].setData(res.data['rows']['compensations']);
+            setRichTextData('jobRequirementsUpdate', res.data['rows']['requirements']);
+            setRichTextData('jobExperienceUpdate', res.data['rows']['experience']);
+            setRichTextData('jobResponsibilitiesUpdate', res.data['rows']['responsibilities']);
+            setRichTextData('jobCompensationsUpdate', res.data['rows']['compensations']);
             
             
         }catch (e) {
@@ -103,10 +103,10 @@ CKEDITOR.replace( 'jobCompensationsUpdate');
             let jobLocationUpdate = document.getElementById('jobLocationUpdate').value;
             let jobEmployeeStatusUpdate = document.getElementById('jobEmployeeStatusUpdate').value;
 
-            let jobRequirementsUpdate = CKEDITOR.instances['jobRequirementsUpdate'].getData();
-            let jobExperienceUpdate = CKEDITOR.instances['jobExperienceUpdate'].getData();
-            let jobResponsibilitiesUpdate = CKEDITOR.instances['jobResponsibilitiesUpdate'].getData();
-            let jobCompensationsUpdate = CKEDITOR.instances['jobCompensationsUpdate'].getData();
+            let jobRequirementsUpdate = getRichTextData('jobRequirementsUpdate');
+            let jobExperienceUpdate = getRichTextData('jobExperienceUpdate');
+            let jobResponsibilitiesUpdate = getRichTextData('jobResponsibilitiesUpdate');
+            let jobCompensationsUpdate = getRichTextData('jobCompensationsUpdate');
 
             let updateID=document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();

@@ -32,18 +32,15 @@
 </div>
 
 <script>
-CKEDITOR.replace( 'aboutCompanyHistory');
-CKEDITOR.replace( 'aboutOurVision');
+initRichTextEditor('aboutCompanyHistory');
+initRichTextEditor('aboutOurVision');
 
 
     async function Save() {
         try {
-            let companyHistoryEditor = CKEDITOR.instances['aboutCompanyHistory'];
-            let ourVisionEditor = CKEDITOR.instances['aboutOurVision'];
-
             let aboutBanner=document.getElementById('aboutBanner').files[0];
-            let aboutCompanyHistory = companyHistoryEditor.getData();
-            let aboutOurVision = ourVisionEditor.getData();
+            let aboutCompanyHistory = getRichTextData('aboutCompanyHistory');
+            let aboutOurVision = getRichTextData('aboutOurVision');
 
             if (!aboutBanner) {
                 errorToast('Please select a banner image');
@@ -60,8 +57,8 @@ CKEDITOR.replace( 'aboutOurVision');
             showLoader();
             let res = await axios.post("/api/create-about",formData,HeaderToken())
             document.getElementById("save-form").reset();
-            companyHistoryEditor.setData('');
-            ourVisionEditor.setData('');
+            clearRichTextData('aboutCompanyHistory');
+            clearRichTextData('aboutOurVision');
             hideLoader();
 
             if(res.data['status']==="success"){

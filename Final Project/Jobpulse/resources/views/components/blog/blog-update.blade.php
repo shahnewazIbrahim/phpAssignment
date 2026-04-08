@@ -28,21 +28,17 @@
     </div>
 </div>
 
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 <script>
-CKEDITOR.replace( 'textUpdate');
+initRichTextEditor('textUpdate');
 
     async function FillUpUpdateForm(id){
         try {
-
-            let textUpdateEditor = CKEDITOR.instances['textUpdate'];
-
             document.getElementById('updateID').value=id;
             showLoader();
             let res=await axios.post("/api/blog-by-id",{id:id.toString()},HeaderToken())
             hideLoader();
 
-            document.getElementById('textUpdate').value= textUpdateEditor.setData(res.data['rows']['text']);
+            setRichTextData('textUpdate', res.data['rows']['text']);
         }catch (e) {
             unauthorized(e.response.status)
         }
@@ -51,11 +47,8 @@ CKEDITOR.replace( 'textUpdate');
 
 
     async function update() {
-        // return console.log(CKEDITOR.instances['blogCompanyHistoryUpdate'].getData());
         try {
-            let textUpdateEditor = CKEDITOR.instances['textUpdate'];
-
-            let textUpdateUpdate = textUpdateEditor.getData();
+            let textUpdateUpdate = getRichTextData('textUpdate');
             let updateID = document.getElementById('updateID').value;
             document.getElementById('update-modal-close').click();
 

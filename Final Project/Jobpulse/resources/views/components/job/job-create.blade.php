@@ -59,10 +59,10 @@
 
 <script>
 
-CKEDITOR.replace( 'jobRequirements');
-CKEDITOR.replace( 'jobExperience');
-CKEDITOR.replace( 'jobResponsibilities');
-CKEDITOR.replace( 'jobCompensations');
+initRichTextEditor('jobRequirements');
+initRichTextEditor('jobExperience');
+initRichTextEditor('jobResponsibilities');
+initRichTextEditor('jobCompensations');
 
 
     async function Save() {
@@ -75,10 +75,10 @@ CKEDITOR.replace( 'jobCompensations');
             let jobLocation = document.getElementById('jobLocation').value;
             let jobEmployeeStatus = document.getElementById('jobEmployeeStatus').value;
             let jobSalary = document.getElementById('jobSalary').value;
-            let jobRequirements= CKEDITOR.instances[ 'jobRequirements'].getData();
-            let jobExperience= CKEDITOR.instances[ 'jobExperience'].getData();
-            let jobResponsibilities= CKEDITOR.instances[ 'jobResponsibilities'].getData();
-            let jobCompensations = CKEDITOR.instances[ 'jobCompensations'].getData();
+            let jobRequirements= getRichTextData('jobRequirements');
+            let jobExperience= getRichTextData('jobExperience');
+            let jobResponsibilities= getRichTextData('jobResponsibilities');
+            let jobCompensations = getRichTextData('jobCompensations');
             document.getElementById('modal-close').click();
 
             let PostBody= {
@@ -97,6 +97,10 @@ CKEDITOR.replace( 'jobCompensations');
             showLoader();
             let res = await axios.post("/api/create-job",PostBody,HeaderToken())
             document.getElementById("save-form").reset();
+            clearRichTextData('jobRequirements');
+            clearRichTextData('jobExperience');
+            clearRichTextData('jobResponsibilities');
+            clearRichTextData('jobCompensations');
             hideLoader();
 
             if(res.data['status']==="success"){
