@@ -22,7 +22,10 @@ class HomeController extends Controller
     {
         $data = [];
         $data['company'] = User::where('type', 'Company')->get();
-        $data['job'] = Job::with('applyJobs')->get();
+        $data['job'] = Job::with([
+            'applyJobs',
+            'user:id,firstName,lastName'
+        ])->get();
         $data['apply_job_ids'] = ApplyJob::where('user_id', Auth::id())->pluck('job_id')->toArray();
         return $data;
     }

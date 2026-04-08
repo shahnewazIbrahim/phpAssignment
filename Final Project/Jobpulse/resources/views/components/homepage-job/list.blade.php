@@ -1,17 +1,12 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-12">
-            <div class="card px-5 py-5 border-0 shadow-sm rounded">
-                <h5 class="text-center pb-3 text-uppercase text-primary">All Jobs</h5>
-                <hr class="bg-dark">
-                <div class="d-flex flex-wrap justify-content-center gap-4" id="dataContainer">
-                    <div class="spinner-border text-primary" role="status">
-                
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="jp-section-heading">
+    <div>
+        <h2>Browse Open Roles</h2>
+        <p>A cleaner job directory with quick salary, company, and speciality context before you open details.</p>
     </div>
+</div>
+
+<div class="jp-grid jp-grid-2" id="dataContainer">
+    <div class="spinner-border text-primary" role="status"></div>
 </div>
 
 <script>
@@ -25,17 +20,27 @@ async function getList() {
         let html = '';
         let dataContainer = document.getElementById("dataContainer");
 
-        res.data['rows'].forEach(function (item) {
+        res.data['rows'].forEach(function(item) {
+            let chips = '';
+            item['specialities'].split(',').forEach(function(speciality) {
+                if (speciality.trim()) {
+                    chips += `<span class="jp-chip">${speciality.trim()}</span>`;
+                }
+            });
+
             html += `
-                <div class="card border-0 shadow-sm rounded" style="width: 18rem;">
-                    <div class="card-body">
-                        <h6 class="card-title text-primary">${item['type']}</h6>
-                        <p class="card-text text-secondary">Salary: <strong>${item['salary']}</strong></p>
-                        <p class="card-text text-secondary">Specialities: ${item['specialities']}</p>
-                        <p class="card-text text-secondary">Offered By: <strong>${item['user']['full_name']}</strong></p>
+                <div class="jp-job-card">
+                    <span class="jp-eyebrow text-dark" style="background: var(--jp-surface-soft); color: var(--jp-primary-deep);">Open Role</span>
+                    <h4>${item['type']}</h4>
+                    <p>Posted by <strong>${item['user']['full_name']}</strong>.</p>
+                    <div class="jp-chip-row">${chips}</div>
+                    <div class="jp-meta">
+                        <span><strong>Salary:</strong> ${item['salary']}</span>
+                        <span><strong>Status:</strong> ${item['employee_status'] ?? 'Not specified'}</span>
+                        <span><strong>Location:</strong> ${item['location'] ?? 'Not specified'}</span>
                     </div>
-                    <div class="card-footer bg-white border-0 d-flex justify-content-center">
-                        <a href="job/${item['id']}" class="btn btn-sm btn-primary">Details</a>
+                    <div class="jp-inline-actions">
+                        <a href="job/${item['id']}" class="btn btn-primary btn-sm">Details</a>
                     </div>
                 </div>`;
         });

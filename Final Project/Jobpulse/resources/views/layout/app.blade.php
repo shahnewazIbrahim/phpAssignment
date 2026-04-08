@@ -16,116 +16,113 @@
     <script src="{{ asset('js/config.js') }}"></script>
 </head>
 
-<body>           
-    <style>
-        .nav-link:hover{
-            background-color: #fff !important;
-            color: black !important;
-            border-radius: 3px;
-        }
-    </style>
-    <div id="loader" class="LoadingOverlay d-none">
-        <div class="Line-Progress">
-            <div class="indeterminate"></div>
+<body>
+    <div class="jp-shell">
+        <div id="loader" class="LoadingOverlay d-none">
+            <div class="Line-Progress">
+                <div class="indeterminate"></div>
+            </div>
         </div>
-    </div>
 
-    <header class="bg-gradient-dark py-3">
-        <div class="d-flex justify-content-between align-items-center container">
-            <a href="{{ url('/') }}"
-                class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <span class="fs-4">
-                    <div class="d-inline-block img-fluid">
-                        <img class="rounded-circle" width="50" height="35" src="{{ asset('images/jobpulseLogo.webp') }}" alt="">
-                    </div>
-                    JobPulse
-                </span>
-            </a>
-            <div>
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gap-5">
-                    <li class="nav-item {{ request()->segment(1) == '' ? 'bg-white rounded-2' : '' }}">
-                        <a href="{{ url('/') }}" class="nav-link px-2  {{ request()->segment(1) == '' ? 'text-black' : 'text-white' }}">
+        <header class="jp-navbar py-3">
+            <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <a href="{{ url('/') }}" class="d-flex align-items-center text-white text-decoration-none gap-3">
+                    <img class="rounded-circle shadow-sm" width="48" height="48"
+                        src="{{ asset('images/jobpulseLogo.webp') }}" alt="JobPulse logo">
+                    <span class="navbar-brand-text">JobPulse</span>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto justify-content-center jp-nav-links">
+                    <li class="nav-item">
+                        <a href="{{ url('/') }}"
+                            class="nav-link jp-nav-link {{ request()->segment(1) == '' ? 'is-active' : '' }}">
                             Home
                         </a>
                     </li>
-                    
-                    <li class="nav-item {{ request()->segment(1) == 'about' ? ' bg-white rounded-2' : '' }}">
-                        <a href="{{ url('/about') }}" class="nav-link px-2  {{ request()->segment(1) == 'about' ? 'text-dark' : 'text-white' }}">
+                    <li class="nav-item">
+                        <a href="{{ url('/about') }}"
+                            class="nav-link jp-nav-link {{ request()->segment(1) == 'about' ? 'is-active' : '' }}">
                             About
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->segment(1) == 'job' ? ' bg-white rounded-2' : '' }}">
-                        <a href="{{ url('/job') }}" class="nav-link px-2  {{ request()->segment(1) == 'job' ? 'text-dark' : 'text-white' }}">
+                    <li class="nav-item">
+                        <a href="{{ url('/job') }}"
+                            class="nav-link jp-nav-link {{ request()->segment(1) == 'job' ? 'is-active' : '' }}">
                             Jobs
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->segment(1) == 'blog' ? ' bg-white rounded-2' : '' }}">
-                        <a href="{{ url('/blog') }}" class="nav-link px-2  {{ request()->segment(1) == 'blog' ? 'text-dark' : 'text-white' }}">
+                    <li class="nav-item">
+                        <a href="{{ url('/blog') }}"
+                            class="nav-link jp-nav-link {{ request()->segment(1) == 'blog' ? 'is-active' : '' }}">
                             Blog
                         </a>
                     </li>
                 </ul>
-              
-            </div>
-            
-            <div class="">
-                <div class="user-dropdown" style="display: none">
-                    <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
-                    <div class="user-dropdown-content ">
-                        <div class="mt-4 text-center">
-                            <img class="icon-nav-img" src="{{asset('images/user.webp')}}" alt=""/>
-                            <h6 id="userName">User Name</h6>
-                            <hr class="user-dropdown-divider  p-0"/>
-                        </div>
-                        <a href="{{url('/dashboard')}}" class="side-bar-item">
-                            <span class="side-bar-item-caption">Dashboard</span>
-                        </a>
-                        <a href="{{url('/userProfile')}}" class="side-bar-item">
-                            <span class="side-bar-item-caption">Profile</span>
-                        </a>
-                        <div onclick="logout()" class="side-bar-item cursor-pointer">
-                            <span class="side-bar-item-caption">Logout</span>
+
+                <div class="jp-nav-actions">
+                    <div class="user-dropdown" style="display: none">
+                        <img class="icon-nav-img" src="{{ asset('images/user.webp') }}" alt="User avatar" />
+                        <div class="user-dropdown-content">
+                            <div class="mt-4 text-center">
+                                <img class="icon-nav-img" src="{{ asset('images/user.webp') }}" alt="User avatar" />
+                                <h6 id="userName">User Name</h6>
+                                <hr class="user-dropdown-divider p-0" />
+                            </div>
+                            <a href="{{ url('/dashboard') }}" class="side-bar-item">
+                                <span class="side-bar-item-caption">Dashboard</span>
+                            </a>
+                            <a href="{{ url('/userProfile') }}" class="side-bar-item">
+                                <span class="side-bar-item-caption">Profile</span>
+                            </a>
+                            <div onclick="logout()" class="side-bar-item cursor-pointer">
+                                <span class="side-bar-item-caption">Logout</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="login-register">
-                    <button type="button" class="btn btn-outline-light me-2 login"
-                        href="{{ url('userLogin') }}">Login</button>
-                    <button type="button" class="btn btn-warning register">Sign-up</button>
-                    
+                    <div class="login-register d-flex gap-2">
+                        <button type="button" class="btn btn-outline-light login">Login</button>
+                        <button type="button" class="btn btn-warning register">Sign-up</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <div style="min-height:100vh">
-        @yield('content')
+        <main class="jp-page">
+            <div class="container">
+                @yield('content')
+            </div>
+        </main>
+
+        <footer class="jp-footer mt-5">
+            <div class="container footer-panel">
+                <div class="row g-4">
+                    <div class="col-lg-5">
+                        <h4 class="jp-footer-brand mb-3">JobPulse</h4>
+                        <p class="mb-3">A cleaner hiring workflow for companies and candidates. Browse roles, publish openings, and manage applications from one place.</p>
+                        <p class="mb-0">Built for fast recruitment and better visibility.</p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h5 class="text-white mb-3">Navigate</h5>
+                        <ul class="list-unstyled d-grid gap-2 mb-0">
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('/about') }}">About</a></li>
+                            <li><a href="{{ url('/job') }}">Jobs</a></li>
+                            <li><a href="{{ url('/blog') }}">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5 class="text-white mb-3">Contact</h5>
+                        <p class="mb-1">Email: support@jobpulse.test</p>
+                        <p class="mb-1">Phone: +880 1521-480800</p>
+                        <p class="mb-0">Dhaka, Bangladesh</p>
+                    </div>
+                </div>
+                <div class="jp-footer-bottom mt-4">
+                    <p class="mb-0">JobPulse dashboard and website share a unified modern UI layer for better consistency.</p>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <footer class="footer py-4 bg-gradient-dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="text-white">Job Pulse</h5>
-                    <p class="text-white">A place you find your way</p>
-                </div>
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="text-white">Link</h5>
-                    <ul class="list-unstyled text-white">
-                        <li class="nav-item"><a href="{{ url('/') }}" class="text-white text-decoration-none hover">Home</a></li>
-                        <li><a href="{{ url('/about') }}" class="text-white text-decoration-none">About</a></li>
-                        <li><a href="{{ url('/job') }}" class="text-white text-decoration-none">Job</a></li>
-                        <li><a href="{{ url('/blog') }}" class="text-white text-decoration-none">Blog</a></li>
-                        <li><a href="{{ url('/contact') }}" class="text-white text-decoration-none">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 text-white">
-                    <h5 class="text-white">Contact</h5>
-                    <p>Contact Info:<br> Email: example@example.com<br> Phone: +01521480800</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <div class="modal animated zoomIn" id="register" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -138,11 +135,9 @@
                     <form id="update-form">
                         <div class="container">
                             <div class="row">
-                                <div class="col-12 p-1">
-                                    <a class="btn btn-outline-light me-2 bg-secondary"
-                                        href="{{ url('userRegistration?type=candidate') }}"> As Candidate</a>
-                                    <a class="btn btn-outline-light me-2 bg-info"
-                                        href="{{ url('userRegistration?type=company') }}"> As Company</a>
+                                <div class="col-12 p-1 d-flex flex-wrap gap-2">
+                                    <a class="btn btn-secondary" href="{{ url('userRegistration?type=candidate') }}">As Candidate</a>
+                                    <a class="btn btn-info text-white" href="{{ url('userRegistration?type=company') }}">As Company</a>
                                 </div>
                             </div>
                         </div>
@@ -157,19 +152,16 @@
         <div class="modal-dialog modal-md modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Login as</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Login As</h5>
                 </div>
                 <div class="modal-body">
                     <form id="update-form">
                         <div class="container">
                             <div class="row">
-                                <div class="col-12 p-1">
-                                    <a class="btn btn-outline-light me-2 bg-danger"
-                                        href="{{ url('owner/userLogin') }}"> As Owner</a>
-                                    <a class="btn btn-outline-light me-2 bg-secondary"
-                                        href="{{ url('userLogin?type=candidate') }}"> As Candidate</a>
-                                    <a class="btn btn-outline-light me-2 bg-info"
-                                        href="{{ url('userLogin?type=company') }}"> As Company</a>
+                                <div class="col-12 p-1 d-flex flex-wrap gap-2">
+                                    <a class="btn btn-danger" href="{{ url('owner/userLogin') }}">As Owner</a>
+                                    <a class="btn btn-secondary" href="{{ url('userLogin?type=candidate') }}">As Candidate</a>
+                                    <a class="btn btn-info text-white" href="{{ url('userLogin?type=company') }}">As Company</a>
                                 </div>
                             </div>
                         </div>
@@ -179,53 +171,45 @@
         </div>
     </div>
 
-    <script></script>
-
     <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script>
         if (getToken()) {
             getUser();
-        }   
-    
+        }
+
         async function getUser() {
-            // console.log(getToken());
-        
             try {
                 showLoader();
-                let res=await axios.get("/api/user-profile",HeaderToken());
+                let res = await axios.get("/api/user-profile", HeaderToken());
                 hideLoader();
-                const userName= document.getElementById('userName')
-                const userDropdown= document.querySelector('.user-dropdown')
-                const loginRegister= document.querySelector('.login-register')
+                const userName = document.getElementById('userName');
+                const userDropdown = document.querySelector('.user-dropdown');
+                const loginRegister = document.querySelector('.login-register');
 
                 userDropdown.style.display = '';
                 loginRegister.style.display = 'none';
-
                 userName.innerText = res.data?.full_name;
-                
-            }catch (e) {
-                unauthorized(e.response.status)
+            } catch (e) {
+                unauthorized(e.response.status);
             }
-            
         }
+
         async function logout() {
             try {
-                await axios.get("/api/logout",HeaderToken());
-                clearSessionAndStorage()
-            }
-            catch(e) {
-
-            }
+                await axios.get("/api/logout", HeaderToken());
+                clearSessionAndStorage();
+            } catch (e) {}
         }
 
         $('.login').on('click', async function() {
             $("#login").modal('show');
-        })
+        });
+
         $('.register').on('click', async function() {
             $("#register").modal('show');
-        })
+        });
     </script>
 </body>
 

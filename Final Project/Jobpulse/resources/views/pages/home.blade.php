@@ -1,34 +1,65 @@
 @extends('layout.app')
 
 @section('content')
-<div class="row">
-    <div class="col">
-        <div class="d-flex justify-content-center" role="alert" id="banner">
-            <div class="spinner-border text-primary mt-4" role="status">
-                
+<section class="jp-hero">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <div class="jp-hero-content">
+                <span class="jp-eyebrow">Smart Hiring Platform</span>
+                <h1>Find better jobs and hire faster with a cleaner workflow.</h1>
+                <p>JobPulse brings employers, candidates, and hiring teams into one modern recruitment experience with clearer job discovery and faster action.</p>
+                <div class="jp-hero-actions">
+                    <a href="{{ url('/job') }}" class="jp-btn-primary">Explore Jobs</a>
+                    <a href="{{ url('/userRegistration?type=candidate') }}" class="jp-btn-secondary">Create Candidate Profile</a>
+                </div>
+                <div class="jp-hero-stats">
+                    <div class="jp-stat-card">
+                        <strong id="heroCompanies">0+</strong>
+                        <span>Hiring companies</span>
+                    </div>
+                    <div class="jp-stat-card">
+                        <strong id="heroJobs">0+</strong>
+                        <span>Open positions</span>
+                    </div>
+                    <div class="jp-stat-card">
+                        <strong>Fast</strong>
+                        <span>Application workflow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div id="banner" class="jp-hero-media d-flex justify-content-center">
+                <div class="spinner-border text-light mt-4" role="status"></div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="p-4">
-    <h5 class="text-center pb-3 text-uppercase text-primary">Top Companies</h5>
-    <div class="d-flex flex-wrap justify-content-center gap-3" id="companySection">
-        <div class="spinner-border text-primary" role="status">
-            
+<section class="jp-section">
+    <div class="jp-section-heading">
+        <div>
+            <h2>Trusted By Growing Teams</h2>
+            <p>Companies using JobPulse to publish jobs, manage applicants, and keep hiring organized.</p>
         </div>
     </div>
-</div>
-<div class="p-4">
-    <h5 class="text-center pb-3 text-uppercase text-primary">Recent Published Jobs</h5>
-    <div class="d-flex justify-content-center">
-        <div class="col-12 col-md-8" id="jobSection">
-            <div class="spinner-border text-primary" role="status">
-                
-            </div>
-        </div>
+    <div class="jp-grid jp-grid-3" id="companySection">
+        <div class="spinner-border text-primary" role="status"></div>
     </div>
-</div>
+</section>
+
+<section class="jp-section">
+    <div class="jp-section-heading">
+        <div>
+            <h2>Recent Published Jobs</h2>
+            <p>Fresh openings with essential details visible upfront so candidates can decide faster.</p>
+        </div>
+        <a href="{{ url('/job') }}" class="jp-btn-secondary text-dark border border-secondary-subtle">View All Jobs</a>
+    </div>
+    <div class="jp-grid jp-grid-2" id="jobSection">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+</section>
 
 <script>
 getAboutSetting();
@@ -39,11 +70,18 @@ async function getAboutSetting() {
         let res = await axios.get("/api/get-about-setting", HeaderToken());
         hideLoader();
         document.getElementById('banner').innerHTML = `
-            <img src="${window.location.origin}/${res.data['about']['banner']}" 
-                 class="img-fluid rounded shadow-sm" 
-                 style="width:100%; max-height:400px; object-fit:cover;" />
+            <img src="${window.location.origin}/${res.data['about']['banner']}"
+                 class="jp-banner-image"
+                 alt="About banner" />
         `;
     } catch (e) {
+        console.error('Homepage job load failed:', e);
+        document.getElementById('jobSection').innerHTML = `
+            <div class="jp-panel p-4">
+                <h5 class="mb-2">Jobs could not be loaded</h5>
+                <p class="mb-0">Please refresh the page or check the API response.</p>
+            </div>
+        `;
         unauthorized(e.response.status);
     }
 }
@@ -59,37 +97,42 @@ async function getHomepage() {
         let res = await axios.get("/api/get-homepage", HeaderToken());
         hideLoader();
 
-        res.data['company'].forEach(function (item) {
+        document.getElementById('heroCompanies').innerText = `${res.data['company'].length}+`;
+        document.getElementById('heroJobs').innerText = `${res.data['job'].length}+`;
+
+        res.data['company'].forEach(function(item) {
+            const initials = (item['firstName'] || 'J').slice(0, 2).toUpperCase();
             companyContainer += `
-                <div class="card border-0 shadow-sm rounded btn-secondary" style="width: 16rem;">
-                    <div class="card-body text-center">
-                        <h6 class="card-title text-dark">${item['firstName']}</h6>
-                    </div>
+                <div class="jp-company-card">
+                    <div class="jp-company-badge">${initials}</div>
+                    <h4>${item['firstName']}</h4>
+                    <p>Active employer account using JobPulse to manage recruitment and publish roles.</p>
                 </div>`;
         });
         document.getElementById('companySection').innerHTML = companyContainer;
 
-        res.data['job'].forEach(function (item) {
+        res.data['job'].forEach(function(item) {
             let specialities = '';
 
             item['specialities'].split(',').forEach((speciality) => {
-                if (speciality) {
-                    specialities += `<span class="badge bg-light text-dark border me-1">${speciality}</span>`;
+                if (speciality.trim()) {
+                    specialities += `<span class="jp-chip">${speciality.trim()}</span>`;
                 }
             });
 
             jobContainer += `
-                <div class="card mb-3 border-0 shadow-sm rounded">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-secondary mb-2">${item['type']}</h6>
-                            <div>${specialities}</div>
-                        </div>
-                        <div class="text-end">
-                            <button class="btn btn-sm btn-outline-success me-2" onclick="applyJob(${item['id']})">Apply</button>
-                            <a href="job/${item['id']}" class="btn btn-sm btn-outline-primary">Details</a>
-                            <div class="text-muted mt-1">${item['salary']} tk.</div>
-                        </div>
+                <div class="jp-job-card">
+                    <span class="jp-eyebrow text-dark" style="background: var(--jp-surface-soft); color: var(--jp-primary-deep);">Now Hiring</span>
+                    <h4>${item['type']}</h4>
+                    <p>Published by <strong>${item['user']['full_name']}</strong> with a clearly defined hiring brief.</p>
+                    <div class="jp-chip-row">${specialities}</div>
+                    <div class="jp-meta">
+                        <span><strong>Salary:</strong> ${item['salary']} tk.</span>
+                        <span><strong>Deadline:</strong> ${item['deadline'] ?? 'Open'}</span>
+                    </div>
+                    <div class="jp-inline-actions">
+                        <button class="btn btn-primary btn-sm" onclick="applyJob(${item['id']})">Apply</button>
+                        <a href="job/${item['id']}" class="btn btn-outline-primary btn-sm">Details</a>
                     </div>
                 </div>`;
         });
@@ -110,6 +153,7 @@ async function applyJob(jobId) {
             showLoader();
             await axios.post("/api/apply-job", PostBody, HeaderToken());
             hideLoader();
+            successToast('Applied successfully');
         }
     } catch (e) {
         unauthorized(e.response.status);

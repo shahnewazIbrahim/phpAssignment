@@ -1,70 +1,58 @@
 @extends('layout.sidenav-layout')
 
 @section('content')
+<div class="container-fluid">
+    <div class="jp-admin-header">
+        <h1>Dashboard Overview</h1>
+        <p>Track hiring activity, employee data, and published jobs from one workspace.</p>
+    </div>
 
-    <div class="container-fluid">
-    <div class="row">
-    <div class="col-md-12 col-sm-12 col-lg-12">
-        <div class="card px-5 py-5">
-            <div class="row justify-content-between ">
-                <div class="align-items-center col text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                    </svg>
-
-                    <h5 id="applyJob"></h5>
-                </div>
-                <div class="align-items-center col text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                    </svg>
-
-                    <h5 id="employee"></h5>
-                </div>
-                <div class="align-items-center col text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
-                    </svg>
-
-                    <h5 id="job"></h5>
-                </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="jp-admin-stat">
+                <div class="stat-kicker">Applications</div>
+                <div class="stat-value" id="applyJob">0</div>
+                <p class="stat-note">Candidate submissions currently tracked in the system.</p>
             </div>
-            
+        </div>
+        <div class="col-md-4">
+            <div class="jp-admin-stat">
+                <div class="stat-kicker">Employees</div>
+                <div class="stat-value" id="employee">0</div>
+                <p class="stat-note">Internal staff records available for management.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="jp-admin-stat">
+                <div class="stat-kicker">Jobs</div>
+                <div class="stat-value" id="job">0</div>
+                <p class="stat-note">Active and published roles visible on the platform.</p>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="jp-panel jp-admin-panel mt-4">
+        <h4 class="mb-2">How this dashboard is now structured</h4>
+        <p class="mb-0">Sidebar items are shown according to role and plugin access. Menu click now uses async content loading, so the full admin shell does not reload on every navigation.</p>
+    </div>
 </div>
 
 <script>
-
 getList();
 
-
 async function getList() {
-
     try {
         showLoader();
-        let res=await axios.get("/api/count-properties",HeaderToken());
+        let res = await axios.get("/api/count-properties", HeaderToken());
         hideLoader();
 
-        let category=$("#applyJob");
-        let product=$("#employee");
-        let invoice=$("#job");
+        $("#applyJob").text(res.data["data"]["applyJobCount"]);
+        $("#employee").text(res.data["data"]["employeeCount"]);
+        $("#job").text(res.data["data"]["jobCount"]);
 
-        category.text(`${res.data["data"]["applyJobCount"]} Apply Jobs`); 
-        product.text(`${res.data["data"]["employeeCount"]} Employees`); 
-        invoice.text(`${res.data["data"]["jobCount"]} Jobs`); 
-
-
-    }catch (e) {
-        unauthorized(e.response.status)
+    } catch (e) {
+        unauthorized(e.response.status);
     }
-
 }
-
-
 </script>
-
-
-
 @endsection

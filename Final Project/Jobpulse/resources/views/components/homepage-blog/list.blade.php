@@ -1,17 +1,12 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-lg-12">
-            <div class="card px-5 py-5 border-0 shadow-sm rounded">
-                <h5 class="text-center pb-3 text-uppercase text-primary">Blog List</h5>
-                <hr class="bg-dark" />
-                <div class="d-flex flex-wrap justify-content-center gap-4" id="dataContainer">
-                    <div class="spinner-border text-primary" role="status">
-                
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="jp-section-heading">
+    <div>
+        <h2>Latest Blog Posts</h2>
+        <p>Insights for candidates and employers with cleaner reading previews and faster navigation.</p>
     </div>
+</div>
+
+<div class="jp-grid jp-grid-2" id="dataContainer">
+    <div class="spinner-border text-primary" role="status"></div>
 </div>
 
 <script>
@@ -25,15 +20,14 @@ async function getList() {
         let html = '';
         let dataContainer = document.getElementById("dataContainer");
 
-        res.data['rows'].forEach(function (item) {
+        res.data['rows'].forEach(function(item) {
             html += `
-                <div class="card border-0 shadow-sm rounded" style="width: 18rem;">
-                    <div class="card-body">
-                        <h6 class="card-title text-primary">Written By - ${item['user']['full_name']}</h6>
-                        <p class="card-text text-secondary">${item['text'].length > 50 ? item['text'].substring(0, 50) + '...' : item['text']}</p>
-                    </div>
-                    <div class="card-footer bg-white border-0 d-flex justify-content-center">
-                        <a href="blog/${item['id']}" class="btn btn-sm btn-primary">Details</a>
+                <div class="jp-blog-card">
+                    <span class="jp-eyebrow text-dark" style="background: var(--jp-surface-soft); color: var(--jp-primary-deep);">Article</span>
+                    <h4>${item['user']['full_name']}</h4>
+                    <p>${item['text'].replace(/<[^>]*>/g, '').substring(0, 140)}...</p>
+                    <div class="jp-inline-actions">
+                        <a href="blog/${item['id']}" class="btn btn-primary btn-sm">Read More</a>
                     </div>
                 </div>`;
         });
